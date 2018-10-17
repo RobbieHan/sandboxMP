@@ -2,23 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="80da5b45-7eca-459a-bbe3-5443bc141768" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/apps/__init__.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/apps/system/__init__.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/apps/system/admin.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/apps/system/apps.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/apps/system/forms.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/apps/system/migrations/0001_initial.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/apps/system/migrations/__init__.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/apps/system/mixin.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/apps/system/models.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/apps/system/tests.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/apps/system/views.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/apps/system/views_user.py" />
-      <change beforePath="$PROJECT_DIR$/.idea/sandboxMP.iml" afterPath="$PROJECT_DIR$/.idea/sandboxMP.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change beforePath="$PROJECT_DIR$/sandboxMP/settings.py" afterPath="$PROJECT_DIR$/sandboxMP/settings.py" />
-      <change beforePath="$PROJECT_DIR$/sandboxMP/urls.py" afterPath="$PROJECT_DIR$/sandboxMP/urls.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
