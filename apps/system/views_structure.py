@@ -33,3 +33,11 @@ class StructureCreateView(LoginRequiredMixin, View):
             structure_form.save()
             res['result'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')
+
+
+class StructureListView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        fields = ['id', 'name', 'type', 'parent__name']
+        ret = dict(data=list(Structure.objects.values(*fields)))
+        return HttpResponse(json.dumps(ret), content_type='application/json')

@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
     <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
 {% endblock %}
 
@@ -52,9 +53,73 @@
 
 
 {% block javascripts %}
-
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
 <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
 
+<script type="text/javascript">
+    var oDataTable = null;
+    $(function () {
+        oDataTable = initTable();
+
+        function initTable() {
+            var oTable = $('#dtbList').DataTable($.extend(true, {},
+                DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
+                {
+                    ajax: {
+                        "url": "{% url 'system:basic-structure-list' %}",
+
+                    },
+                    columns: [
+                        DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
+                        {
+                            data: "id",
+                            width: "5%",
+                        },
+                        {
+                            data: "name",//parent
+                            width: "20%",
+                        },
+
+                        {
+                            data: "type",
+                            render: function (data, type, row, meta) {
+                                if (data == 'unit') {
+                                    return "单位";
+                                } else if (data == 'department') {
+                                    return "部门";
+                                }
+                            }
+                        },
+                        {
+                            data: "parent__name",
+                        },
+
+                        {
+                            data: "id",
+                            width: "12%",
+                            bSortable: "false",
+                            render: function (data, type, row, meta) {
+                                var ret = "";
+                                var ret = "<button title='详情-编辑' onclick='doUpdate("
+                                    + data + ")'><i class='glyphicon glyphicon-pencil'></i></button>";
+                                ret = ret + "<button title='关联用户' onclick='doAddUser("
+                                    + data + ")'><i class='glyphicon glyphicon-user'></i></button>";
+                                ret = ret + "<button title='删除' onclick='doDelete("
+                                    + data + ")'><i class='glyphicon glyphicon-trash'></i></button>";
+                                return ret;
+                            }
+                        }],
+                    "order": [
+                        [1, 'id']
+                    ],
+                }));
+            return oTable;
+        }
+
+    });
+
+</script>
 <script type="text/javascript">
     $("#btnCreate").click(function () {
         layer.open({
@@ -65,10 +130,11 @@
             area: ['800px', '400px'],
             content: "{% url 'system:basic-structure-create' %}",
             end: function () {
-
+                //新增内容，弹窗关闭后刷新oDatable
+                oDataTable.ajax.reload();
             }
         });
     });
-</script>
+    </script>
 
 {% endblock %}
