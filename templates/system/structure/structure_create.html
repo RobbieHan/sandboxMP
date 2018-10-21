@@ -14,14 +14,16 @@
                     <legend>
                         <h4>组织架构信息</h4>
                     </legend>
+                    <input type="hidden" name="id" value="{{ structure.id }}" />
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label">名称</label>
                         <div class="col-sm-3">
-                            <input class="form-control" name="name" type="text" />
+                            <input class="form-control" name="name" type="text" value="{{ structure.name }}" />
                         </div>
                         <label class="col-sm-2 control-label">类别</label>
                         <div class="col-sm-3">
                             <select class="form-control" name="type">
+                                <option value={{ structure.type }}> {{ structure.get_type_display|default:"--类别--" }} </option>
                                 <option value="unit">单位</option>
                                 <option value="department">部门</option>
                             </select>
@@ -33,6 +35,7 @@
                         <label class="col-sm-2 control-label">所属</label>
                         <div class="col-sm-3">
                             <select class="form-control" name="parent">
+                                <option value={{ structure.parent_id|default_if_none:"" }}> {{ structure.parent.name|default:"" }}
                                 <option></option>
                                 {% for stru in structure_all %}
                                     <option value={{ stru.id }}> {{ stru.name }} </option>

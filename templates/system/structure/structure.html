@@ -135,6 +135,103 @@
             }
         });
     });
-    </script>
+
+    //checkbox全选
+    $("#checkAll").on("click", function () {
+        if ($(this).prop("checked") === true) {
+            $("input[name='checkList']").prop("checked", $(this).prop("checked"));
+            $('#example tbody tr').addClass('selected');
+        } else {
+            $("input[name='checkList']").prop("checked", false);
+            $('#example tbody tr').removeClass('selected');
+        }
+    });
+
+        //批量删除
+        $("#btnDelete").click(function () {
+            if ($("input[name='checkList']:checked").length == 0) {
+                layer.msg("请选择要删除的记录");
+                return;
+            }
+
+            var arrId = new Array();
+            $("input[name='checkList']:checked").each(function () {
+                //alert($(this).val());
+                arrId.push($(this).val());
+            });
+
+            sId = arrId.join(',');
+
+            layer.alert('确定删除吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'system:basic-structure-delete' %}",
+                        data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert("操作成功", {icon: 1});
+                                oDataTable.ajax.reload();
+                            } else {
+                                //alert(msg.message);
+                                layer.alert("操作失败", {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+        });
+
+        //删除单个数据
+        function doDelete(id) {
+            layer.alert('确定删除吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'system:basic-structure-delete' %}",
+                        data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert('删除成功', {icon: 1});
+                                oDataTable.ajax.reload();
+                            } else {
+                                //alert(msg.message);
+                                layer.alert('删除失败', {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+
+        }
+
+    function doUpdate(id) {
+        layer.open({
+            type: 2,
+            title: '编辑',
+            shadeClose: false,
+            maxmin: true,
+            area: ['800px', '400px'],
+            content: ["{% url 'system:basic-structure-create' %}" + '?id=' + id, 'no'],
+            end: function () {
+                oDataTable.ajax.reload();
+            }
+        });
+    }
+</script>
 
 {% endblock %}
