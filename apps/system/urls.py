@@ -11,5 +11,6 @@ urlpatterns = [
     path('basic/structure/create/', views_structure.StructureCreateView.as_view(), name='basic-structure-create'),
     path('basic/structure/list/', views_structure.StructureListView.as_view(), name='basic-structure-list'),
     path('basic/structure/delete/', views_structure.StructureDeleteView.as_view(), name='basic-structure-delete'),
+    path('basic/structure/add_user/', views_structure.Structure2UserView.as_view(), name='basic-structure-add_user'),
 ]
 

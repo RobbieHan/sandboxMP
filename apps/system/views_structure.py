@@ -9,10 +9,13 @@ from django.views.generic.base import View
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
 
 from .mixin import LoginRequiredMixin
 from .models import Structure
 from .forms import StructureForm
+
+User = get_user_model()
 
 
 class StructureView(LoginRequiredMixin, TemplateView):
@@ -59,3 +62,28 @@ class StructureDeleteView(LoginRequiredMixin, View):
             Structure.objects.filter(id__in=id_list).delete()
             ret['result'] = True
         return HttpResponse(json.dumps(ret), content_type='application/json')
+
+
+class Structure2UserView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        if 'id' in request.GET and request.GET['id']:
+            structure = get_object_or_404(Structure, pk=int(request.GET['id']))
+            added_users = structure.userprofile_set.all()
+            all_users = User.objects.all()
+            un_add_users = set(all_users).difference(added_users)
+            ret = dict(structure=structure, added_users=added_users, un_add_users=list(un_add_users))
+        return render(request, 'system/structure/structure_user.html', ret)
+
+    def post(self, request):
+        res = dict(result=False)
+        id_list = None
+        structure = get_object_or_404(Structure, pk=int(request.POST['id']))
+        if 'to' in request.POST and request.POST.getlist('to', []):
+            id_list = map(int, request.POST.getlist('to', []))
+        structure.userprofile_set.clear()
+        if id_list:
+            for user in User.objects.filter(id__in=id_list):
+                structure.userprofile_set.add(user)
+        res['result'] = True
+        return HttpResponse(json.dumps(res), content_type='application/json')
