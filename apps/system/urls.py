@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 
 from .views import SystemView
 from . import views_structure, views_user, views_menu
@@ -23,5 +23,8 @@ urlpatterns = [
     path('basic/user/enable/', views_user.UserEnableView.as_view(), name='basic-user-enable'),
     path('basic/user/disable/', views_user.UserDisableView.as_view(), name='basic-user-disable'),
 
+    path('rbac/menu/', views_menu.MenuListView.as_view(), name='rbac-menu'),
     path('rbac/menu/create/', views_menu.MenuCreateView.as_view(), name='rbac-menu-create'),
+
+
 ]
