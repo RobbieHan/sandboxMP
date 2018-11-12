@@ -25,6 +25,6 @@ urlpatterns = [
 
     path('rbac/menu/', views_menu.MenuListView.as_view(), name='rbac-menu'),
     path('rbac/menu/create/', views_menu.MenuCreateView.as_view(), name='rbac-menu-create'),
-
+    path('rbac/menu/update/', views_menu.MenuUpdateView.as_view(), name='rbac-menu-update'),
 
 ]

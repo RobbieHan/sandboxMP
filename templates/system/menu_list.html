@@ -141,10 +141,24 @@
             content: "{% url 'system:rbac-menu-create' %}",
             end: function () {
                 //关闭时做的事情
-                oDataTable.data.reload();
+                window.location.reload();
             }
         });
     });
 
+     function doUpdate(id) {
+        layer.open({
+            type: 2,
+            title: '编辑',
+            shadeClose: false,
+            maxmin: true,
+            area: ['800px', '400px'],
+            content: ["{% url 'system:rbac-menu-update' %}" + '?id=' + id, 'no'],
+            end: function () {
+                //关闭时做的事情
+                window.location.reload();
+            }
+        });
+    }
     </script>
 {% endblock %}
