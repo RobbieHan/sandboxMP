@@ -237,6 +237,19 @@
             content: ["{% url 'system:rbac-role-role2user' %}" + '?id=' + id, 'no'],
         });
     }
+
+    //关联菜单
+    function doUpdateMenu(id) {
+        layer.open({
+            type: 2,
+            title: '权限分配',
+            shadeClose: false,
+            maxmin: true,
+            area: ['600px', '480px'],
+            content: ["{% url 'system:rbac-role-role2menu' %}" + '?id=' + id, 'no'],
+
+    });
+    }
 </script>
 
 {% endblock %}
