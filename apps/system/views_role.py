@@ -5,12 +5,16 @@
 import json
 
 from django.views.generic.base import View
-from django.shortcuts import HttpResponse
+from django.shortcuts import HttpResponse, get_object_or_404
 from django.views.generic import TemplateView
+from django.contrib.auth import get_user_model
+from django.shortcuts import render
 
 from .mixin import LoginRequiredMixin
 from .models import Role
 from custom import SandboxCreateView, SandboxUpdateView
+
+User = get_user_model()
 
 
 class RoleView(LoginRequiredMixin, TemplateView):
@@ -46,12 +50,6 @@ class RoleDeleteView(LoginRequiredMixin, View):
             ret['result'] = True
         return HttpResponse(json.dumps(ret), content_type='application/json')
 
-
-from django.shortcuts import get_object_or_404
-from django.contrib.auth import get_user_model
-from django.shortcuts import render
-
-User = get_user_model()
 
 class Role2UserView(LoginRequiredMixin, View):
     """
