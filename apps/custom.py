@@ -12,6 +12,7 @@ from system.mixin import LoginRequiredMixin
 
 
 class SandboxGetObjectMixin:
+
     def get_object(self, queryset=None):
 
         if queryset is None:
@@ -50,7 +51,7 @@ class SandboxCreateView(LoginRequiredMixin, SandboxEditViewMixin, CreateView):
 
 
 class SandboxUpdateView(LoginRequiredMixin, SandboxEditViewMixin, SandboxGetObjectMixin, UpdateView):
-
+    """View for updating an object, with a response rendered by a template."""
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         return super().post(request, *args, **kwargs)
