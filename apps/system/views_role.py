@@ -12,12 +12,12 @@ from django.shortcuts import render
 
 from .mixin import LoginRequiredMixin
 from .models import Role, Menu
-from custom import SandboxCreateView, SandboxUpdateView
+from custom import SandboxCreateView, SandboxUpdateView, BreadcrumbMixin
 
 User = get_user_model()
 
 
-class RoleView(LoginRequiredMixin, TemplateView):
+class RoleView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
     template_name = 'system/role.html'
 
 

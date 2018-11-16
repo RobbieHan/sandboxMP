@@ -1,7 +1,7 @@
 from django.views.generic import ListView
 
 from .mixin import LoginRequiredMixin
-from apps.custom import SandboxCreateView, SandboxUpdateView
+from apps.custom import SandboxCreateView, SandboxUpdateView, BreadcrumbMixin
 from .models import Menu
 
 
@@ -14,7 +14,7 @@ class MenuCreateView(SandboxCreateView):
         return super().get_context_data(**kwargs)
 
 
-class MenuListView(LoginRequiredMixin, ListView):
+class MenuListView(LoginRequiredMixin, BreadcrumbMixin, ListView):
     model = Menu
     context_object_name = 'menu_all'
 

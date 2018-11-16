@@ -26,7 +26,7 @@ class Menu(models.Model):
         try:
             return dict(menu=Menu.objects.get(url=url))
         except:
-            pass
+            None
 
 
 class Role(models.Model):

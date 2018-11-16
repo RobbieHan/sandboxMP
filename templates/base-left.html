@@ -56,7 +56,14 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-
+    <section class="content-header margin-bottom">
+        <ol class="breadcrumb">
+            {% if menu.parent %}
+            <li class="active"><a href="{{ menu.parent.url | default:'' }}">{{ menu.parent.name }}</a></li>
+            {% endif %}
+            <li class="active"><a href="{{ menu.url }}">{{ menu.name }}</a></li>
+        </ol>
+    </section>
   {% block content %}
 
 
