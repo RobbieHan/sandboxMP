@@ -89,6 +89,14 @@
 <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
 
 <script type="text/javascript">
+    $(function () {
+        $('#SYSTEM-BASIC').addClass('active');
+        $('#SYSTEM-BASIC-USER').addClass('active');
+
+    });
+</script>
+
+<script type="text/javascript">
     var oDataTable = null;
     $(function () {
         oDataTable = initTable();

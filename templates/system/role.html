@@ -60,7 +60,13 @@
     <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
     <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#SYSTEM-RBAC').addClass('active');
+            $('#SYSTEM-RBAC-ROLE').addClass('active');
 
+        });
+    </script>
 <script type="text/javascript">
  var oDataTable = null;
     $(function () {

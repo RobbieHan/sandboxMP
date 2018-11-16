@@ -50,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'apps.system.middleware.MenuCollection',
+    'apps.system.middleware.RbacMiddleware',
 ]
 
 ROOT_URLCONF = 'sandboxMP.urls'
@@ -132,3 +134,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = '/login/'
+
+# safe url
+SAFE_URL = [r'^/$',
+            '/login/',
+            '/logout',
+            '/index/',
+            '/media/',
+            '/admin/',
+            '/ckeditor/',
+            ]

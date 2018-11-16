@@ -20,9 +20,13 @@
                 <span class="sr-only">Toggle navigation</span>
             </a>
             <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active" ><a href="#" id="index">头部导航</a></li>
-                </ul>
+                {% for menu in request.top_menu %}
+                    <ul class="nav navbar-nav">
+                        <li {% ifequal menu.status True %}class="active" {% endifequal %}>
+                            <a href="{{ menu.url }}" id="{{ menu.code }}">{{ menu.name | default_if_none:"" }}</a>
+                        </li>
+                    </ul>
+                {% endfor %}
             </div>
             {% if request.user.is_authenticated %}
                 <div class="navbar-custom-menu">
