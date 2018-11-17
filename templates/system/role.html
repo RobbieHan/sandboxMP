@@ -9,63 +9,66 @@
 {% block content %}
 
     <!-- Main content -->
-  <section class="content">
-    <div id="devlist">
-        <div class="box box-primary" id="liebiao">
-            <div class="box-header">
-                <div class="btn-group pull-left">
-                    <button type="button" id="btnCreate" class="btn btn-default">
-                        <i class="glyphicon glyphicon-plus"></i>新增
-                    </button>
+    <section class="content">
+        <div id="devlist">
+            <div class="box box-primary" id="liebiao">
+                <div class="box-header">
+                    <div class="btn-group pull-left">
+                        <button type="button" id="btnRefresh" class="btn btn-default">
+                            <i class="glyphicon glyphicon-repeat"></i>刷新
+                        </button>
+                    </div>
+                    <div class="btn-group pull-left">&nbsp</div>
+                    <div class="btn-group pull-left">
+                        <button type="button" id="btnCreate" class="btn btn-default">
+                            <i class="glyphicon glyphicon-plus"></i>新增
+                        </button>
 
+                    </div>
+                    <div class="btn-group pull-left">&nbsp</div>
+                    <div class="btn-group pull-left">
+                        <button type="button" id="btnDelete" class="btn btn-default">
+                            <i class="glyphicon glyphicon-trash"></i>删除
+                        </button>
+                    </div>
                 </div>
-                <div class="btn-group pull-left">&nbsp</div>
-                <div class="btn-group pull-left">
-                    <button type="button" id="btnDelete" class="btn btn-default">
-                        <i class="glyphicon glyphicon-trash"></i>删除
-                    </button>
+                <div class="box-body">
+                    <table id="dtbList" class="display" cellspacing="0" width="100%">
+                        <thead>
+                        <tr valign="middle">
+                            <th><input type="checkbox" id="checkAll"></th>
+                            <th>ID</th>
+                            <th>名称</th>
+                            <th>说明</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <br> <br>
                 </div>
-            </div>
-            <div class="box-body">
-                <table id="dtbList" class="display" cellspacing="0" width="100%">
-                    <thead>
-                    <tr valign="middle">
-                        <th><input type="checkbox" id="checkAll"></th>
-                        <th>ID</th>
-                        <th>名称</th>
-                        <th>类别</th>
-                        <th>所属</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                <br> <br>
             </div>
         </div>
-    </div>
-  </section>
+    </section>
 
     <!-- /.content -->
 
 {% endblock %}
 
-
 {% block javascripts %}
-<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
-<script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#SYSTEM-RBAC').addClass('active');
+            $('#SYSTEM-RBAC-ROLE').addClass('active');
 
+        });
+    </script>
 <script type="text/javascript">
-    $(function () {
-        $('#SYSTEM-BASIC').addClass('active');
-        $('#SYSTEM-BASIC-STRUCTURE').addClass('active');
-
-    });
-</script>
-<script type="text/javascript">
-    var oDataTable = null;
+ var oDataTable = null;
     $(function () {
         oDataTable = initTable();
 
@@ -74,8 +77,7 @@
                 DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
                 {
                     ajax: {
-                        "url": "{% url 'system:basic-structure-list' %}",
-
+                        "url": "{% url 'system:rbac-role-list' %}",
                     },
                     columns: [
                         DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
@@ -84,64 +86,69 @@
                             width: "5%",
                         },
                         {
-                            data: "name",//parent
-                            width: "20%",
-                        },
-
-                        {
-                            data: "type",
-                            render: function (data, type, row, meta) {
-                                if (data == 'unit') {
-                                    return "单位";
-                                } else if (data == 'department') {
-                                    return "部门";
-                                }
-                            }
+                            data: "name",
+                            //width : "20%",
                         },
                         {
-                            data: "parent__name",
+                            data: "desc",
+                            //width : "20%",
                         },
 
                         {
                             data: "id",
-                            width: "12%",
+                            width: "16%",
                             bSortable: "false",
                             render: function (data, type, row, meta) {
                                 var ret = "";
                                 var ret = "<button title='详情-编辑' onclick='doUpdate("
                                     + data + ")'><i class='glyphicon glyphicon-pencil'></i></button>";
-                                ret = ret + "<button title='关联用户' onclick='doAddUser("
+                                ret = ret + "<button title='关联用户' onclick='doUpdateUser("
                                     + data + ")'><i class='glyphicon glyphicon-user'></i></button>";
+                                ret = ret + "<button title='关联菜单' onclick='doUpdateMenu("
+                                    + data + ")'><i class='glyphicon glyphicon-tree-conifer'></i></button>";
                                 ret = ret + "<button title='删除' onclick='doDelete("
                                     + data + ")'><i class='glyphicon glyphicon-trash'></i></button>";
                                 return ret;
                             }
                         }],
-                    "order": [
-                        [1, 'id']
-                    ],
-                }));
-            return oTable;
-        }
+                    }));
+                return oTable;
+            }
 
-    });
+        });
 
-</script>
-<script type="text/javascript">
     $("#btnCreate").click(function () {
         layer.open({
             type: 2,
             title: '新增',
             shadeClose: false,
             maxmin: true,
-            area: ['800px', '400px'],
-            content: "{% url 'system:basic-structure-create' %}",
+            area: ['800px', '300px'],
+            content: "{% url 'system:rbac-role-create' %}",
             end: function () {
-                //新增内容，弹窗关闭后刷新oDatable
+                //关闭时做的事情
                 oDataTable.ajax.reload();
             }
         });
     });
+
+    $("#btnRefresh").click(function () {
+        oDataTable.ajax.reload();
+    });
+
+    function doUpdate(id) {
+    layer.open({
+        type: 2,
+        title: '编辑',
+        shadeClose: false,
+        maxmin: true,
+        area: ['800px', '400px'],
+        content: ["{% url 'system:rbac-role-update' %}" + '?id=' + id, 'no'],
+        end: function () {
+            oDataTable.ajax.reload();
+        }
+    });
+    }
 
     //checkbox全选
     $("#checkAll").on("click", function () {
@@ -178,7 +185,7 @@
                 layer.close(index);
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'system:basic-structure-delete' %}",
+                    url: "{% url 'system:rbac-role-delete' %}",
                     data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
                     cache: false,
                     success: function (msg) {
@@ -207,8 +214,8 @@
                 layer.close(index);
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'system:basic-structure-delete' %}",
-                    data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
+                    url: "{% url 'system:rbac-role-delete' %}",
+                    data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},
                     cache: false,
                     success: function (msg) {
                         if (msg.result) {
@@ -223,37 +230,32 @@
                 });
             }
         });
-
     }
 
-    function doUpdate(id) {
+    //关联用户
+    function doUpdateUser(id) {
         layer.open({
             type: 2,
-            title: '编辑',
-            shadeClose: false,
-            maxmin: true,
-            area: ['800px', '400px'],
-            content: ["{% url 'system:basic-structure-create' %}" + '?id=' + id, 'no'],
-            end: function () {
-                oDataTable.ajax.reload();
-            }
-        });
-    }
-
-    function doAddUser(id) {
-        layer.open({
-            type: 2,
-            title: '编辑',
+            title: '绑定用户',
             shadeClose: false,
             maxmin: true,
             area: ['800px', '600px'],
-            content: ["{% url 'system:basic-structure-add_user' %}" + '?id=' + id, 'no'],
-            end: function () {
-                window.location.reload();
-            }
+            content: ["{% url 'system:rbac-role-role2user' %}" + '?id=' + id, 'no'],
         });
     }
 
+    //关联菜单
+    function doUpdateMenu(id) {
+        layer.open({
+            type: 2,
+            title: '权限分配',
+            shadeClose: false,
+            maxmin: true,
+            area: ['600px', '480px'],
+            content: ["{% url 'system:rbac-role-role2menu' %}" + '?id=' + id, 'no'],
+
+    });
+    }
 </script>
 
 {% endblock %}

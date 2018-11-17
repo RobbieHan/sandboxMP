@@ -1,0 +1,164 @@
+{% extends "base-left.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+    <!-- iCheck for checkboxes and radio inputs -->
+{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+        <div id="devlist">
+            <div class="box box-primary" id="liebiao">
+                <div class="box-header">
+                    <div class="btn-group pull-left">
+                        <button type="button" id="btnRefresh" class="btn btn-default">
+                            <i class="glyphicon glyphicon-repeat"></i>刷新
+                        </button>
+                    </div>
+                    <div class="btn-group pull-left">&nbsp</div>
+                    <div class="btn-group pull-left">
+                        <button type="button" id="btnCreate" class="btn btn-default">
+                            <i class="glyphicon glyphicon-plus"></i>新增
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table id="dtbList" class="display" cellspacing="0" width="100%">
+                        <thead>
+                        <tr valign="middle">
+                            <th><input type="checkbox" id="checkAll"></th>
+                            <th>ID</th>
+                            <th>名称</th>
+                            <th>代码</th>
+                            <th>URL</th>
+                            <th>图标</th>
+                            <th>父菜单</th>
+                            <th>操作</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <br> <br>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- /.content -->
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <!-- iCheck 1.0.1 -->
+    <script type="text/javascript">
+        $(function () {
+            $('#SYSTEM-RBAC').addClass('active');
+            $('#SYSTEM-RBAC-MENU').addClass('active');
+
+        });
+    </script>
+
+    <script type="text/javascript">
+        var oDataTable = null;
+        var data = [
+            {% for menu in menu_all %}
+            {
+                "id": "{{ menu.id }}",
+                "name": "{{ menu.name }}",
+                "code": "{{ menu.code }}",
+                "url":  "{{ menu.url | default_if_none:'' }}",
+                "icon": "{{ menu.icon | default_if_none:'' }}",
+                "parent": "{{ menu.parent.name }}"
+            },
+            {% endfor %}
+        ];
+
+        $(function () {
+            oDataTable = initTable();
+
+            function initTable() {
+                var oTable = $('#dtbList').DataTable($.extend(true, {},
+                    DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
+                    {
+                        data: data,
+                        columns: [
+                            DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
+                            {
+                                data: "id",
+                                width: "5%",
+                            },
+                            {
+                                data: "name",
+                            },
+                            {
+                                data: "code",
+                            },
+                            {
+                                data: "url",
+                            },
+                            {
+                                data: "icon",
+                            },
+                            {
+                                data: "parent",
+                            },
+                            {
+                                data: "id",
+                                bSortable: "false",
+                                render: function (data, type, row, meta) {
+                                    var ret = "";
+                                    var ret = "<button title='详情-编辑' onclick='doUpdate("
+                                        + data + ")'><i class='glyphicon glyphicon-pencil'></i></button>";
+                                    return ret;
+                                }
+                            }
+                        ],
+                    }));
+                return oTable;
+            }
+
+        });
+
+    $("#btnRefresh").click(function () {
+            window.location.reload();
+        });
+
+    $("#btnCreate").click(function () {
+        layer.open({
+            type: 2,
+            title: '新增',
+            shadeClose: false,
+            maxmin: true,
+            area: ['800px', '400px'],
+            content: "{% url 'system:rbac-menu-create' %}",
+            end: function () {
+                //关闭时做的事情
+                window.location.reload();
+            }
+        });
+    });
+
+     function doUpdate(id) {
+        layer.open({
+            type: 2,
+            title: '编辑',
+            shadeClose: false,
+            maxmin: true,
+            area: ['800px', '400px'],
+            content: ["{% url 'system:rbac-menu-update' %}" + '?id=' + id, 'no'],
+            end: function () {
+                //关闭时做的事情
+                window.location.reload();
+            }
+        });
+    }
+    </script>
+{% endblock %}

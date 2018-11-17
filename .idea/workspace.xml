@@ -5,6 +5,7 @@
 <<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -29,6 +30,10 @@
 >>>>>>> 1-rbac
 =======
 >>>>>>> 1-rbac
+=======
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
+      <change beforePath="$PROJECT_DIR$/sandboxMP/settings.py" afterPath="$PROJECT_DIR$/sandboxMP/settings.py" />
+>>>>>>> 1-rbac
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,9 +47,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/system/urls.py">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sandboxMP/settings.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -66,13 +72,18 @@
             <state relative-caret-position="408">
               <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
 >>>>>>> 1-rbac
+=======
+            <state relative-caret-position="597">
+              <caret line="151" column="34" lean-forward="true" selection-start-line="151" selection-start-column="34" selection-end-line="151" selection-end-column="34" />
+>>>>>>> 1-rbac
               <folding>
-                <element signature="e#0#37#0" expanded="true" />
+                <element signature="e#310#319#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="views_user.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/system/views_user.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -178,6 +189,8 @@
           </provider>
         </entry>
       </file>
+=======
+>>>>>>> 1-rbac
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -200,34 +213,50 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/base-left.html" />
-        <option value="$PROJECT_DIR$/templates/head-footer.html" />
-        <option value="$PROJECT_DIR$/apps/system/models.py" />
         <option value="$PROJECT_DIR$/apps/system/mixin.py" />
         <option value="$PROJECT_DIR$/templates/system/system.html" />
         <option value="$PROJECT_DIR$/sandboxMP/urls.py" />
-        <option value="$PROJECT_DIR$/templates/system/system_index.html" />
-        <option value="$PROJECT_DIR$/apps/system/views.py" />
-        <option value="$PROJECT_DIR$/sandboxMP/settings.py" />
         <option value="$PROJECT_DIR$/apps/system/tests.py" />
         <option value="$PROJECT_DIR$/templates/system/structure/structure_create.html" />
         <option value="$PROJECT_DIR$/templates/system/structure/strueture_users.html" />
         <option value="$PROJECT_DIR$/templates/system/structure/strueture_user.html" />
-        <option value="$PROJECT_DIR$/apps/system/views_structure.py" />
-        <option value="$PROJECT_DIR$/templates/system/structure/structure.html" />
         <option value="$PROJECT_DIR$/templates/system/structure/structure_user.html" />
         <option value="$PROJECT_DIR$/templates/system/users/user_create.html" />
         <option value="$PROJECT_DIR$/templates/system/users/user_detail.html" />
         <option value="$PROJECT_DIR$/templates/base-static.html" />
         <option value="$PROJECT_DIR$/templates/system/users/passwd_change.html" />
-        <option value="$PROJECT_DIR$/templates/system/users/user.html" />
-        <option value="$PROJECT_DIR$/apps/system/views_user.py" />
         <option value="$PROJECT_DIR$/apps/system/forms.py" />
         <option value="$PROJECT_DIR$/apps/system/views.menu.py" />
+        <option value="$PROJECT_DIR$/apps/system/apps.py" />
+        <option value="$PROJECT_DIR$/templates/system/menu_list.html" />
+        <option value="$PROJECT_DIR$/templates/system/role_create.html" />
+        <option value="$PROJECT_DIR$/templates/system/role_update.html" />
+        <option value="$PROJECT_DIR$/templates/system/role_role2user.html" />
+        <option value="$PROJECT_DIR$/templates/system/role_role2menu.html" />
         <option value="$PROJECT_DIR$/apps/system/urls.py" />
-        <option value="$PROJECT_DIR$/apps/custom.py" />
-        <option value="$PROJECT_DIR$/apps/system/views_menu.py" />
         <option value="$PROJECT_DIR$/templates/system/menu_form.html" />
+        <option value="$PROJECT_DIR$/templates/system/menu_update.html" />
+        <option value="$PROJECT_DIR$/apps/system/milddleware.py" />
+        <option value="$PROJECT_DIR$/apps/milddleware.py" />
+        <option value="$PROJECT_DIR$/templates/head-footer.html" />
+        <option value="$PROJECT_DIR$/templates/system/structure/structure.html" />
+        <option value="$PROJECT_DIR$/templates/system/users/user.html" />
+        <option value="$PROJECT_DIR$/templates/system/role.html" />
+        <option value="$PROJECT_DIR$/apps/system/middleware.py" />
+        <option value="$PROJECT_DIR$/apps/system/models.py" />
+        <option value="$PROJECT_DIR$/apps/custom.py" />
+        <option value="$PROJECT_DIR$/apps/system/views.py" />
+        <option value="$PROJECT_DIR$/apps/system/views_menu.py" />
+        <option value="$PROJECT_DIR$/apps/system/views_role.py" />
+        <option value="$PROJECT_DIR$/apps/system/views_structure.py" />
+        <option value="$PROJECT_DIR$/apps/system/views_user.py" />
+        <option value="$PROJECT_DIR$/templates/base-left.html" />
+        <option value="$PROJECT_DIR$/templates/system/index.html" />
+        <option value="$PROJECT_DIR$/templates/system/system_index1.html" />
+        <option value="$PROJECT_DIR$/templates/system/system_index.html" />
+        <option value="$PROJECT_DIR$/requirements/dev" />
+        <option value="$PROJECT_DIR$/requirements/pro" />
+        <option value="$PROJECT_DIR$/sandboxMP/settings.py" />
       </list>
     </option>
   </component>
@@ -244,12 +273,16 @@
 =======
 =======
   <component name="ProjectFrameBounds" extendedState="7">
+<<<<<<< HEAD
 >>>>>>> 1-rbac
     <option name="x" value="-1448" />
 >>>>>>> 1-rbac
+=======
+    <option name="x" value="-8" />
+>>>>>>> 1-rbac
     <option name="y" value="-8" />
-    <option name="width" value="1456" />
-    <option name="height" value="876" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -296,12 +329,6 @@
               <item name="sandboxMP" type="462c0819:PsiDirectoryNode" />
               <item name="apps" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="sandboxMP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sandboxMP" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-              <item name="system" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -327,9 +354,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\ProjectFile\sandboxMP\templates" />
       <recent name="D:\ProjectFile\sandboxMP\templates\system\users" />
+      <recent name="D:\ProjectFile\sandboxMP\templates\system" />
       <recent name="D:\ProjectFile\sandboxMP\templates\system\structure" />
       <recent name="D:\ProjectFile\sandboxMP\apps\system" />
-      <recent name="D:\ProjectFile\sandboxMP\templates\system" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\ProjectFile\sandboxMP\templates\system" />
@@ -401,6 +428,7 @@
   <component name="ToolWindowManager">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
 =======
     <frame x="-1448" y="-8" width="1456" height="876" extended-state="6" />
@@ -408,27 +436,30 @@
 =======
     <frame x="-1448" y="-8" width="1456" height="876" extended-state="7" />
 >>>>>>> 1-rbac
+=======
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+>>>>>>> 1-rbac
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26985854" sideWeight="0.5021322" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24156693" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24221921" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18498367" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2012894" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26972282" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18656716" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21650879" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28281462" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="manage.py@sandboxMP" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28073993" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="manage.py@sandboxMP" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34912044" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -442,124 +473,124 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="20" />
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+      <option name="time" value="38" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/apps/system/forms.py">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/contrib/auth/decorators.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sandboxMP/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        <state relative-caret-position="-459">
+          <caret line="9" column="57" lean-forward="false" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sandboxMP/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="29" column="63" lean-forward="false" selection-start-line="29" selection-start-column="63" selection-end-line="29" selection-end-column="63" />
+        <state relative-caret-position="493">
+          <caret line="29" column="63" lean-forward="true" selection-start-line="29" selection-start-column="63" selection-end-line="30" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/views_user.py">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/db/models/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="20" column="6" lean-forward="false" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+        <state relative-caret-position="238">
+          <caret line="100" column="8" lean-forward="false" selection-start-line="100" selection-start-column="8" selection-end-line="100" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/views.py">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/utils/encoding.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state relative-caret-position="-1649">
+          <caret line="121" column="4" lean-forward="false" selection-start-line="121" selection-start-column="4" selection-end-line="121" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sandboxMP/settings.py">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/contrib/flatpages/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="595">
+          <caret line="39" column="22" lean-forward="false" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/db/models/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/bootstrap/js/npm.js">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/forms/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+        <state relative-caret-position="230">
+          <caret line="472" column="4" lean-forward="false" selection-start-line="472" selection-start-column="4" selection-end-line="472" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
+    <entry file="file://$PROJECT_DIR$/templates/system/users/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="14" lean-forward="true" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
+        <state relative-caret-position="170">
+          <caret line="10" column="57" lean-forward="true" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base-layer.html">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/views/generic/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="22" lean-forward="true" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+        <state relative-caret-position="187">
+          <caret line="11" column="11" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base-left.html">
+    <entry file="file://$PROJECT_DIR$/apps/system/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="36" column="13" lean-forward="true" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+        <state relative-caret-position="432">
+          <caret line="127" column="0" lean-forward="false" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/views.py">
+    <entry file="file://$PROJECT_DIR$/apps/system/apps.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="58" lean-forward="true" selection-start-line="9" selection-start-column="58" selection-end-line="9" selection-end-column="58" />
+        <state relative-caret-position="85">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/system/system_index.html">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/views/generic/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        <state relative-caret-position="197">
+          <caret line="130" column="33" lean-forward="true" selection-start-line="130" selection-start-column="4" selection-end-line="130" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/urls/conf.py">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/shortcuts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="11" column="15" lean-forward="true" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
+        <state relative-caret-position="342">
+          <caret line="56" column="50" lean-forward="true" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sandboxMP/settings.py">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/http/response.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="29" column="18" lean-forward="true" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+        <state relative-caret-position="-1063">
+          <caret line="475" column="6" lean-forward="false" selection-start-line="475" selection-start-column="6" selection-end-line="475" selection-end-column="6" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/system/role_update.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="657">
+          <caret line="80" column="14" lean-forward="false" selection-start-line="80" selection-start-column="14" selection-end-line="80" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/apps/system/views_user.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -582,29 +613,32 @@
 =======
 >>>>>>> 1-rbac
     <entry file="file://$PROJECT_DIR$/apps/system/tests.py">
+=======
+    <entry file="file://$PROJECT_DIR$/templates/system/role_form.html">
+>>>>>>> 1-rbac
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        <state relative-caret-position="504">
+          <caret line="70" column="11" lean-forward="true" selection-start-line="70" selection-start-column="11" selection-end-line="70" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/__init__.py">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/views/generic/detail.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="272">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="25" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/braces/views/_ajax.py" />
-    <entry file="file://$PROJECT_DIR$/templates/system/structure/structure_create.html">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/views/generic/edit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="524">
-          <caret line="89" column="11" lean-forward="true" selection-start-line="89" selection-start-column="11" selection-end-line="89" selection-end-column="11" />
+        <state relative-caret-position="289">
+          <caret line="69" column="39" lean-forward="true" selection-start-line="69" selection-start-column="39" selection-end-line="69" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/system/structure/structure_user.html">
+    <entry file="file://$PROJECT_DIR$/templates/system/role_role2user.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         <state relative-caret-position="527">
@@ -613,11 +647,16 @@
         <state relative-caret-position="-15">
           <caret line="29" column="95" lean-forward="true" selection-start-line="29" selection-start-column="95" selection-end-line="29" selection-end-column="95" />
 >>>>>>> 1-rbac
+=======
+        <state relative-caret-position="563">
+          <caret line="98" column="20" lean-forward="false" selection-start-line="98" selection-start-column="20" selection-end-line="98" selection-end-column="20" />
+>>>>>>> 1-rbac
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/system/structure/structure.html">
+    <entry file="file://$PROJECT_DIR$/templates/system/role_role2menu.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< HEAD
         <state relative-caret-position="221">
           <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
@@ -648,14 +687,23 @@
 =======
 >>>>>>> 1-rbac
     <entry file="file://$PROJECT_DIR$/static/plugins/datatables/dataTables.const-1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="8" lean-forward="false" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+=======
+        <state relative-caret-position="2097">
+          <caret line="177" column="13" lean-forward="true" selection-start-line="177" selection-start-column="13" selection-end-line="177" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/views_structure.py">
+    <entry file="file://$PROJECT_DIR$/templates/system/menu_update.html">
+>>>>>>> 1-rbac
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="48" column="11" lean-forward="false" selection-start-line="48" selection-start-column="11" selection-end-line="48" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/system/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         <state relative-caret-position="1122">
@@ -675,33 +723,38 @@
         <state relative-caret-position="541">
           <caret line="88" column="77" lean-forward="true" selection-start-line="88" selection-start-column="77" selection-end-line="88" selection-end-column="77" />
 >>>>>>> 1-rbac
+=======
+        <state relative-caret-position="510">
+          <caret line="30" column="92" lean-forward="true" selection-start-line="30" selection-start-column="92" selection-end-line="30" selection-end-column="92" />
+>>>>>>> 1-rbac
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/urls/resolvers.py">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/core/servers/basehttp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="220" column="33" lean-forward="true" selection-start-line="220" selection-start-column="33" selection-end-line="220" selection-end-column="33" />
+        <state relative-caret-position="401">
+          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/system/users/user_create.html">
+    <entry file="file://$PROJECT_DIR$/sandboxMP/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1396">
-          <caret line="129" column="26" lean-forward="false" selection-start-line="129" selection-start-column="26" selection-end-line="129" selection-end-column="26" />
+        <state relative-caret-position="187">
+          <caret line="11" column="49" lean-forward="true" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/head-footer.html">
+    <entry file="file://$PROJECT_DIR$/apps/milddleware.py" />
+    <entry file="file://$PROJECT_DIR$/apps/system/mixin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1598">
-          <caret line="94" column="22" lean-forward="true" selection-start-line="94" selection-start-column="22" selection-end-line="94" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="187">
+          <caret line="11" column="35" lean-forward="true" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base-static.html">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/utils/module_loading.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         <state relative-caret-position="4046">
@@ -723,205 +776,173 @@
             <element signature="e#0#37#0" expanded="true" />
           </folding>
 >>>>>>> a328e88122d80e72999261759f2594796f8da35b
+=======
+        <state relative-caret-position="221">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+>>>>>>> 1-rbac
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/system/users/user_detail.html">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/importlib/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="967">
-          <caret line="191" column="14" lean-forward="false" selection-start-line="191" selection-start-column="14" selection-end-line="191" selection-end-column="14" />
-          <folding />
+        <state relative-caret-position="231">
+          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/system/users/passwd_change.html">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/core/handlers/exception.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="340">
+          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/contrib/auth/decorators.py">
+    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/utils/deprecation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-459">
-          <caret line="9" column="57" lean-forward="false" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#27#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="497">
+          <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sandboxMP/urls.py">
+    <entry file="file://$PROJECT_DIR$/templates/system/menu_form.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="63" lean-forward="true" selection-start-line="29" selection-start-column="63" selection-end-line="30" selection-end-column="0" />
-          <folding>
-            <element signature="e#633#665#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="310">
+          <caret line="51" column="26" lean-forward="false" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/mixin.py">
+    <entry file="file://$PROJECT_DIR$/templates/system/menu_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="6" lean-forward="false" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-          <folding />
+        <state relative-caret-position="204">
+          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="66" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/db/models/base.py">
+    <entry file="file://$PROJECT_DIR$/templates/system/role.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="100" column="8" lean-forward="false" selection-start-line="100" selection-start-column="8" selection-end-line="100" selection-end-column="8" />
-          <folding />
+        <state relative-caret-position="540">
+          <caret line="71" column="19" lean-forward="false" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/utils/encoding.py">
+    <entry file="file://$PROJECT_DIR$/templates/system/structure/structure.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1649">
-          <caret line="121" column="4" lean-forward="false" selection-start-line="121" selection-start-column="4" selection-end-line="121" selection-end-column="4" />
-          <folding />
+        <state relative-caret-position="310">
+          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="65" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/contrib/flatpages/models.py">
+    <entry file="file://$PROJECT_DIR$/templates/head-footer.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="39" column="22" lean-forward="false" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/db/models/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-204">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#53#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/forms/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="472" column="4" lean-forward="false" selection-start-line="472" selection-start-column="4" selection-end-line="472" selection-end-column="4" />
-          <folding>
-            <element signature="e#99#134#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/views/generic/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="107" column="6" lean-forward="false" selection-start-line="107" selection-start-column="6" selection-end-line="107" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/views/generic/detail.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="110" column="52" lean-forward="false" selection-start-line="110" selection-start-column="52" selection-end-line="110" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/system/users/user.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="67" column="35" lean-forward="true" selection-start-line="67" selection-start-column="35" selection-end-line="67" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/system/users/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="57" lean-forward="true" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/views/generic/edit.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="69" column="6" lean-forward="false" selection-start-line="69" selection-start-column="6" selection-end-line="69" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Envs/sandboxMP/Lib/site-packages/django/views/generic/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="11" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#70#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="127" column="0" lean-forward="false" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
-          <folding>
-            <element signature="e#73#82#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/views_user.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1054">
-          <caret line="62" column="53" lean-forward="false" selection-start-line="62" selection-start-column="53" selection-end-line="62" selection-end-column="53" />
-          <folding>
-            <element signature="e#78#87#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="306">
+          <caret line="18" column="85" lean-forward="false" selection-start-line="18" selection-start-column="85" selection-end-line="18" selection-end-column="85" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/custom.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="e#73#84#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="340">
+          <caret line="20" column="49" lean-forward="true" selection-start-line="20" selection-start-column="49" selection-end-line="20" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/system/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/system/views_menu.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="18" column="36" lean-forward="true" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/system/views_role.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="53" />
+          <caret line="19" column="52" lean-forward="false" selection-start-line="19" selection-start-column="52" selection-end-line="19" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/system/views_structure.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="21" column="58" lean-forward="false" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/system/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base-left.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="66" column="21" lean-forward="false" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/system/middleware.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="96" column="45" lean-forward="false" selection-start-line="96" selection-start-column="45" selection-end-line="96" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/system/views_user.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="83" column="7" lean-forward="true" selection-start-line="83" selection-start-column="7" selection-end-line="83" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/system/users/user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="50" lean-forward="true" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/system/system_index1.html" />
+    <entry file="file://$PROJECT_DIR$/templates/invoice.html" />
+    <entry file="file://$PROJECT_DIR$/requirements/pro">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="13" lean-forward="true" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements/dev">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/system/system_index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sandboxMP/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="597">
+          <caret line="151" column="34" lean-forward="true" selection-start-line="151" selection-start-column="34" selection-end-line="151" selection-end-column="34" />
           <folding>
-            <element signature="e#77#121#0" expanded="true" />
+            <element signature="e#310#319#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/templates/system/menu_form.html">
       <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
@@ -950,6 +971,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> 1-rbac
   </component>
   <component name="masterDetails">
     <states>

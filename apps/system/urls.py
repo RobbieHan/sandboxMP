@@ -1,7 +1,7 @@
-from django.urls import path, re_path
+from django.urls import path
 
 from .views import SystemView
-from . import views_structure, views_user, views_menu
+from . import views_structure, views_user, views_menu, views_role
 
 app_name = 'system'
 
@@ -23,5 +23,16 @@ urlpatterns = [
     path('basic/user/enable/', views_user.UserEnableView.as_view(), name='basic-user-enable'),
     path('basic/user/disable/', views_user.UserDisableView.as_view(), name='basic-user-disable'),
 
+    path('rbac/menu/', views_menu.MenuListView.as_view(), name='rbac-menu'),
     path('rbac/menu/create/', views_menu.MenuCreateView.as_view(), name='rbac-menu-create'),
+    path('rbac/menu/update/', views_menu.MenuUpdateView.as_view(), name='rbac-menu-update'),
+
+    path('rbac/role/', views_role.RoleView.as_view(), name='rbac-role'),
+    path('rbac/role/create/', views_role.RoleCreateView.as_view(), name='rbac-role-create'),
+    path('rbac/role/list/', views_role.RoleListView.as_view(), name='rbac-role-list'),
+    path('rbac/role/update/', views_role.RoleUpdateView.as_view(), name='rbac-role-update'),
+    path('rbac/role/delete/', views_role.RoleDeleteView.as_view(), name='rbac-role-delete'),
+    path('rbac/role/role2user/', views_role.Role2UserView.as_view(), name="rbac-role-role2user"),
+    path('rbac/role/role2menu/', views_role.Role2MenuView.as_view(), name="rbac-role-role2menu"),
+    path('rbac/role/role2menu_list/', views_role.Role2MenuListView.as_view(), name="rbac-role-role2menu_list"),
 ]

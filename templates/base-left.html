@@ -21,20 +21,32 @@
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
- <ul class="sidebar-menu">
+     <ul class="sidebar-menu">
         <li class="header"></li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="treeview">
-          <a href="#"><i class="fa fa-calendar"></i> <span>一级菜单</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-caret-right"></i>二级菜单</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>二级菜单</a></li>
-          </ul>
-        </li>
+         {% for menu in request.reveal_menu %}
+            {% if not menu.url %}
+                <li class="treeview" id="{{ menu.code }}">
+                    <a href="">
+                        <i class="{{ menu.icon }}"></i><span>{{ menu.name }}</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% for sub in  menu.sub_menu %}
+                            <li id="{{ sub.code }}">
+                                <a href="{{ sub.url }}"><i class="fa fa-caret-right"></i>{{ sub.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% else %}
+                <li id="{{ menu.code }}">
+                    <a href="{{ menu.url }}"><i class="{{ menu.icon }}"></i><span>{{ menu.name }}</span>
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -44,7 +56,14 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-
+    <section class="content-header margin-bottom">
+        <ol class="breadcrumb">
+            {% if menu.parent %}
+            <li class="active"><a href="{{ menu.parent.url | default:'' }}">{{ menu.parent.name }}</a></li>
+            {% endif %}
+            <li class="active"><a href="{{ menu.url }}">{{ menu.name }}</a></li>
+        </ol>
+    </section>
   {% block content %}
 
 

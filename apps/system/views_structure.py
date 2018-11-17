@@ -14,11 +14,12 @@ from django.contrib.auth import get_user_model
 from .mixin import LoginRequiredMixin
 from .models import Structure
 from .forms import StructureForm
+from apps.custom import BreadcrumbMixin
 
 User = get_user_model()
 
 
-class StructureView(LoginRequiredMixin, TemplateView):
+class StructureView(LoginRequiredMixin,  BreadcrumbMixin, TemplateView):
 
     template_name = 'system/structure/structure.html'
 
