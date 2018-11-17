@@ -144,3 +144,9 @@ SAFE_URL = [r'^/$',
             '/admin/',
             '/ckeditor/',
             ]
+
+# session timeout
+
+SESSION_COOKIE_AGE = 60 * 20
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True 
