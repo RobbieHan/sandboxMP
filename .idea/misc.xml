@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 (sandboxMP)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.6.6 (ssh://root@172.16.3.100:22/root/.virtualenvs/sandboxMP/bin/python)" project-jdk-type="Python SDK" />
 </project>

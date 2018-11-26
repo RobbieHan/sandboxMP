@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="9e8a87b0-abd9-463e-b579-b05e0bb96893" name="SMP_Remote_Server" url="http://172.16.3.100">
+        <fileTransfer host="172.16.3.100" port="22" rootFolder="/root/project_file" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
