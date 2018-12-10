@@ -28,6 +28,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('system/', include('system.urls', namespace='system')),
+    path('cmdb/', include('cmdb.urls', namespace='cmdb')),
 
 ]
 
