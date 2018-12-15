@@ -154,10 +154,63 @@ SAFE_URL = [r'^/$',
             '/media/',
             '/admin/',
             '/ckeditor/',
+            '/test/',
             ]
 
 # session timeout
 
 SESSION_COOKIE_AGE = 60 * 20
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_SAVE_EVERY_REQUEST = True 
+SESSION_SAVE_EVERY_REQUEST = True
+
+
+# logging config
+
+BASE_LOG_DIR = os.path.join(BASE_DIR, 'slogs')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '[%(asctime)s][task_id:%(name)s][%(levelname)s]'
+                      '[%(filename)s:%(lineno)d][%(message)s]'
+        },
+        'simple': {
+            'format': '[%(levelname)s][%(asctime)s][%(filename)s:%(lineno)d]%(message)s'
+        },
+
+    },
+    'handlers': {
+        'default': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_LOG_DIR, "sandbox_info.log"),
+            'maxBytes': 1024 * 1024 * 50,
+            'backupCount': 3,
+            'formatter': 'simple',
+            'encoding': 'utf-8',
+        },
+        'error': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_LOG_DIR, "sandbox_err.log"),
+            'backupCount': 5,
+            'formatter': 'standard',
+            'encoding': 'utf-8',
+        }
+
+    },
+        'loggers': {
+            'sandbox_info': {
+                'handlers': ['default'],
+                'level': 'INFO',
+                'propagate': True,
+            },
+            'sandbox_error': {
+                'handlers': ['error'],
+                'level': 'ERROR',
+            }
+    }
+
+}

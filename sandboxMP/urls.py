@@ -20,7 +20,7 @@ from django.urls import re_path
 from django.views.static import serve
 
 from system.views_user import IndexView, LoginView, LogoutView
-
+from cmdb.tests import TestLoggingView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +29,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('system/', include('system.urls', namespace='system')),
     path('cmdb/', include('cmdb.urls', namespace='cmdb')),
+
+    path('test/', TestLoggingView.as_view()),
 
 ]
 
