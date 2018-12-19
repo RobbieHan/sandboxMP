@@ -1,2 +1,1 @@
-django==2.1.2
-pillow==5.3.0
+-r pro.txt
