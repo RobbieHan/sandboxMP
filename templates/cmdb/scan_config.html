@@ -1,0 +1,176 @@
+{% extends "base-left.html" %}
+{% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Horizontal Form -->
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">扫面参数配置</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal" id="addForm" method="post">
+                        {% csrf_token %}
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">扫描网段</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="net_address" name="net_address" value="{{ hosts.net_address }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">登陆用户</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="ssh_username" name="ssh_username" value="{{ hosts.ssh_username }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">SSH端口</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="ssh_port" name="ssh_port" value="{{ hosts.ssh_port }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">登陆密码</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="password" id="ssh_password" name="ssh_password" value="{{ hosts.ssh_password }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">密钥路径</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="ssh_private_key" name="ssh_private_key" value="{{ hosts.ssh_private_key }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">运行命令</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="5" id="commands" name="commands" readonly>{{ hosts.commands }}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">认证方式</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="auth_type">
+                                        <option value="password" {% ifequal hosts.auth_type 'password' %}selected="selected"{% endifequal %}>密码认证</option>
+                                        <option value="private_key" {% ifequal hosts.auth_type 'private_key' %}selected="selected"{% endifequal %}>私钥认证</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label">扫描方式</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="scan_type">
+                                        <option value="basic_scan" {% ifequal hosts.scan_type 'basic_scan' %}selected="selected"{% endifequal %}>基础扫描</option>
+                                        <option value="enhanced_scan" {% ifequal hosts.scan_type 'enhanced_scan' %}selected="selected"{% endifequal %}>加强扫描</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">收件邮箱</label>
+
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="email" name="email" value="{{ hosts.email }}">
+                                </div>
+
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-2 control-label">发送邮件</label>
+                                <div class="col-sm-10">
+                                    <label class="control-label">
+                                        <input type="radio" class="minimal" name="send_email" value="true" {% ifequal hosts.send_email 'true' %}checked{% endifequal %}>是
+                                    </label>
+                                    <label class="control-label">
+                                        <input type="radio" class="minimal" name="send_email" value="false" {% ifequal hosts.send_email 'false' %}checked{% endifequal %}>否
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <span class="pull-right">
+                                <button type="button" id="btnCancel" class="btn btn-default">取消</button>
+                                <button type="button" id="btnSave" class="btn btn-info">保存</button>
+                            </span>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="box box-default">
+                <div class="box-header with-border">
+                  <h3 class="box-title">参数配置说明</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <a class="product-title"><strong>扫描网段</strong><span class="label label-danger pull-right">必填参数</span></a>
+                  <p><small>网络扫描地址列表，列表中可以包含一个或多个网段，也可以是一个或多个地址区间，例如['192.168.100.0/24', '192.168.100.10-20']</small></p>
+                  <a class="product-title"><strong>登陆用户</strong><span class="label label-danger pull-right">必填参数</span></a>
+                  <p><small>系统登陆测试使用的用户名，默认root。</small></p>
+                  <a class="product-title"><strong>登陆密码</strong><span class="label label-danger pull-right">可选参数</span></a>
+                  <p><small>系统登陆测试使用的密码，如过认证方式为密码认证，必须填写密码信息。</small></p>
+                  <a class="product-title"><strong>密钥路径</strong><span class="label label-primary pull-right">可选参数</span></a>
+                  <p><small>系统登陆测试使用的密钥存放路径，如过认证方式为私钥认证，必须填写密钥路径。</small></p>
+                  <a class="product-title"><strong>运行命令</strong><span class="label label-default pull-right">预定义参数</span></a>
+                  <p><small>登陆系统后运行的基本命令，用来获取系统基本信息，当扫描方式为加强扫描时，才会执行运行命令，运行命令为预定义，禁止修改。</small></p>
+                  <a class="product-title"><strong>认证方式</strong><span class="label label-primary pull-right">可选参数</span></a>
+                  <p><small>系统登陆认证方式，包括密码认证和私钥认证两种方式，当扫描方式为加强扫描时，需要设定认证方式。</small></p>
+                  <a class="product-title"><strong>扫描方式</strong><span class="label label-primary pull-right">可选参数</span></a>
+                  <p><small>系统扫描方式，包括基本扫描和加强扫描，当设置为加强扫描时会登陆系统执行运行命令获取系统信息。</small></p>
+                  <a class="product-title"><strong>收件邮箱</strong><span class="label label-primary pull-right">可选参数</span></a>
+                  <p><small>用于接收扫描结果邮件，可以通过发送邮件选项设置是否发送通知邮件。</small></p>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </section>
+
+    <!-- /.content -->
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+<script type="text/javascript">
+// 菜单选中高亮
+$(function () {
+    $('#CMDB-PORTAL').addClass('active');
+    $('#CMDB-PORTAL-SCAN_CONFIG').addClass('active');
+
+});
+
+$("#btnSave").click(function () {
+    var hosts = $("#addForm").serialize();
+    $.ajax({
+        type: $("#addForm").attr('method'),
+        url: "{% url 'cmdb:portal-scan_config' %}",
+        cache: false,
+        data: hosts,
+        success: function (msg) {
+            if (msg.result) {
+                layer.alert('数据保存成功！', {icon: 1});
+            } else {
+                layer.alert('数据保存失败', {icon: 5});
+                //$('errorMessage').html(msg.message)
+            }
+        },
+
+    });
+});
+
+
+/*点取消刷新新页面*/
+$("#btnCancel").click(function () {
+    window.location.reload();
+
+});
+</script>
+{% endblock %}
