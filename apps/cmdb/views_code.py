@@ -15,8 +15,8 @@ class CodeView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
     template_name = 'cmdb/code.html'
 
     def get_context_data(self):
-        context = dict(code_parent=Code.objects.filter(parent=None))
-        return context
+        self.kwargs['code_parent'] = Code.objects.filter(parent=None)
+        return super().get_context_data(**self.kwargs)
 
 
 class CodeCreateView(SandboxCreateView):
