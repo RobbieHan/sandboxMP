@@ -40,6 +40,7 @@ class LoginView(View):
         redirect_to = request.GET.get('next', '/')
         login_form = LoginForm(request.POST)
         ret = dict(login_form=login_form)
+        print(request.META.get('REMOTE_ADDR'))
         if login_form.is_valid():
             user_name = request.POST['username']
             pass_word = request.POST['password']
