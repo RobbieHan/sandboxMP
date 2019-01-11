@@ -1,9 +1,9 @@
-import os
 from datetime import datetime
 
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.dispatch import receiver
+
+from simple_history.models import HistoricalRecords
 
 User = get_user_model()
 
@@ -99,10 +99,20 @@ class DeviceInfo(AbstractMode, DeviceAbstract, TimeAbstract):
     buyDate = models.DateField(default=datetime.now, verbose_name="购买日期")
     warrantyDate = models.DateField(default=datetime.now, verbose_name="到保日期")
     desc = models.TextField(blank=True, default='', verbose_name='备注信息')
+    changed_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    history = HistoricalRecords(excluded_fields=['add_time', 'modify_time'])
 
     class Meta:
         verbose_name = '设备信息'
         verbose_name_plural = verbose_name
+
+    @property
+    def _history_user(self):
+        return self.changed_by
+
+    @_history_user.setter
+    def _history_user(self, value):
+        self.changed_by = value
 
 
 class DeviceFile(TimeAbstract):
@@ -110,9 +120,3 @@ class DeviceFile(TimeAbstract):
     file_content = models.FileField(upload_to="asset_file/%Y/%m", null=True, blank=True, verbose_name="资产文件")
     upload_user = models.CharField(max_length=20, verbose_name="上传人")
 
-
-@receiver(models.signals.post_delete, sender=DeviceFile)
-def auto_delete_file(sender, instance, **kwargs):
-    if instance.file_content:
-        if os.path.isfile(instance.file_content.path):
-            os.remove(instance.file_content.path)
