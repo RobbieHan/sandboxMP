@@ -279,8 +279,12 @@
                     },
                 success: function (msg) {
                     layer.closeAll('loading');
-                    if (msg.result) {
-                        layer.alert('扫描已完成', {icon: 1});
+                    if (msg.status == 'success') {
+                        layer.alert('扫描任务已下发', {icon: 1});
+                        oDataTable.ajax.reload();
+                    }
+                    else if (msg.status == 'already_queued') {
+                        layer.alert('当前已有扫描任务正在执行', {icon: 4});
                         oDataTable.ajax.reload();
                     }
                     else {
