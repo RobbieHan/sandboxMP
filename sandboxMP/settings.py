@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import sys
 
+from .celery import *
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,7 +29,7 @@ SECRET_KEY = 'o6ijylqj@xxpvxzybcv2khtu5zk@y56nt4ptsb4dbgmdz8t%q='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'simple_history',
     'system',
+    'cmdb',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'apps.system.middleware.MenuCollection',
     'apps.system.middleware.RbacMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'sandboxMP.urls'
@@ -81,13 +86,23 @@ WSGI_APPLICATION = 'sandboxMP.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sandboxMP',
+        'HOST': '127.0.0.1',
+        'USER': 'ddadmin',
+        'PASSWORD': '1234@abcd.com',
+        'PORT': '3306'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -143,10 +158,63 @@ SAFE_URL = [r'^/$',
             '/media/',
             '/admin/',
             '/ckeditor/',
+            '/test/',
             ]
 
 # session timeout
 
 SESSION_COOKIE_AGE = 60 * 20
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_SAVE_EVERY_REQUEST = True 
+SESSION_SAVE_EVERY_REQUEST = True
+
+
+# logging config
+
+BASE_LOG_DIR = os.path.join(BASE_DIR, 'slogs')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '[%(asctime)s][task_id:%(name)s][%(levelname)s]'
+                      '[%(filename)s:%(lineno)d][%(message)s]'
+        },
+        'simple': {
+            'format': '[%(levelname)s][%(asctime)s][%(filename)s:%(lineno)d]%(message)s'
+        },
+
+    },
+    'handlers': {
+        'default': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_LOG_DIR, "sandbox_info.log"),
+            'maxBytes': 1024 * 1024 * 50,
+            'backupCount': 3,
+            'formatter': 'simple',
+            'encoding': 'utf-8',
+        },
+        'error': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_LOG_DIR, "sandbox_err.log"),
+            'backupCount': 5,
+            'formatter': 'standard',
+            'encoding': 'utf-8',
+        }
+
+    },
+        'loggers': {
+            'sandbox_info': {
+                'handlers': ['default'],
+                'level': 'INFO',
+                'propagate': True,
+            },
+            'sandbox_error': {
+                'handlers': ['error'],
+                'level': 'ERROR',
+            }
+    }
+
+}

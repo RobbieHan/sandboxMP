@@ -1,0 +1,18 @@
+hosts:
+    net_address:
+            - '172.16.3.0/24'
+            - '172.16.2.100-105'
+    ssh_username: 'root'
+    ssh_port: '22'
+    ssh_password: '1234@abcd.com'
+    ssh_private_key: '/root/.ssh/id_rsa'
+    commands:
+            sys_hostname: 'hostname'
+            mac_address: 'cat /sys/class/net/[^tsbvl]*/address'
+            sn_number: 'dmidecode -s system-serial-number'
+            os_type: 'cat /etc/redhat-release'
+            device_type: 'echo `dmidecode -s system-manufacturer &&  dmidecode -s system-product-name`'
+    email: 'robbie_han@outlook.com'
+    send_email: 'false'
+    scan_type: 'basic_scan'
+    auth_type: 'private_key'

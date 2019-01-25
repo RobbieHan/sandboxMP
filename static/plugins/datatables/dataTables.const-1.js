@@ -2,7 +2,7 @@ var DATATABLES_CONSTANT = {
           
     // datatables常量  
     DATA_TABLES : {  
-        DEFAULT_OPTION : { // DataTables初始化选项  
+        SERVER_SIDE_OPTION : { // DataTables初始化选项
         	oLanguage : {  
                 sProcessing : "处理中...",  
                 sLengthMenu : "每页 _MENU_ 项",//"显示 _MENU_ 项结果,",  

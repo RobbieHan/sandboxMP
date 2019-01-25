@@ -1,0 +1,99 @@
+{% extends 'base-layer.html' %}
+{% load staticfiles %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <!-- iCheck for checkboxes and radio inputs -->
+{% endblock %}
+{% block main %}
+    <div class="box box-danger">
+        <form class="form-horizontal" id="addForm" method="post">
+            <input type="hidden" name='id' value="{{ cabinet.id }}" />
+            {% csrf_token %}
+            <div class="box-body">
+                <fieldset>
+                    <legend>
+                        <h4>机柜信息</h4>
+                    </legend>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label">机柜编号</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" name="number" type="text" value="{{ cabinet.number }}"/>
+                        </div>
+                        <label class="col-sm-2 control-label">机柜位置</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" name="position" type="text" value="{{ cabinet.position }}"/>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label">描述信息</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="desc" name="desc" type="text" value="{{ cabinet.desc }}"/>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+            <div class="box-footer ">
+                <div class="row span7 text-center ">
+                    <button type="button" id="btnCancel" class="btn btn-default margin-right ">重置</button>
+                    <button type="button" id="btnSave" class="btn btn-info margin-right ">保存</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script type="text/javascript">
+
+    function getUrl() {
+            if ($("input[name='id']").val()) {
+                var url = "{% url 'cmdb:eam-cabinet-update' %}";
+            } else {
+                var url = "{% url 'cmdb:eam-cabinet-create' %}";
+            }
+            return url
+        }
+
+    $("#btnSave").click(function () {
+        var data = $("#addForm").serialize();
+        $.ajax({
+            type: $("#addForm").attr('method'),
+            url: getUrl(),
+            data: data,
+            cache: false,
+            success: function (msg) {
+                if (msg.result) {
+                    layer.alert('数据保存成功！', {icon: 1}, function (index) {
+                        parent.layer.closeAll(); //关闭所有弹窗
+                    });
+                } else {
+                    layer.alert(msg.error, {icon: 5});
+                    //$('errorMessage').html(msg.message)
+                }
+                return;
+            }
+        });
+    });
+
+
+        /*点取消刷新新页面*/
+        $("#btnCancel").click(function () {
+            window.location.reload();
+
+        });
+
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+        });
+
+    </script>
+
+{% endblock %}

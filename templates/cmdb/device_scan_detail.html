@@ -1,0 +1,113 @@
+{% extends "base-left.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <!-- Main content -->
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">设备详情</h3>
+
+                        <div class="box-tools">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body no-padding">
+                        <div class="btn-group pull-right margin">
+                            <button type="button" class="btn btn-primary btn-xs margin-r-5" title="返回" id="btnReturn">
+                                <i class="fa fa-undo"> 返回</i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive mailbox-messages">
+                        <table class="table" id="tbWorkList" style="white-space: nowrap;">
+                            <tbody>
+                            <tr class="info">
+                                <td width="10%"><strong>主机名</strong></td>
+                                <td class="text-left">{{ device.sys_hostname }}</td>
+                                <td width="10%"><strong>SN编号</strong></td>
+                                <td class="text-left">{{ device.sn_number }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SSH用户名</strong></td>
+                                <td>{{ device.username }}</td>
+                                <td><strong>SSH端口</strong></td>
+                                <td>{{ device.port }}</td>
+                            </tr>
+                            <tr class="info">
+                                <td><strong>认证类型</strong></td>
+                                <td>{{ device.auth_type }}</td>
+                                <td><strong>登陆状态</strong></td>
+                                <td>{{ device.status }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>IP地址</strong></td>
+                                <td>{{ device.hostname }}</td>
+                                <td><strong>MAC地址</strong></td>
+                                <td>{{ device.mac_address }}</td>
+                            </tr>
+                            <tr class="info">
+                                <td><strong>系统类型</strong></td>
+                                <td>{{ device.os_type }}</td>
+                                <td><strong>设备类型</strong></td>
+                                <td>{{ device.device_type }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>入库时间</strong></td>
+                                <td>{{ device.add_time }}</td>
+                                <td><strong>变更时间</strong></td>
+                                <td>{{ device.modify_time }}</td>
+                            </tr>
+                            <tr class="info">
+                                <td><strong>错误信息</strong></td>
+                                <td colspan="3">{{ device.error_message }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <div class="box-footer margin-b-10">
+                        <small>该设备信息为自动扫描入库设备，不提供修改功能，可通过管理页面【执行入库】按钮将登陆状态为：成功（succeed）的设备迁移到正式设备管理库</small>
+                    </div>
+                    <!-- /.box-footer -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <!-- /.col -->
+        <!-- TO DO List -->
+
+    </section>
+
+    <!-- /.content -->
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <script src="{% static 'plugins/masonry/masonry.js' %}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#CMDB-PORTAL').addClass('active');
+            $('#CDMB-PORTAL-DEVICE_SCAN').addClass('active');
+
+        });
+        //返回
+        $("#btnReturn").click(function () {
+            history.back();
+        });
+
+</script>
+
+{% endblock %}
