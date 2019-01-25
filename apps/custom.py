@@ -84,9 +84,9 @@ class SandboxMultipleObjectMixin:
         filters = self.get_filters()
         fields = self.get_fields()
         if filters:
-            queryset = queryset.filter(**self.filters)
+            queryset = queryset.filter(**filters)
         if fields:
-            queryset = queryset.values(*self.fields)
+            queryset = queryset.values(*fields)
 
         record_filter_count = queryset.count()
 

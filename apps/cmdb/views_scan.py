@@ -16,7 +16,8 @@ from system.mixin import LoginRequiredMixin
 from custom import BreadcrumbMixin, SandboxListView, SandboxDeleteView
 from utils.sandbox_utils import ConfigFileMixin
 from system.models import Menu
-from .models import DeviceScanInfo
+from .models import (DeviceScanInfo, ConnectionInfo, DeviceInfo,
+                     ConnectionAbstract, DeviceAbstract)
 from .tasks import scan_execution
 
 error_logger = logging.getLogger('sandbox_error')
@@ -89,4 +90,29 @@ class DeviceScanExecView(LoginRequiredMixin, View):
             ret['status'] = 'success'
         except AlreadyQueued:
             ret['status'] = 'already_queued'
+        return JsonResponse(ret)
+
+
+class DeviceScanInboundView(LoginRequiredMixin, View):
+    def post(self, request):
+        ret = dict(result=False)
+        login_succeed = list(DeviceScanInfo.objects.filter(status='succeed').values())
+        connection_fields = [field.name for field in ConnectionAbstract._meta.fields if field.name is not 'id']
+        device_fields = [field.name for field in DeviceAbstract._meta.fields if field.name is not 'id']
+        device_fields.append('hostname')
+        for host in login_succeed:
+            connection_defaults = {key: host[key] for key in host.keys() & connection_fields}
+            device_defaults = {key: host[key] for key in host.keys() & device_fields}
+            connection_info, _ = ConnectionInfo.objects.update_or_create(
+                hostname=host['hostname'],
+                defaults=connection_defaults
+            )
+            connection_id = int(getattr(connection_info, 'id'))
+            device_defaults['dev_connection'] = connection_id
+            device_defaults['changed_by_id'] = request.user.id
+            DeviceInfo.objects.update_or_create(
+                hostname=host['hostname'],
+                defaults=device_defaults
+            )
+        ret['result'] = True
         return JsonResponse(ret)

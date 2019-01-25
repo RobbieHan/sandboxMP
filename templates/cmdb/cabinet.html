@@ -16,26 +16,36 @@
             <div class="box-header">
                 <div class="btn-group pull-left">
                     <button type="button" id="btnRefresh" class="btn btn-default">
-                        <i class="glyphicon glyphicon-repeat"></i> 刷新
+                        <i class="glyphicon glyphicon-repeat"></i>刷新
                     </button>
                 </div>
                 <div class="btn-group pull-left">&nbsp</div>
                 <div class="btn-group pull-left">
-                    <button type="button" id="btnScan" class="btn btn-default" onclick="doScan()">
-                        <i class="glyphicon glyphicon-search"></i> 执行扫描
+                    <button type="button" id="btnCreate" class="btn btn-default">
+                        <i class="glyphicon glyphicon-plus"></i>新增
                     </button>
-                </div>
-                <div class="btn-group pull-left">&nbsp</div>
-                <div class="btn-group pull-left">
-                    <button type="button" id="btnInbound" class="btn btn-default" onclick="doInbound()">
-                        <i class="glyphicon glyphicon-floppy-disk"></i> 执行入库
-                    </button>
+
                 </div>
                 <div class="btn-group pull-left">&nbsp</div>
                 <div class="btn-group pull-left">
                     <button type="button" id="btnDelete" class="btn btn-default">
-                        <i class="glyphicon glyphicon-trash"></i> 删除
+                        <i class="glyphicon glyphicon-trash"></i>删除
                     </button>
+                </div>
+                <div class="pull-right">
+                    <form class="form-inline" id="queryForm">
+                        <div class="form-group searchArea margin-r-5 margin-top-5">
+                            <label>机柜编号：</label>
+                            <input type="text" name="number" class="form-control inputText" id="number">
+                        </div>
+                        <div class="form-group searchArea margin-r-5 margin-top-5">
+                            <label>机柜位置：</label>
+                            <input type="text" name="position" class="form-control inputText" id="position">
+                        </div>
+                      <button type="button" id="btnSearch" class="btn btn-default">
+                        <i class="glyphicon glyphicon-search"></i>查询
+                      </button>
+                    </form>
                 </div>
             </div>
 
@@ -45,21 +55,16 @@
                     <tr valign="middle">
                         <th><input type="checkbox" id="checkAll"></th>
                         <th>ID</th>
-                        <th>主机名</th>
-                        <th>IP地址</th>
-                        <th>MAC地址</th>
-                        <th>认证类型</th>
-                        <th>登陆状态</th>
-                        <th>系统类型</th>
-                        <th>设备类型</th>
+                        <th>机柜编号</th>
+                        <th>机柜位置</th>
+                        <th>备注信息</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
-                <br>
-                <small>点击【执行入库】可将扫描结果中，登陆状态为：成功（succeed）的设备数据导入正式设备管理数据库。</small>
+                <br> <br>
             </div>
         </div>
     </div>
@@ -81,8 +86,8 @@
 <script type="text/javascript">
     // 菜单选中高亮
     $(function () {
-        $('#CMDB-PORTAL').addClass('active');
-        $('#CDMB-PORTAL-DEVICE_SCAN').addClass('active');
+        $('#CMDB-EAM').addClass('active');
+        $('#CMDB-EAM-CABINET').addClass('active');
 
     });
 
@@ -97,10 +102,12 @@
 
                 {
                     ajax: {
-                        "url": "{% url 'cmdb:portal-device_scan-list' %}",
-
+                        "url": "{% url 'cmdb:eam-cabinet-list' %}",
+                        "data": function (d) {
+                                d.number = $("#number").val();
+                                d.position = $("#position").val();
+                            }
                     },
-
                     columns: [
                         DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
                         {
@@ -108,44 +115,15 @@
                             width: "5%",
                         },
                         {
-                            data: "sys_hostname",
+                            data: "number",
                             //width : "20%",
                         },
                         {
-                            data: "hostname",
+                            data: "position",
                             //width : "20%",
                         },
                         {
-                            data: "mac_address",
-                            //width : "20%",
-                        },
-                         {
-                            data: "auth_type",
-                            //width : "20%",
-                        },
-                        {
-                            data: "status",
-                                 render: function (data, type, row, meta) {
-                                    if (data == "succeed") {
-                                        var ret = "<button class='btn btn-info btn-xs'>成功</button>";
-                                        return ret;
-                                    }
-                                    if (data == "failed") {
-                                        var ret = "<button class='btn btn-danger btn-xs'>失败</button>";
-                                        return ret;
-                                    }
-                                    else  {
-                                        var ret = "<button class='btn btn-default btn-xs'>未知</button>";
-                                        return ret;
-                                    }
-                                }
-                        },
-                       {
-                            data: "os_type",
-                            //width : "20%",
-                        },
-                       {
-                            data: "device_type",
+                            data: "desc",
                             //width : "20%",
                         },
                         {
@@ -154,8 +132,8 @@
                             bSortable: "false",
                             render: function (data, type, row, meta) {
                                 var ret = "";
-                                var ret = "<button title='详情' onclick='doDetail("
-                                    + data + ")'><i class='glyphicon glyphicon-list-alt'></i></button>";
+                                var ret = "<button title='详情-修改' onclick='doUpdate("
+                                    + data + ")'><i class='glyphicon glyphicon-pencil'></i></button>";
                                 ret = ret + "<button title='删除' onclick='doDelete("
                                     + data + ")'><i class='glyphicon glyphicon-trash'></i></button>";
                                 return ret;
@@ -171,13 +149,38 @@
     $("#btnRefresh").click(function () {
         oDataTable.ajax.reload();
     });
+    //新建数据
+    $("#btnCreate").click(function () {
+        layer.open({
+            type: 2,
+            title: '新增',
+            shadeClose: false,
+            maxmin: true,
+            area: ['800px', '400px'],
+            content: "{% url 'cmdb:eam-cabinet-create' %}",
+            end: function () {
+                //关闭时做的事情
+                oDataTable.ajax.reload();
+            }
+        });
+    });
 
+    //修改数据
+    function doUpdate(id) {
+        layer.open({
+            type: 2,
+            title: '编辑',
+            shadeClose: false,
+            maxmin: true,
+            area: ['800px', '400px'],
+            content: ["{% url 'cmdb:eam-cabinet-update' %}" + '?id=' + id, 'no'],
+            end: function () {
+                oDataTable.ajax.reload();
+            }
+        });
+    }
 
-   function doDetail(id){
-    window.location.href="/cmdb/portal/device_scan/detail/?id="+id;
-}
-
-  //checkbox全选
+    //checkbox全选
     $("#checkAll").on("click", function () {
         if ($(this).prop("checked") === true) {
             $("input[name='checkList']").prop("checked", $(this).prop("checked"));
@@ -212,7 +215,7 @@
                 layer.close(index);
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'cmdb:portal-device_scan-delete' %}",
+                    url: "{% url 'cmdb:eam-cabinet-delete' %}",
                     data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
                     cache: false,
                     success: function (msg) {
@@ -241,7 +244,7 @@
                 layer.close(index);
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'cmdb:portal-device_scan-delete' %}",
+                    url: "{% url 'cmdb:eam-cabinet-delete' %}",
                     data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},
                     cache: false,
                     success: function (msg) {
@@ -259,71 +262,15 @@
         });
     }
 
-    //资产扫描
-    function doScan() {
-        layer.alert('确定开始扫描吗？', {
-            title: '提示'
-            , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
-            , time: 0 //不自动关闭
-            , btn: ['YES', 'NO']
-            , yes: function (index) {
-                layer.close(index);
-                $.ajax({
-                    type: "GET",
-                    url: "{% url 'cmdb:portal-device_scan-exec' %}",
-                    cache: false,
-                beforeSend:function(){
-                    this.layerIndex = layer.load(2, {
-                        shade: [0.1,'#fff']
-                        });
-                    },
-                success: function (msg) {
-                    layer.closeAll('loading');
-                    if (msg.status == 'success') {
-                        layer.alert('扫描任务已下发', {icon: 1});
-                        oDataTable.ajax.reload();
-                    }
-                    else if (msg.status == 'already_queued') {
-                        layer.alert('当前已有扫描任务正在执行', {icon: 4});
-                        oDataTable.ajax.reload();
-                    }
-                    else {
-                        //alert(msg.message);
-                        layer.alert('扫描失败', {icon: 2});
-                    }
-                    return;
-                }
-                });
-            }
-        });
-    }
+    //select2
+    $(function () {
+        //Initialize Select2 Elements
+        $(".select2").select2();
+    });
 
-     function doInbound() {
-        layer.alert('确定将扫描结果导入设备管理库吗？', {
-            title: '提示'
-            , icon: 3
-            , time: 0
-            , btn: ['YES', 'NO']
-            , yes: function (index) {
-                layer.close(index);
-                $.ajax({
-                    type: "POST",
-                    url: "{% url 'cmdb:portal-device_scan-inbound' %}",
-                    data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
-                    cache: false,
-                    success: function (msg) {
-                        if (msg.result) {
-                            layer.alert('设备已入库', {icon: 1});
-                        }
-                        else {
-                            //alert(msg.message);
-                            layer.alert('设备入库失败', {icon: 2});
-                        }
-                        return;
-                    }
-                });
-            }
-        });
-    }
+    $("#btnSearch").click(function(){
+        oDataTable.ajax.reload();
+    });
+
 </script>
 {% endblock %}

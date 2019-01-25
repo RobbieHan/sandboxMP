@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import CmdbView
-from . import views_code, views_scan
+from . import views_code, views_scan, views_eam
 
 app_name = 'cmdb'
 
@@ -19,5 +19,12 @@ urlpatterns = [
     path('portal/device_scan/detail/', views_scan.DeviceScanDetailView.as_view(), name='portal-device_scan-detail'),
     path('portal/device_scan/delete/', views_scan.DeviceScanDeleteView.as_view(), name='portal-device_scan-delete'),
     path('portal/device_scan/exec/', views_scan.DeviceScanExecView.as_view(), name='portal-device_scan-exec'),
+    path('portal/device_scan/inbound/', views_scan.DeviceScanInboundView.as_view(), name='portal-device_scan-inbound'),
+
+    path('eam/cabinet/', views_eam.CabinetView.as_view(), name='eam-cabinet'),
+    path('eam/cabinet/create/', views_eam.CabinetCreateView.as_view(), name='eam-cabinet-create'),
+    path('eam/cabinet/update/', views_eam.CabinetUpdateView.as_view(), name='eam-cabinet-update'),
+    path('eam/cabinet/list/', views_eam.CabinetListView.as_view(), name='eam-cabinet-list'),
+    path('eam/cabinet/delete/', views_eam.CabinetDeleteView.as_view(), name='eam-cabinet-delete'),
 
 ]
