@@ -4,7 +4,7 @@
 
 from django import forms
 
-from .models import Code
+from .models import Code, DeviceInfo
 
 
 class CodeCreateForm(forms.ModelForm):
@@ -44,3 +44,32 @@ class CodeUpdateForm(CodeCreateForm):
             if matching_code.filter(value=value).exists():
                 msg = 'value：{} 已经存在'.format(value)
                 raise forms.ValidationError(msg)
+
+
+class DeviceCreateForm(forms.ModelForm):
+    class Meta:
+        model = DeviceInfo
+        exclude = ['dev_connection']
+        error_messages = {
+            'hostname': {'required': '请填写设备地址'},
+            'buyDate': {'required': '请填写购买日期'},
+            'warrantyDate': {'required': '请填写到保日期'}
+        }
+
+    def clean(self):
+        cleaned_data = super(DeviceCreateForm, self).clean()
+        hostname = cleaned_data.get('hostname')
+
+        if DeviceInfo.objects.filter(hostname=hostname).count():
+            raise forms.ValidationError('设备地址：{}已存在'.format(hostname))
+
+
+class DeviceUpdateForm(DeviceCreateForm):
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        hostname = cleaned_data.get('hostname')
+
+        if self.instance:
+            matching_device = DeviceInfo.objects.exclude(pk=self.instance.pk)
+            if matching_device.filter(hostname=hostname).exists():
+                raise forms.ValidationError('设备地址：{}已存在'.format(hostname))

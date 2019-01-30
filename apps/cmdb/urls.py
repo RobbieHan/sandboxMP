@@ -27,4 +27,10 @@ urlpatterns = [
     path('eam/cabinet/list/', views_eam.CabinetListView.as_view(), name='eam-cabinet-list'),
     path('eam/cabinet/delete/', views_eam.CabinetDeleteView.as_view(), name='eam-cabinet-delete'),
 
+    path('eam/device/', views_eam.DeviceView.as_view(), name='eam-device'),
+    path('eam/device/create/', views_eam.DeviceCreateView.as_view(), name='eam-device-create'),
+    path('eam/device/update/', views_eam.DeviceUpdateView.as_view(), name='eam-device-update'),
+    path('eam/device/list/', views_eam.DeviceListView.as_view(), name='eam-device-list'),
+    path('eam/device/delete/', views_eam.DeviceDeleteView.as_view(), name='eam-device-delete'),
+
 ]
