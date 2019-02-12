@@ -4,7 +4,7 @@
 
 from django import forms
 
-from .models import Code, DeviceInfo
+from .models import Code, DeviceInfo, ConnectionInfo
 
 
 class CodeCreateForm(forms.ModelForm):
@@ -73,3 +73,27 @@ class DeviceUpdateForm(DeviceCreateForm):
             matching_device = DeviceInfo.objects.exclude(pk=self.instance.pk)
             if matching_device.filter(hostname=hostname).exists():
                 raise forms.ValidationError('设备地址：{}已存在'.format(hostname))
+
+
+class ConnectionInfoForm(forms.ModelForm):
+
+    class Meta:
+        model = ConnectionInfo
+        fields = '__all__'
+
+        error_messages = {
+            'port': {'required': '端口不能为空'},
+        }
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        username = cleaned_data.get('username')
+        password = cleaned_data.get('password')
+        private_key = cleaned_data.get('private_key')
+        auth_type = cleaned_data.get('auth_type')
+        if len(username) == 0:
+            raise forms.ValidationError('用户名不能为空！')
+        if auth_type == 'password' and len(password) == 0:
+            raise forms.ValidationError('认证类型为[密码]时，必须设置密码信息！')
+        if auth_type == 'private_key' and len(private_key) == 0:
+            raise forms.ValidationError('认证类型为[密钥]时，必须设置密钥信息！')

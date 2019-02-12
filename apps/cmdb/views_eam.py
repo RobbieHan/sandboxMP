@@ -1,12 +1,16 @@
-from django.views.generic import TemplateView
+import re
+
+from django.views.generic import TemplateView, View
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+from django.shortcuts import render
 
 from system.mixin import LoginRequiredMixin
 from custom import (BreadcrumbMixin, SandboxDeleteView,
                     SandboxListView, SandboxUpdateView, SandboxCreateView)
-from .models import Cabinet, DeviceInfo, Code
-from .forms import DeviceCreateForm, DeviceUpdateForm
+from .models import Cabinet, DeviceInfo, Code, ConnectionInfo
+from .forms import DeviceCreateForm, DeviceUpdateForm, ConnectionInfoForm
 
 User = get_user_model()
 
@@ -118,3 +122,39 @@ class DeviceUpdateView(SandboxUpdateView):
 
 class DeviceDeleteView(SandboxDeleteView):
     model = DeviceInfo
+
+
+class Device2ConnectionView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        ret = dict()
+        if 'id' in request.GET and request.GET['id']:
+            device = get_object_or_404(DeviceInfo, pk=int(request.GET['id']))
+            ret['device'] = device
+            dev_connection = device.dev_connection
+            if dev_connection:
+                connection_info = get_object_or_404(
+                    ConnectionInfo, pk=int(dev_connection)
+                )
+                ret['connection_info'] = connection_info
+        return render(request, 'cmdb/deviceinfo2connection.html', ret)
+
+    def post(self, request):
+        res = dict(result=False)
+        con_info = ConnectionInfo()
+        if 'id' in request.POST and request.POST['id']:
+            con_info = get_object_or_404(ConnectionInfo, pk=request.POST['id'])
+        form = ConnectionInfoForm(request.POST, instance=con_info)
+        if form.is_valid():
+            instance = form.save()
+            con_id = getattr(instance, 'id')
+            device = get_object_or_404(DeviceInfo, hostname=request.POST['hostname'])
+            device.dev_connection = con_id
+            device.save()
+            res['result'] = True
+        else:
+            pattern = '<li>.*?<ul class=.*?><li>(.*?)</li>'
+            form_errors = str(form.errors)
+            errors = re.findall(pattern, form_errors)
+            res['error'] = errors[0]
+        return JsonResponse(res)

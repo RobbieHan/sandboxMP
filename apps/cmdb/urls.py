@@ -32,5 +32,5 @@ urlpatterns = [
     path('eam/device/update/', views_eam.DeviceUpdateView.as_view(), name='eam-device-update'),
     path('eam/device/list/', views_eam.DeviceListView.as_view(), name='eam-device-list'),
     path('eam/device/delete/', views_eam.DeviceDeleteView.as_view(), name='eam-device-delete'),
-
+    path('eam/device/device2connection/', views_eam.Device2ConnectionView.as_view(), name='eam-device-device2connection'),
 ]

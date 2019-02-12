@@ -325,5 +325,19 @@
         oDataTable.ajax.reload();
     });
 
+
+    function doDevice2Connection(id) {
+          layer.open({
+            type: 2,
+            title: '认证管理',
+            shadeClose: false,
+            maxmin: true,
+            area: ['800px', '400px'],
+            content: ["{% url 'cmdb:eam-device-device2connection' %}" + '?id=' + id, 'no'],
+            end: function () {
+                oDataTable.ajax.reload();
+            }
+        });
+        }
 </script>
 {% endblock %}

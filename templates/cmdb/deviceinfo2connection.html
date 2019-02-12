@@ -1,0 +1,108 @@
+{% extends 'base-layer.html' %}
+{% load staticfiles %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <!-- iCheck for checkboxes and radio inputs -->
+{% endblock %}
+{% block main %}
+    <div class="box box-danger">
+        <form class="form-horizontal" id="addForm" method="post">
+            <input type="hidden" name='id' value="{{ connection_info.id }}" />
+            <input type="hidden" name='hostname' value="{{ device.hostname }}" />
+            {% csrf_token %}
+            <div class="box-body">
+                <fieldset>
+                    <legend>
+                        <h4>关联设备：{{ device.sys_hostname }}({{ device.hostname }})</h4>
+                    </legend>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" name="username" type="text" value="{{ connection_info.username }}"/>
+                        </div>
+                    <label class="col-sm-2 control-label">认证类型</label>
+                    <div class="col-sm-3">
+                      <select class="form-control select2" style="width:100%;" name="auth_type">
+                      <option value="password" {% ifequal connection_info.auth_type 'password' %}selected="selected"{% endifequal %}>密码</option>
+                      <option value="private_key" {% ifequal connection_info.auth_type 'private_key' %}selected="selected"{% endifequal %}>密钥</option>
+                     </select>
+                    </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" name="password" type="password" value="{{ connection_info.password }}"/>
+                        </div>
+                        <label class="col-sm-2 control-label">密钥</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" name="private_key" type="text" value="{{ connection_info.private_key }}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label">端口</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" name="port" type="text" value="{{ connection_info.port }}"/>
+                        </div>
+                        <label class="col-sm-2 control-label">状态</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" name="status" type="text" value="{{ connection_info.status }}" readonly/>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+            <div class="box-footer ">
+                <div class="row span7 text-center ">
+                    <button type="button" id="btnCancel" class="btn btn-default margin-right ">重置</button>
+                    <button type="button" id="btnSave" class="btn btn-info margin-right ">保存</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script type="text/javascript">
+
+
+    $("#btnSave").click(function () {
+        var data = $("#addForm").serialize();
+        $.ajax({
+            type: $("#addForm").attr('method'),
+            url: "{% url 'cmdb:eam-device-device2connection' %}",
+            data: data,
+            cache: false,
+            success: function (msg) {
+                if (msg.result) {
+                    layer.alert('数据保存成功！', {icon: 1}, function (index) {
+                        parent.layer.closeAll(); //关闭所有弹窗
+                    });
+                } else {
+                    layer.alert(msg.error, {icon: 5});
+                    //$('errorMessage').html(msg.message)
+                }
+                return;
+            }
+        });
+    });
+
+
+        /*点取消刷新新页面*/
+        $("#btnCancel").click(function () {
+            window.location.reload();
+
+        });
+
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+        });
+
+    </script>
+
+{% endblock %}
