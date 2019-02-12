@@ -20,7 +20,7 @@ class AbstractMode(models.Model):
 class Code(AbstractMode):
     key = models.CharField(max_length=80, verbose_name='键')
     value = models.CharField(max_length=80, verbose_name='值')
-    desc = models.BooleanField(default=True, verbose_name='备注')
+    desc = models.CharField(max_length=100, blank=True, default='', verbose_name='备注')
 
     class Meta:
         verbose_name = '字典'
