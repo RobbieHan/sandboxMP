@@ -1,0 +1,192 @@
+{% extends "base-left.html" %}
+{% load staticfiles %}
+{% load extra_tags %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <section class="content">
+
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#activity" data-toggle="tab">设备详情</a></li>
+              <li><a href="#history" data-toggle="tab">历史纪录</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="activity">
+                <div class="box-body no-padding">
+                    <div class="btn-group pull-right margin">
+                        <button type="button" class="btn btn-primary btn-sm margin-r-5"
+                                onclick="doUpload({{ device.id }})">
+                            <i class="fa fa-cloud-upload"> 上传资料</i>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm margin-r-5" title="认证管理" onclick="doDevice2Connection({{ device.id }})">
+                            <i class="fa fa-user"> 认证管理</i>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm margin-r-5" title="自动更新" onclick="doAutoUpdate({{ device.id }})">
+                            <i class="fa fa-circle-o-notch"> 自动更新</i>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm margin-r-5" title="编辑" onclick="doUpdate({{ device.id }})">
+                            <i class="fa fa-pencil"> 编辑</i>
+                        </button>
+                        <button type="button" id="btnReturn" class="btn btn-primary btn-sm">
+                            <i class="fa fa-arrow-left"></i> 返回
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive mailbox-messages">
+                    <table class="table" id="tbWorkList" style="white-space: nowrap;">
+                        <tbody>
+                        <tr class="info">
+                            <td width="10%"><strong>主机名</strong></td>
+                            <td class="text-left">{{ device.sys_hostname }}</td>
+                            <td width="10%"><strong>SN编号</strong></td>
+                            <td class="text-left">{{ device.sn_number }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>系统类型</strong></td>
+                            <td>{{ device.os_type }}</td>
+                            <td><strong>设备类型</strong></td>
+                            <td>{{ device.device_type }}</td>
+                        </tr>
+                        <tr class="info">
+                            <td><strong>设备地址</strong></td>
+                            <td>{{ device.hostname }}</td>
+                            <td><strong>MAC地址</strong></td>
+                            <td>{{ device.mac_address }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>网络类型</strong></td>
+                            <td>{% get_con all_code device.network_type 'value' %}</td>
+                            <td><strong>服务类型</strong></td>
+                            <td>{% get_con all_code device.service_type 'value' %}</td>
+                        </tr>
+                        <tr class="info">
+                            <td><strong>业务类型</strong></td>
+                            <td>{% get_con all_code device.operation_type 'value' %}</td>
+                            <td><strong>机柜信息</strong></td>
+                            <td>{% get_con all_cabinet device.dev_cabinet 'number' %}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>购买日期</strong></td>
+                            <td>{{ device.buyDate }}</td>
+                            <td><strong>质保日期</strong></td>
+                            <td>{{ device.warrantyDate }}</td>
+                        </tr>
+                        <tr class="info">
+                            <td><strong>所属</strong></td>
+                            <td>{% if device.parent %}
+                                {{ device.parent.sys_hostname }}({{ device.parent.hostname }})
+                                {% endif %}
+                            </td>
+                            <td><strong>责任人</strong></td>
+                            <td>{% get_con all_user device.leader 'name' %}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>入库时间</strong></td>
+                            <td>{{ device.add_time }}</td>
+                            <td><strong>最后变更</strong></td>
+                            <td>{{ device.modify_time }}</td>
+                        </tr>
+                        <tr class="info">
+                            <td><strong>最后操作人</strong></td>
+                            <td>{{ device.changed_by.name }}</td>
+                            <td><strong></strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>备注信息</strong></td>
+                            <td colspan="3">{{ device.desc }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class="box-footer">
+
+                    <ul class="mailbox-attachments clearfix" id="imageContainer">
+                        {% for file in all_file %}
+                            <li class="imageItem">
+                                <div class="mailbox-attachment-info">
+                                    <a href="/media/{{ file.file_content }}" target="_blank"><i
+                                            class="fa fa-file-text"></i>
+                                        <small>{{ file.file_content|cut:'asset_file/' }}</small>
+                                    </a>
+                                    <span class="mailbox-attachment-size">
+                                      <b>上传人</b>：{{ file.upload_user }}
+                                      <a href="/media/{{ file.file_content }}" download="{{ file.file_content }}"
+                                         class="btn btn-primary btn-xs pull-right">
+                                          <i class="fa fa-cloud-download" title="下载文件"></i>
+                                      </a>
+                                      <button class="btn btn-adn btn-xs pull-right margin-r-5"
+                                              onclick="doDelete({{ file.id }})">
+                                          <i class="fa fa-trash" title="删除文件"> </i>
+                                      </button>
+                                    </span>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="history">
+                <div class="box-body">
+                    <ul class="todo-list">
+                        {% for log in logs %}
+                        <li>
+                          <!-- drag handle -->
+                              <span class="handle">
+                                <small class="text-maroon">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                    {{ log.history_date }}
+                                    &nbsp;&nbsp;
+                                    {{ log.changed_by }}
+                                    &nbsp;&nbsp;
+                                    {{ log.history_type }}
+                                </small>
+                              </span>
+                            <span class="text-sm">
+                                {{ log.changes | compare_result }}
+                            </span>
+                            <!--
+                            <button class="btn btn-xs btn-danger pull-right">还原数据</button>
+                            -->
+                        </li>
+                        {% endfor %}
+                  </ul>
+                </div>
+              </div>
+
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+  </section>
+
+    <!-- /.content -->
+
+{% endblock %}
+
+{% block javascripts %}
+  <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+  <script src="{% static 'plugins/masonry/masonry.js' %}"></script>
+  <script type="text/javascript">
+    $(function () {
+        $('#CMDB-EAM').addClass('active');
+        $('#CMDB-EAM-DEVICE').addClass('active');
+
+    });
+
+    $("#btnReturn").click(function(){
+		history.back();
+	});
+
+
+
+  </script>
+
+{% endblock %}

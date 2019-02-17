@@ -11,6 +11,7 @@ from custom import (BreadcrumbMixin, SandboxDeleteView,
                     SandboxListView, SandboxUpdateView, SandboxCreateView)
 from .models import Cabinet, DeviceInfo, Code, ConnectionInfo
 from .forms import DeviceCreateForm, DeviceUpdateForm, ConnectionInfoForm
+from utils.db_utils import MongodbDriver
 
 User = get_user_model()
 
@@ -158,3 +159,19 @@ class Device2ConnectionView(LoginRequiredMixin, View):
             errors = re.findall(pattern, form_errors)
             res['error'] = errors[0]
         return JsonResponse(res)
+
+
+class DeviceDetailView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
+    template_name = 'cmdb/deviceinfo_detail.html'
+
+    def get_context_data(self, **kwargs):
+        device = get_object_or_404(DeviceInfo, pk=int(self.request.GET['id']))
+        mongo = MongodbDriver()
+        logs = mongo.find(id=int(self.request.GET['id']), sort_by='history_date')
+        all_file = device.devicefile_set.all()
+        device_public = get_device_public()
+        kwargs['device'] = device
+        kwargs['logs'] = logs
+        kwargs['all_file'] = all_file
+        kwargs.update(device_public)
+        return super().get_context_data(**kwargs)

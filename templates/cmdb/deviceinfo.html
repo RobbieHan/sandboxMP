@@ -339,5 +339,9 @@
             }
         });
         }
+
+    function doDetail(id){
+        window.location.href="{% url 'cmdb:eam-device-detail' %}?id="+id;
+    }
 </script>
 {% endblock %}
