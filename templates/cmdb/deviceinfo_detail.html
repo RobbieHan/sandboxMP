@@ -185,8 +185,132 @@
 		history.back();
 	});
 
+    // 资产文件瀑布流
 
+    $('#imageContainer').masonry({
+        columnWidth: 10,
+        itemSelector: '.imageItem'
+    });
 
+    //上传资料
+    function doUpload(id) {
+        var div = layer.open({
+            type: 2,
+            title: '上传设备文件',
+            shadeClose: false,
+            maxmin: true,
+            area: ['770px', '400px'],
+            content: ["/cmdb/eam/device/upload/" + '?id=' + id],
+            end: function () {
+                window.location.reload();
+
+            }
+        });
+        layer.full(div)
+    }
+
+    //删除文件
+    function doDelete(id) {
+        layer.alert('确定删除吗？', {
+            title: '提示'
+            , icon: 3
+            , time: 0
+            , btn: ['YES', 'NO']
+            , yes: function (index) {
+                layer.close(index);
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'cmdb:eam-device-file_delete' %}",
+                    data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    cache: false,
+                    success: function (msg) {
+                        if (msg.result) {
+                            layer.alert('删除成功', {icon: 1}, function () {
+                                parent.location.reload()
+                            });
+                        } else {
+                            //alert(msg.message);
+                            layer.alert('删除失败', {icon: 2});
+                        }
+                        return;
+                    }
+                });
+            }
+        });
+
+    }
+
+    //自动更新设备信息
+    function doAutoUpdate(id) {
+        layer.alert('确定自动更新设备信息？', {
+            title: '提示'
+            , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+            , time: 0 //不自动关闭
+            , btn: ['YES', 'NO']
+            , yes: function (index) {
+                layer.close(index);
+                $.ajax({
+                    type: "POST",
+                    data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    url: "{% url 'cmdb:eam-device-auto_update_device_info' %}",
+                    cache: false,
+                beforeSend:function(){
+                    this.layerIndex = layer.load(2, {
+                        shade: [0.1,'#fff']
+                        });
+                    },
+                success: function (msg) {
+                    layer.closeAll('loading');
+                    if (msg.status == 'success') {
+                        layer.alert('设备信息更新成功！', {icon: 1}, function(){
+                            parent.location.reload()
+                        });
+                    }
+                    else if (msg.status == 'con_empty') {
+                        layer.alert('请先添加认证信息！', {icon: 4});
+
+                    }
+                    else {
+                        //alert(msg.message);
+                        layer.alert('设备信息更新失败！', {icon: 2});
+                    }
+                    return;
+                }
+
+                });
+            }
+        });
+    }
+
+   //修改数据
+    function doUpdate(id) {
+        var div=layer.open({
+            type: 2,
+            title: '编辑',
+            shadeClose: false,
+            maxmin: true,
+            area: ['800px', '400px'],
+            content: ["{% url 'cmdb:eam-device-update' %}" + '?id=' + id, 'no'],
+            end: function () {
+                window.location.reload();
+            }
+        });
+        layer.full(div )
+    }
+
+   function doDevice2Connection(id) {
+      layer.open({
+        type: 2,
+        title: '认证管理',
+        shadeClose: false,
+        maxmin: true,
+        area: ['800px', '400px'],
+        content: ["{% url 'cmdb:eam-device-device2connection' %}" + '?id=' + id, 'no'],
+        end: function () {
+            oDataTable.ajax.reload();
+        }
+    });
+    }
   </script>
 
 {% endblock %}

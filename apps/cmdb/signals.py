@@ -3,7 +3,7 @@ import os
 from django.dispatch import receiver
 from django.db.models.signals import post_delete, post_save
 
-from .models import DeviceFile, DeviceInfo
+from .models import DeviceFile, DeviceInfo, ConnectionInfo
 from utils.db_utils import MongodbDriver
 
 
@@ -37,3 +37,10 @@ def auto_compare_diff(sender, instance, **kwargs):
             mongo.insert(compare_result)
         except Exception as e:
             pass
+
+
+@receiver(post_delete, sender=DeviceInfo)
+def auto_delete_connection(sender, instance, **kwargs):
+    dev_connection = getattr(instance, 'dev_connection')
+    if dev_connection:
+        ConnectionInfo.objects.filter(id=dev_connection).delete()

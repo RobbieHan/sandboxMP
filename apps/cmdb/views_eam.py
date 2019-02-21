@@ -5,13 +5,15 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.forms.models import model_to_dict
 
 from system.mixin import LoginRequiredMixin
 from custom import (BreadcrumbMixin, SandboxDeleteView,
                     SandboxListView, SandboxUpdateView, SandboxCreateView)
-from .models import Cabinet, DeviceInfo, Code, ConnectionInfo
-from .forms import DeviceCreateForm, DeviceUpdateForm, ConnectionInfoForm
+from .models import Cabinet, DeviceInfo, Code, ConnectionInfo, DeviceFile
+from .forms import DeviceCreateForm, DeviceUpdateForm, ConnectionInfoForm, DeviceFileUploadForm
 from utils.db_utils import MongodbDriver
+from utils.sandbox_utils import LoginExecution
 
 User = get_user_model()
 
@@ -175,3 +177,59 @@ class DeviceDetailView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
         kwargs['all_file'] = all_file
         kwargs.update(device_public)
         return super().get_context_data(**kwargs)
+
+
+class DeviceFileUploadView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        ret = dict()
+        device = get_object_or_404(DeviceInfo, pk=request.GET['id'])
+        ret['device'] = device
+        return render(request, 'cmdb/deviceinfo_upload.html', ret)
+
+    def post(self, request):
+        res = dict(result=False)
+        device_file = DeviceFile()
+        upload_form = DeviceFileUploadForm(
+            request.POST, request.FILES, instance=device_file
+        )
+        if upload_form.is_valid():
+            upload_form.save()
+            res['result'] = True
+        return JsonResponse(res)
+
+
+class DeviceFileDeleteView(SandboxDeleteView):
+    model = DeviceFile
+
+
+class AutoUpdateDeviceInfo(LoginRequiredMixin, View):
+
+    def post(self, request):
+        res = dict(status='fail')
+        if 'id' in request.POST and request.POST['id']:
+            device = get_object_or_404(DeviceInfo, pk=int(request.POST['id']))
+            con_id = device.dev_connection
+            conn = ConnectionInfo.objects.filter(id=con_id)
+            if con_id and conn:
+                try:
+                    conn_info = conn.get()
+                    kwargs = model_to_dict(conn_info, exclude=['id', 'auth_type'])
+                    auth_type = conn_info.auth_type
+                    le = LoginExecution()
+                    data = le.login_execution(auth_type=auth_type, **kwargs)
+                    conn_info.status = data['status']
+                    conn_info.save()
+                    if data['status'] == 'succeed':
+                        device.sys_hostname = data['sys_hostname']
+                        device.mac_address = data['mac_address']
+                        device.sn_number = data['sn_number']
+                        device.os_type = data['os_type']
+                        device.device_type = data['device_type']
+                        device.save()
+                        res['status'] = 'success'
+                except conn.model.DoesNotExist:
+                    res['status'] = 'con_empty'
+            else:
+                res['status'] = 'con_empty'
+        return JsonResponse(res)

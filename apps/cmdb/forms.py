@@ -4,7 +4,7 @@
 
 from django import forms
 
-from .models import Code, DeviceInfo, ConnectionInfo
+from .models import Code, DeviceInfo, ConnectionInfo, DeviceFile
 
 
 class CodeCreateForm(forms.ModelForm):
@@ -97,3 +97,9 @@ class ConnectionInfoForm(forms.ModelForm):
             raise forms.ValidationError('认证类型为[密码]时，必须设置密码信息！')
         if auth_type == 'private_key' and len(private_key) == 0:
             raise forms.ValidationError('认证类型为[密钥]时，必须设置密钥信息！')
+
+
+class DeviceFileUploadForm(forms.ModelForm):
+    class Meta:
+        model = DeviceFile
+        fields = '__all__'
