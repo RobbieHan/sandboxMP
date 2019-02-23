@@ -20,7 +20,7 @@ class AbstractMode(models.Model):
 class Code(AbstractMode):
     key = models.CharField(max_length=80, verbose_name='键')
     value = models.CharField(max_length=80, verbose_name='值')
-    desc = models.BooleanField(default=True, verbose_name='备注')
+    desc = models.CharField(max_length=100, blank=True, default='', verbose_name='备注')
 
     class Meta:
         verbose_name = '字典'
@@ -53,11 +53,11 @@ class ConnectionAbstract(models.Model):
 
 
 class DeviceAbstract(models.Model):
-    sys_hostname = models.CharField(max_length=50, blank=True, default='', verbose_name='主机名')
-    mac_address = models.CharField(max_length=50, blank=True, default='', verbose_name='MAC地址')
-    sn_number = models.CharField(max_length=50, blank=True, default='', verbose_name='SN号码')
-    os_type = models.CharField(max_length=50, blank=True, default='', verbose_name='系统类型')
-    device_type = models.CharField(max_length=50, blank=True, default='', verbose_name='设备类型')
+    sys_hostname = models.CharField(max_length=150, blank=True, default='', verbose_name='主机名')
+    mac_address = models.CharField(max_length=150, blank=True, default='', verbose_name='MAC地址')
+    sn_number = models.CharField(max_length=150, blank=True, default='', verbose_name='SN号码')
+    os_type = models.CharField(max_length=150, blank=True, default='', verbose_name='系统类型')
+    device_type = models.CharField(max_length=150, blank=True, default='', verbose_name='设备类型')
 
     class Meta:
         abstract = True
@@ -100,7 +100,7 @@ class DeviceInfo(AbstractMode, DeviceAbstract, TimeAbstract):
     warrantyDate = models.DateField(default=datetime.now, verbose_name="到保日期")
     desc = models.TextField(blank=True, default='', verbose_name='备注信息')
     changed_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
-    history = HistoricalRecords(excluded_fields=['add_time', 'modify_time'])
+    history = HistoricalRecords(excluded_fields=['add_time', 'modify_time', 'parent'])
 
     class Meta:
         verbose_name = '设备信息'

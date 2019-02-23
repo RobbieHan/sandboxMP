@@ -1,0 +1,221 @@
+{% extends 'base-layer.html' %}
+{% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" href="{%static 'plugins/select2/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="box box-danger">
+	<form class="form-horizontal" id="addForm" method="post">
+        <input type="hidden" name='id' value="{{ deviceinfo.id }}" />
+        <input type="hidden" name='changed_by' value="{{ request.user.id }}" />
+		{% csrf_token %}
+		<div class="box-body">
+          <fieldset>
+            <legend>
+            </legend>
+            <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">主机名</label>
+                <div class="col-sm-3">
+                    <input class="form-control" name="sys_hostname" type="text" value="{{ deviceinfo.sys_hostname }}" />
+                </div>
+                <label class="col-sm-2 control-label">SN编号</label>
+                <div class="col-sm-3">
+                    <input class="form-control" name="sn_number" type="text" value="{{ deviceinfo.sn_number }}" />
+                </div>
+            </div>
+
+            <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">系统类型</label>
+                <div class="col-sm-3">
+                    <input class="form-control" name="os_type" type="text" value="{{ deviceinfo.os_type }}" />
+                </div>
+                <label class="col-sm-2 control-label">设备类型</label>
+                <div class="col-sm-3">
+                    <input class="form-control" name="device_type" type="text" value="{{ deviceinfo.device_type }}"/>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">设备地址</label>
+                <div class="col-sm-3">
+                    <input class="form-control" name="hostname" type="text" value="{{ deviceinfo.hostname }}" />
+                </div>
+                <label class="col-sm-2 control-label">MAC地址</label>
+                <div class="col-sm-3">
+                    <input class="form-control" name="mac_address" type="text" value="{{ deviceinfo.mac_address }}"/>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">网络类型</label>
+                <div class="col-sm-3">
+                  <select class="form-control select2" style="width:100%;" name="network_type">
+                  <option {% ifequal deviceinfo.network_type '' %}selected="selected"{% endifequal %}></option>
+                  {% for code in all_code %}
+                      {% ifequal code.parent.key 'NETWORK_TYPE' %}
+                        <option value="{{ code.id }}" {% ifequal deviceinfo.network_type code.id %}selected="selected"{% endifequal %}>
+                            {{ code.value }}</option>
+                      {% endifequal %}
+                  {% endfor %}
+                 </select>
+                </div>
+                <label class="col-sm-2 control-label">服务类型</label>
+                <div class="col-sm-3">
+                  <select class="form-control select2" style="width:100%;" name="service_type">
+                  <option {% ifequal deviceinfo.service_type '' %}selected="selected"{% endifequal %}></option>
+                  {% for code in all_code %}
+                      {% if code.parent.key == 'SERVICE_TYPE' %}
+                        <option value="{{ code.id }}" {% ifequal deviceinfo.service_type code.id %}selected="selected"{% endifequal %}>
+                            {{ code.value }}</option>
+                      {% endif %}
+                  {% endfor %}
+                 </select>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">业务类型</label>
+                <div class="col-sm-3">
+                  <select class="form-control select2" style="width:100%;" name="operation_type">
+                  <option {% ifequal deviceinfo.operation_type '' %}selected="selected"{% endifequal %}></option>
+                  {% for code in all_code %}
+                      {% if code.parent.key == 'OPERATION_TYPE' %}
+                        <option value="{{ code.id }}" {% ifequal deviceinfo.operation_type code.id %}selected="selected"{% endifequal %}>
+                            {{ code.value }}</option>
+                      {% endif %}
+                  {% endfor %}
+                 </select>
+                </div>
+                <label class="col-sm-2 control-label">机柜信息</label>
+                <div class="col-sm-3">
+                  <select class="form-control select2" style="width:100%;" name="dev_cabinet">
+                  <option {% ifequal deviceinfo.dev_cabinet '' %}selected="selected"{% endifequal %}></option>
+                  {% for cabinet in all_cabinet %}
+                    <option value="{{ cabinet.id }}" {% ifequal deviceinfo.dev_cabinet cabinet.id %}selected="selected"{% endifequal %}>
+                        {{ cabinet.number }}</option>
+                  {% endfor %}
+                 </select>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">购买日期</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control pull-right form_datetime" name="buyDate"
+                           value="{{ deviceinfo.buyDate | date:'Y-m-d' }}" readonly/>
+                </div>
+                <label class="col-sm-2 control-label">质保日期</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control pull-right form_datetime" name="warrantyDate"
+                           value="{{ deviceinfo.warrantyDate | date:'Y-m-d' }}" readonly/>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">所属</label>
+                <div class="col-sm-3">
+                  <select class="form-control select2" style="width:100%;" name="parent">
+                  <option {% ifequal deviceinfo.parent_id '' %}selected="selected"{% endifequal %}></option>
+                  {% for device in all_device %}
+                  <option value="{{ device.id }}" {% ifequal deviceinfo.parent_id device.id %}selected="selected"{% endifequal %}>
+                      {{ device.sys_hostname }}({{ device.hostname }})</option>
+                  {% endfor %}
+                 </select>
+                </div>
+                <label class="col-sm-2 control-label">责任人</label>
+                <div class="col-sm-3">
+                  <select class="form-control select2" style="width:100%;" name="leader">
+                  <option {% ifequal deviceinfo.leader '' %}selected="selected"{% endifequal %}></option>
+                  {% for u in all_user %}
+                  <option value="{{ u.id }}" {% ifequal deviceinfo.leader u.id %}selected="selected"{% endifequal %}>
+                      {{ u.name }}</option>
+                  {% endfor %}
+                 </select>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">备注信息</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" name="desc" rows="5" >{{ deviceinfo.desc }}</textarea>
+                </div>
+            </div>
+
+          </fieldset>
+		</div>
+		<div class="box-footer ">
+			<div class="row span7 text-center ">
+              <button type="button" id="btnCancel" class="btn btn-default margin-right " >重置</button>
+              <button type="button" id="btnSave" class="btn btn-info margin-right " >保存</button>
+			</div>
+		</div>
+
+	</form>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+<script type="text/javascript">
+
+    function getUrl() {
+        if ($("input[name='id']").val()) {
+            var url = "{% url 'cmdb:eam-device-update' %}";
+        } else {
+            var url = "{% url 'cmdb:eam-device-create' %}";
+        }
+        return url
+        }
+
+    $("#btnSave").click(function () {
+        var data = $("#addForm").serialize();
+        $.ajax({
+            type: $("#addForm").attr('method'),
+            url: getUrl(),
+            data: data,
+            cache: false,
+            success: function (msg) {
+                if (msg.result) {
+                    layer.alert('数据保存成功！', {icon: 1}, function (index) {
+                        parent.layer.closeAll(); //关闭所有弹窗
+                    });
+                } else {
+                    layer.alert(msg.error, {icon: 5});
+                    //$('errorMessage').html(msg.message)
+                }
+                return;
+            }
+        });
+    });
+
+	/*点取消刷新新页面*/
+    $("#btnCancel").click(function () {
+	    window.location.reload();
+
+    })
+
+
+/*input 时间输入选择*/
+    $(".form_datetime").datetimepicker({
+            language:  'zh',
+            minView: 'month', //选择范围知道日期，不选择时分
+            //weekStart: 1,
+            //todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            //startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            format: 'yyyy-mm-dd'
+        }).on('changeDate', function (ev) {
+            $(this).datetimepicker('hide');
+    });
+
+// select2
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+  });
+</script>
+
+{% endblock %}
