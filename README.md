@@ -534,9 +534,9 @@ avail  exit   maintail  pid   reload  reread  shutdown  status  tail  version
 
 # 3 将项目部署上线
 
-项目部署使用uwsgi来做Web服务，Nginx做代理并提供静态资源访问和简单缓存功能。一般项部署项目上线，我会分步骤进行，这样在遇到问题也清楚是哪一个环节出的问题，可以有针对性的进行排错。
+项目部署使用uwsgi来做Web服务，Nginx做代理并提供静态资源访问和简单缓存功能。一般项部署项目上线，我会分步骤进行，这样在遇到问题也清楚是哪一个环节出的问题，可以有针对性的进行排错。部署过程如下图所示：
 
-![image](https://note.youdao.com/yws/public/resource/a1d5666dbb08d64e54f62356db53a052/xmlnote/528B854C93FC4AE492CAC9815D878822/36874)
+![image](https://raw.githubusercontent.com/RobbieHan/sandboxMP/05b1cc666595bf41a24de5d6a4d56e48d7089c18/document/images/stepww.png)
 
 ## 3.1 使用uwsgi运行项目
 
