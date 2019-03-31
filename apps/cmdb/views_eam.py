@@ -10,7 +10,8 @@ from django.forms.models import model_to_dict
 from system.mixin import LoginRequiredMixin
 from custom import (BreadcrumbMixin, SandboxDeleteView,
                     SandboxListView, SandboxUpdateView, SandboxCreateView)
-from .models import Cabinet, DeviceInfo, Code, ConnectionInfo, DeviceFile
+from .models import (Cabinet, DeviceInfo, Code, ConnectionInfo, DeviceFile,
+                     Supplier)
 from .forms import DeviceCreateForm, DeviceUpdateForm, ConnectionInfoForm, DeviceFileUploadForm
 from utils.db_utils import MongodbDriver
 from utils.sandbox_utils import LoginExecution
@@ -75,7 +76,7 @@ class DeviceView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
 
 class DeviceListView(SandboxListView):
     model = DeviceInfo
-    fields = ['id', 'sys_hostname', 'sn_number', 'os_type', 'device_type', 'hostname', 'mac_address', 'leader']
+    fields = ['id', 'sys_hostname', 'hostname', 'service_type', 'operation_type', 'config', 'dev_cabinet', 'network_type']
 
     def get_filters(self):
         data = self.request.GET
@@ -90,18 +91,23 @@ class DeviceListView(SandboxListView):
             filters['service_type'] = data['service_type']
         if 'operation_type' in data and data['operation_type']:
             filters['operation_type'] = data['operation_type']
+        if 'dev_cabinet' in data and data['dev_cabinet']:
+            filters['dev_cabinet'] = data['dev_cabinet']
         return filters
 
     def get_datatables_paginator(self, request):
         context_data = super().get_datatables_paginator(request)
         data = context_data['data']
         for device in data:
-            user_id = device['leader']
-            device['leader'] = get_object_or_404(
-                User, pk=int(user_id)).name if user_id else ''
+            service_type = device['service_type']
+            operation_type = device['operation_type']
+            dev_cabinet = device['dev_cabinet']
+            network_type = device['network_type']
+            device['operation_type'] = get_object_or_404(Code, pk=int(operation_type)).value if operation_type else ''
+            device['network_type'] = get_object_or_404(Code, pk=int(network_type)).value if network_type else ''
+            device['service_type'] = get_object_or_404(Code, pk=int(service_type)).value if service_type else ''
+            device['dev_cabinet'] = get_object_or_404(Cabinet, pk=int(dev_cabinet)).number if dev_cabinet else ''
         return context_data
-
-
 class DeviceCreateView(SandboxCreateView):
     model = DeviceInfo
     form_class = DeviceCreateForm
@@ -233,3 +239,35 @@ class AutoUpdateDeviceInfo(LoginRequiredMixin, View):
             else:
                 res['status'] = 'con_empty'
         return JsonResponse(res)
+
+
+class SupplierView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
+    template_name = 'cmdb/supplier.html'
+
+
+class SupplierCreateView(SandboxCreateView):
+    model = Supplier
+    fields = '__all__'
+
+
+class SupplierUpdateView(SandboxUpdateView):
+    model = Supplier
+    fields = '__all__'
+
+
+class SupplierListView(SandboxListView):
+    model = Supplier
+    fields = '__all__'
+
+    def get_filters(self):
+        data = self.request.GET
+        filters = {}
+        if 'number' in data and data['number']:
+            filters['number__icontains'] = data['number']
+        if 'position' in data and data['position']:
+            filters['position__icontains'] = data['position']
+        return filters
+
+
+class SupplierDeleteView(SandboxDeleteView):
+    model = Supplier

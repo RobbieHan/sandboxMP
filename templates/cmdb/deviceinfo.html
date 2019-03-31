@@ -66,13 +66,24 @@
                         </select>
                     </div>
                     <div class="form-group searchArea margin-r-5 margin-top-5">
-                        <label>业务类型：</label>
+                        <label>所属项目：</label>
                         <select class="form-control inputText select2" name="operation_type" , id="operation_type">
                           <option></option>
                           {% for code in all_code %}
                               {% if code.parent.key == 'OPERATION_TYPE' %}
                                 <option value="{{ code.id }}">{{ code.value }}</option>
                               {% endif %}
+                          {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group searchArea margin-r-5 margin-top-5">
+                        <label>机柜信息：</label>
+                        <select class="form-control inputText select2" name="dev_cabinet" , id="dev_cabinet">
+                          <option></option>
+                          {% for cabinet in all_cabinet %}
+
+                                <option value="{{ cabinet.id }}">{{ cabinet.number }}</option>
+
                           {% endfor %}
                         </select>
                     </div>
@@ -89,12 +100,12 @@
                         <th><input type="checkbox" id="checkAll"></th>
                         <th>ID</th>
                         <th>主机名</th>
-                        <th>SN编号</th>
-                        <th>系统类型</th>
-                        <th>设备类型</th>
-                        <th>设备地址</th>
-                        <th>MAC地址</th>
-                        <th>责任人</th>
+                        <th>IP地址</th>
+                        <th>服务类型</th>
+                        <th>所属项目</th>
+                        <th>配置信息</th>
+                        <th>机柜信息</th>
+                        <th>网络类型</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -146,6 +157,7 @@
                                 d.network_type = $("#network_type").val();
                                 d.service_type = $("#service_type").val();
                                 d.operation_type = $("#operation_type").val();
+                                d.dev_cabinet = $("#dev_cabinet").val();
                             }
                     },
                     columns: [
@@ -158,22 +170,22 @@
                             data: "sys_hostname",
                         },
                         {
-                            data: "sn_number",
-                        },
-                        {
-                            data: "os_type",
-                        },
-                        {
-                            data: "device_type",
-                        },
-                        {
                             data: "hostname",
                         },
                         {
-                            data: "mac_address",
+                            data: "service_type",
                         },
                         {
-                            data: "leader",
+                            data: "operation_type",
+                        },
+                        {
+                            data: "config",
+                        },
+                        {
+                            data: "dev_cabinet",
+                        },
+                        {
+                            data: "network_type",
                         },
                         {
                             data: "id",

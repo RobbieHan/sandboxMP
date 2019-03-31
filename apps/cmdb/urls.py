@@ -38,4 +38,10 @@ urlpatterns = [
     path('eam/device/file_delete/', views_eam.DeviceFileDeleteView.as_view(), name='eam-device-file_delete'),
     path('eam/device/auto_update_device_info/', views_eam.AutoUpdateDeviceInfo.as_view(),
          name='eam-device-auto_update_device_info'),
+
+    path('eam/supplier/', views_eam.SupplierView.as_view(), name='eam-supplier'),
+    path('eam/supplier/create/', views_eam.SupplierCreateView.as_view(), name='eam-supplier-create'),
+    path('eam/supplier/update/', views_eam.SupplierUpdateView.as_view(), name='eam-supplier-update'),
+    path('eam/supplier/list/', views_eam.SupplierListView.as_view(), name='eam-supplier-list'),
+    path('eam/supplier/delete/', views_eam.SupplierDeleteView.as_view(), name='eam-supplier-delete'),
 ]

@@ -25,7 +25,8 @@ User = get_user_model()
 class IndexView(LoginRequiredMixin, View):
 
     def get(self, request):
-        return render(request, 'index.html')
+        #return render(request, 'index.html')
+        return HttpResponseRedirect('/cmdb/')
 
 
 class LoginView(View):
@@ -34,10 +35,10 @@ class LoginView(View):
         if not request.user.is_authenticated:
             return render(request, 'system/users/login.html')
         else:
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/cmdb/')
 
     def post(self, request):
-        redirect_to = request.GET.get('next', '/')
+        redirect_to = request.GET.get('next', '/cmdb/')
         login_form = LoginForm(request.POST)
         ret = dict(login_form=login_form)
         print(request.META.get('REMOTE_ADDR'))

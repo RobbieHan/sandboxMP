@@ -27,8 +27,6 @@ def get_change_compare(changes):
             log = replace_log(key, value, Code, 'value')
         elif key == 'dev_cabinet':
             log = replace_log(key, value, Cabinet, 'number')
-        elif key == 'leader':
-            log = replace_log(key, value, User, 'name')
         else:
             log = '字段："%(field)s"，由："%(old)s"，变更为："%(new)s"。' % {
                 'field': key,

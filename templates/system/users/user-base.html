@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{% if system_setup.HeadTitle %}{{ system_setup.HeadTitle }}{% else %}SandBox{% endif %}</title>
+  <title>{% if system_setup.HeadTitle %}{{ system_setup.HeadTitle }}{% else %}cmdb{% endif %}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -27,7 +27,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-      {% if system_setup.loginTitle %}{{ system_setup.loginTitle }}{% else %}沙盒协同办公平台{% endif %}
+      {% if system_setup.loginTitle %}{{ system_setup.loginTitle }}{% else %}内部资产管理系统{% endif %}
   </div>
     {% block user-content %}
 

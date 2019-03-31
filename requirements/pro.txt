@@ -5,10 +5,10 @@ ipython==7.1.1
 pyyaml==4.2b1
 ruamel.yaml==0.15.80
 python-nmap==0.6.1
-redis==3.0.1
+redis==3.2.1
 pymongo==3.7.1
 paramiko==2.4.2
 django-simple-history==2.6.0
 celery==4.2.1
 celery-once==2.0.0
-flower==0.9.2
+flower

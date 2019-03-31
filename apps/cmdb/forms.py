@@ -52,8 +52,6 @@ class DeviceCreateForm(forms.ModelForm):
         exclude = ['dev_connection']
         error_messages = {
             'hostname': {'required': '请填写设备地址'},
-            'buyDate': {'required': '请填写购买日期'},
-            'warrantyDate': {'required': '请填写到保日期'}
         }
 
     def clean(self):

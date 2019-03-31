@@ -92,12 +92,12 @@ class DeviceInfo(AbstractMode, DeviceAbstract, TimeAbstract):
     hostname = models.CharField(max_length=50, verbose_name='设备地址(IP或域名)')
     network_type = models.IntegerField(blank=True, null=True, verbose_name='网络类型')
     service_type = models.IntegerField(blank=True, null=True, verbose_name='服务类型')
-    operation_type = models.IntegerField(blank=True, null=True, verbose_name='业务类型')
-    leader = models.IntegerField(blank=True, null=True, verbose_name='责任人')
+    operation_type = models.IntegerField(blank=True, null=True, verbose_name='所属项目')
+    config = models.CharField(max_length=80, blank=True, default='', verbose_name='配置信息')
     dev_cabinet = models.IntegerField(blank=True, null=True, verbose_name='机柜信息')
     dev_connection = models.IntegerField(blank=True, null=True, verbose_name='连接信息')
-    buyDate = models.DateField(default=datetime.now, verbose_name="购买日期")
-    warrantyDate = models.DateField(default=datetime.now, verbose_name="到保日期")
+    buyDate = models.DateField(default=datetime.now, blank=True, null=True, verbose_name="购买日期")
+    warrantyDate = models.DateField(default=datetime.now, blank=True, null=True, verbose_name="到保日期")
     desc = models.TextField(blank=True, default='', verbose_name='备注信息')
     changed_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     history = HistoricalRecords(excluded_fields=['add_time', 'modify_time', 'parent'])
@@ -120,3 +120,59 @@ class DeviceFile(TimeAbstract):
     file_content = models.FileField(upload_to="asset_file/%Y/%m", null=True, blank=True, verbose_name="资产文件")
     upload_user = models.CharField(max_length=20, verbose_name="上传人")
 
+
+class Supplier(models.Model):
+    firm = models.CharField(max_length=200, verbose_name='供应商')
+    contact_details = models.CharField(max_length=200, verbose_name='联系信息')
+    desc = models.CharField(max_length=200, blank=True, default='', verbose_name='备注信息')
+
+    class Meta:
+        verbose_name = '供应商管理'
+        verbose_name_plural = verbose_name
+
+
+class NetworkAsset(models.Model):
+    name = models.CharField(max_length=100, verbose_name='资产名称')
+    ip_address = models.CharField(max_length=100, blank=True, default='', verbose_name='IP地址')
+    management = models.CharField(max_length=100, blank=True, default='', verbose_name='管理地址')
+    show_on_top = models.BooleanField(default=False, verbose_name='首页展示')
+    provider = models.ForeignKey('Supplier', blank=True, null=True, on_delete=models.SET_NULL, verbose_name='服务商')
+    desc = models.TextField(blank=True, default='', verbose_name='备注信息')
+
+    class Meta:
+        verbose_name = '网络资产'
+        verbose_name_plural = verbose_name
+
+
+class DomainName(AbstractMode):
+    dn_type_choices = (('1', '主域名'),('2', '二级域名'))
+    domain = models.CharField(max_length=200, verbose_name='域名')
+    dn_type = models.CharField(max_length=20, choices=dn_type_choices, default='1')
+    addr_resolution = models.ForeignKey('NatRule', blank=True, null=True,
+                                        on_delete=models.SET_NULL, verbose_name='解析地址')
+    resolution_server = models.ForeignKey('Supplier', related_name='res_server',
+                                          blank=True, null=True, on_delete=models.SET_NULL, verbose_name='解析服务')
+    domain_provider = models.ForeignKey('Supplier', related_name='do_provider',
+                                        blank=True, null=True, on_delete=models.SET_NULL, verbose_name='解析服务')
+    state = models.BooleanField(default=True, verbose_name='状态')
+    ssl = models.FileField(upload_to="ssl_file/%Y/%m", null=True, blank=True, verbose_name="SSL证书")
+    buyDate = models.DateField(default=datetime.now, blank=True, null=True, verbose_name='购买日期')
+    warrantyDate = models.DateField(default=datetime.now, blank=True, null=True, verbose_name='到保日期')
+    desc = models.TextField(blank=True, default='', verbose_name='备注信息')
+
+    class Meta:
+        verbose_name = '域名管理'
+        verbose_name_plural = verbose_name
+
+
+class NatRule(models.Model):
+    internet_ip = models.CharField(max_length=80, blank=True, default='', verbose_name='互联网IP')
+    src_port = models.IntegerField(blank=True, default='', verbose_name='源端口')
+    lan_ip = models.CharField(max_length=80, blank=True, default='', verbose_name='内网IP')
+    dest_port = models.IntegerField(blank=True, default='', verbose_name='目的端口')
+    state = models.BooleanField(default=True, verbose_name='状态')
+    desc = models.TextField(blank=True, default='', verbose_name='备注信息')
+
+    class Meta:
+        verbose_name = 'NAT规则'
+        verbose_name_plural = verbose_name

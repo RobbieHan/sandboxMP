@@ -82,8 +82,8 @@
                                 {{ device.parent.sys_hostname }}({{ device.parent.hostname }})
                                 {% endif %}
                             </td>
-                            <td><strong>责任人</strong></td>
-                            <td>{% get_con all_user device.leader 'name' %}</td>
+                            <td><strong>配置信息</strong></td>
+                            <td>{{ device.config }}</td>
                         </tr>
                         <tr>
                             <td><strong>入库时间</strong></td>

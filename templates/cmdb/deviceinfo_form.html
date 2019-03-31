@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="form-group has-feedback">
-                <label class="col-sm-2 control-label">业务类型</label>
+                <label class="col-sm-2 control-label">所属项目</label>
                 <div class="col-sm-3">
                   <select class="form-control select2" style="width:100%;" name="operation_type">
                   <option {% ifequal deviceinfo.operation_type '' %}selected="selected"{% endifequal %}></option>
@@ -121,15 +121,9 @@
                   {% endfor %}
                  </select>
                 </div>
-                <label class="col-sm-2 control-label">责任人</label>
-                <div class="col-sm-3">
-                  <select class="form-control select2" style="width:100%;" name="leader">
-                  <option {% ifequal deviceinfo.leader '' %}selected="selected"{% endifequal %}></option>
-                  {% for u in all_user %}
-                  <option value="{{ u.id }}" {% ifequal deviceinfo.leader u.id %}selected="selected"{% endifequal %}>
-                      {{ u.name }}</option>
-                  {% endfor %}
-                 </select>
+                <label class="col-sm-2 control-label">配置信息</label>
+                  <div class="col-sm-3">
+                    <input class="form-control" name="config" type="text" value="{{ deviceinfo.config }}" />
                 </div>
             </div>
             <div class="form-group has-feedback">
