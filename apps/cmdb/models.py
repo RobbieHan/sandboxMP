@@ -137,10 +137,26 @@ class NetworkAsset(models.Model):
     management = models.CharField(max_length=100, blank=True, default='', verbose_name='管理地址')
     show_on_top = models.BooleanField(default=False, verbose_name='首页展示')
     provider = models.ForeignKey('Supplier', blank=True, null=True, on_delete=models.SET_NULL, verbose_name='服务商')
+    state = models.BooleanField(default=True, verbose_name='状态')
+    buyDate = models.DateField(default=datetime.now, blank=True, null=True, verbose_name='购买日期')
+    warrantyDate = models.DateField(default=datetime.now, blank=True, null=True, verbose_name='到保日期')
     desc = models.TextField(blank=True, default='', verbose_name='备注信息')
 
     class Meta:
         verbose_name = '网络资产'
+        verbose_name_plural = verbose_name
+
+
+class NatRule(models.Model):
+    internet_ip = models.CharField(max_length=80, blank=True, default='', verbose_name='互联网IP')
+    src_port = models.IntegerField(blank=True, default='', verbose_name='源端口')
+    lan_ip = models.CharField(max_length=80, blank=True, default='', verbose_name='内网IP')
+    dest_port = models.IntegerField(blank=True, default='', verbose_name='目的端口')
+    state = models.BooleanField(default=True, verbose_name='状态')
+    desc = models.TextField(blank=True, default='', verbose_name='备注信息')
+
+    class Meta:
+        verbose_name = 'NAT规则'
         verbose_name_plural = verbose_name
 
 
@@ -165,14 +181,3 @@ class DomainName(AbstractMode):
         verbose_name_plural = verbose_name
 
 
-class NatRule(models.Model):
-    internet_ip = models.CharField(max_length=80, blank=True, default='', verbose_name='互联网IP')
-    src_port = models.IntegerField(blank=True, default='', verbose_name='源端口')
-    lan_ip = models.CharField(max_length=80, blank=True, default='', verbose_name='内网IP')
-    dest_port = models.IntegerField(blank=True, default='', verbose_name='目的端口')
-    state = models.BooleanField(default=True, verbose_name='状态')
-    desc = models.TextField(blank=True, default='', verbose_name='备注信息')
-
-    class Meta:
-        verbose_name = 'NAT规则'
-        verbose_name_plural = verbose_name

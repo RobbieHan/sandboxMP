@@ -11,8 +11,9 @@ from system.mixin import LoginRequiredMixin
 from custom import (BreadcrumbMixin, SandboxDeleteView,
                     SandboxListView, SandboxUpdateView, SandboxCreateView)
 from .models import (Cabinet, DeviceInfo, Code, ConnectionInfo, DeviceFile,
-                     Supplier)
-from .forms import DeviceCreateForm, DeviceUpdateForm, ConnectionInfoForm, DeviceFileUploadForm
+                     Supplier, NetworkAsset)
+from .forms import (DeviceCreateForm, DeviceUpdateForm, ConnectionInfoForm,
+                    DeviceFileUploadForm, NetworkAssetCreateForm, NetworkAssetUpdateForm)
 from utils.db_utils import MongodbDriver
 from utils.sandbox_utils import LoginExecution
 
@@ -108,6 +109,8 @@ class DeviceListView(SandboxListView):
             device['service_type'] = get_object_or_404(Code, pk=int(service_type)).value if service_type else ''
             device['dev_cabinet'] = get_object_or_404(Cabinet, pk=int(dev_cabinet)).number if dev_cabinet else ''
         return context_data
+
+
 class DeviceCreateView(SandboxCreateView):
     model = DeviceInfo
     form_class = DeviceCreateForm
@@ -115,7 +118,6 @@ class DeviceCreateView(SandboxCreateView):
     def get_context_data(self, **kwargs):
         public_data = get_device_public()
         kwargs.update(public_data)
-        print(public_data)
         return super().get_context_data(**kwargs)
 
 
@@ -257,17 +259,58 @@ class SupplierUpdateView(SandboxUpdateView):
 
 class SupplierListView(SandboxListView):
     model = Supplier
-    fields = '__all__'
+    fields = ['id', 'firm', 'contact_details', 'desc']
 
     def get_filters(self):
         data = self.request.GET
         filters = {}
-        if 'number' in data and data['number']:
-            filters['number__icontains'] = data['number']
-        if 'position' in data and data['position']:
-            filters['position__icontains'] = data['position']
+        if 'firm' in data and data['firm']:
+            filters['firm__icontains'] = data['firm']
+        if 'contact_details' in data and data['contact_details']:
+            filters['contact_deatils__icontains'] = data['contact_details']
         return filters
 
 
 class SupplierDeleteView(SandboxDeleteView):
     model = Supplier
+
+
+class NetworkAssetView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
+    template_name = 'cmdb/network_asset.html'
+
+
+class NetworkAssetCreateView(SandboxCreateView):
+    model = NetworkAsset
+    form_class = NetworkAssetCreateForm
+
+    def get_context_data(self, **kwargs):
+        kwargs['all_provider'] = Supplier.objects.all()
+        return super().get_context_data(**kwargs)
+
+
+class NetworkAssetUpdateView(SandboxUpdateView):
+    model = NetworkAsset
+    form_class = NetworkAssetUpdateForm
+
+    def get_context_data(self, **kwargs):
+        kwargs['all_provider'] = Supplier.objects.all()
+        return super().get_context_data(**kwargs)
+
+
+class NetworkAssetListView(SandboxListView):
+    model = NetworkAsset
+    fields = ['id', 'name', 'ip_address', 'management',  'provider__firm', 'buyDate', 'warrantyDate', 'state']
+
+    def get_filters(self):
+        data = self.request.GET
+        filters = {}
+        if 'name' in data and data['name']:
+            filters['name__icontains'] = data['name']
+        if 'ip_address' in data and data['ip_address']:
+            filters['ip_address__icontains'] = data['ip_address']
+        return filters
+
+
+class NetworkAssetDeleteView(SandboxDeleteView):
+    model = NetworkAsset
+

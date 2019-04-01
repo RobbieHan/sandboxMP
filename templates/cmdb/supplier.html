@@ -35,12 +35,12 @@
                 <div class="pull-right">
                     <form class="form-inline" id="queryForm">
                         <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>机柜编号：</label>
-                            <input type="text" name="number" class="form-control inputText" id="number">
+                            <label>供应商：</label>
+                            <input type="text" name="firm" class="form-control inputText" id="firm">
                         </div>
                         <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>机柜位置：</label>
-                            <input type="text" name="position" class="form-control inputText" id="position">
+                            <label>联系信息：</label>
+                            <input type="text" name="contact_details" class="form-control inputText" id="contact_details">
                         </div>
                       <button type="button" id="btnSearch" class="btn btn-default">
                         <i class="glyphicon glyphicon-search"></i>查询
@@ -55,8 +55,8 @@
                     <tr valign="middle">
                         <th><input type="checkbox" id="checkAll"></th>
                         <th>ID</th>
-                        <th>机柜编号</th>
-                        <th>机柜位置</th>
+                        <th>供应商</th>
+                        <th>联系信息</th>
                         <th>备注信息</th>
                         <th>操作</th>
                     </tr>
@@ -87,7 +87,7 @@
     // 菜单选中高亮
     $(function () {
         $('#CMDB-EAM').addClass('active');
-        $('#CMDB-EAM-CABINET').addClass('active');
+        $('#CMDB-EAM-SUPPLIER').addClass('active');
 
     });
 
@@ -102,10 +102,10 @@
 
                 {
                     ajax: {
-                        "url": "{% url 'cmdb:eam-cabinet-list' %}",
+                        "url": "{% url 'cmdb:eam-supplier-list' %}",
                         "data": function (d) {
-                                d.number = $("#number").val();
-                                d.position = $("#position").val();
+                                d.number = $("#firm").val();
+                                d.position = $("#contact_details").val();
                             }
                     },
                     columns: [
@@ -115,11 +115,11 @@
                             width: "5%",
                         },
                         {
-                            data: "number",
+                            data: "firm",
                             //width : "20%",
                         },
                         {
-                            data: "position",
+                            data: "contact_details",
                             //width : "20%",
                         },
                         {
@@ -157,7 +157,7 @@
             shadeClose: false,
             maxmin: true,
             area: ['800px', '400px'],
-            content: "{% url 'cmdb:eam-cabinet-create' %}",
+            content: "{% url 'cmdb:eam-supplier-create' %}",
             end: function () {
                 //关闭时做的事情
                 oDataTable.ajax.reload();
@@ -173,7 +173,7 @@
             shadeClose: false,
             maxmin: true,
             area: ['800px', '400px'],
-            content: ["{% url 'cmdb:eam-cabinet-update' %}" + '?id=' + id, 'no'],
+            content: ["{% url 'cmdb:eam-supplier-update' %}" + '?id=' + id, 'no'],
             end: function () {
                 oDataTable.ajax.reload();
             }
@@ -215,7 +215,7 @@
                 layer.close(index);
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'cmdb:eam-cabinet-delete' %}",
+                    url: "{% url 'cmdb:eam-supplier-delete' %}",
                     data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
                     cache: false,
                     success: function (msg) {
@@ -244,7 +244,7 @@
                 layer.close(index);
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'cmdb:eam-cabinet-delete' %}",
+                    url: "{% url 'cmdb:eam-supplier-delete' %}",
                     data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},
                     cache: false,
                     success: function (msg) {

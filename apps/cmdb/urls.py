@@ -44,4 +44,10 @@ urlpatterns = [
     path('eam/supplier/update/', views_eam.SupplierUpdateView.as_view(), name='eam-supplier-update'),
     path('eam/supplier/list/', views_eam.SupplierListView.as_view(), name='eam-supplier-list'),
     path('eam/supplier/delete/', views_eam.SupplierDeleteView.as_view(), name='eam-supplier-delete'),
+
+    path('eam/network_asset/', views_eam.NetworkAssetView.as_view(), name='eam-network_asset'),
+    path('eam/network_asset/create/', views_eam.NetworkAssetCreateView.as_view(), name='eam-network_asset-create'),
+    path('eam/network_asset/update/', views_eam.NetworkAssetUpdateView.as_view(), name='eam-network_asset-update'),
+    path('eam/network_asset/list/', views_eam.NetworkAssetListView.as_view(), name='eam-network_asset-list'),
+    path('eam/network_asset/delete/', views_eam.NetworkAssetDeleteView.as_view(), name='eam-network_asset-delete'),
 ]

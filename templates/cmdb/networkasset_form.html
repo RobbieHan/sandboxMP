@@ -1,0 +1,172 @@
+{% extends 'base-layer.html' %}
+{% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" href="{%static 'plugins/select2/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="box box-danger">
+	<form class="form-horizontal" id="addForm" method="post">
+        <input type="hidden" name='id' value="{{ networkasset.id }}" />
+		{% csrf_token %}
+		<div class="box-body">
+          <fieldset>
+            <legend>
+            </legend>
+            <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">资产名称</label>
+                <div class="col-sm-3">
+                    <input class="form-control" name="name" type="text" value="{{ networkasset.name }}" />
+                </div>
+                <label class="col-sm-2 control-label">IP地址</label>
+                <div class="col-sm-3">
+                    <input class="form-control" name="ip_address" type="text" value="{{ networkasset.ip_address }}" />
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">购买日期</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control pull-right form_datetime" name="buyDate"
+                           value="{{ networkasset.buyDate | date:'Y-m-d' }}" readonly/>
+                </div>
+                <label class="col-sm-2 control-label">质保日期</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control pull-right form_datetime" name="warrantyDate"
+                           value="{{ networkasset.warrantyDate | date:'Y-m-d' }}" readonly/>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">管理地址</label>
+                <div class="col-sm-8">
+                    <input class="form-control" name="management" type="text" value="{{ networkasset.management }}" />
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">服务商</label>
+                <div class="col-sm-8">
+                  <select class="form-control select2" style="width:100%;" name="provider">
+                  <option {% ifequal networkasset.provider '' %}selected="selected"{% endifequal %}></option>
+                  {% for provider in all_provider %}
+                        <option value="{{ provider.id }}" {% ifequal networkasset.provider_id provider.id %}selected="selected"{% endifequal %}>
+                            {{ provider.firm }}</option>
+                  {% endfor %}
+                 </select>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">状态</label>
+                <div class="col-sm-3">
+                    <label class="control-label">
+                        <input type="radio" class="minimal" name="state" value="True"
+                        {% ifequal networkasset.state True %}checked{% endifequal %}
+                        {% if not networkasset %}checked{% endif %}>&nbsp;&nbsp;在用 &nbsp;&nbsp;
+                    </label>
+                    <label class="control-label">
+                        <input type="radio" class="minimal" name="state" value="False"
+                        {% ifequal networkasset.state False %}checked{% endifequal %}> &nbsp;&nbsp;停用
+                    </label>
+                </div>
+                <label class="col-sm-2 control-label">首页展示</label>
+                <div class="col-sm-3">
+                    <label class="control-label">
+                        <input type="radio" class="minimal" name="show_on_top" value="True"
+                        {% ifequal networkasset.show_on_top True %}checked{% endifequal %}>&nbsp;&nbsp;是 &nbsp;&nbsp;
+                    </label>
+                    <label class="control-label">
+                        <input type="radio" class="minimal" name="show_on_top" value="False"
+                        {% ifequal networkasset.show_on_top False %}checked{% endifequal %}
+                        {% if not networkasset %}checked{% endif %}> &nbsp;&nbsp;否
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">备注信息</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" name="desc" rows="5" >{{ deviceinfo.desc }}</textarea>
+                </div>
+            </div>
+
+          </fieldset>
+		</div>
+		<div class="box-footer ">
+			<div class="row span7 text-center ">
+              <button type="button" id="btnCancel" class="btn btn-default margin-right " >重置</button>
+              <button type="button" id="btnSave" class="btn btn-info margin-right " >保存</button>
+			</div>
+		</div>
+
+	</form>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+<script type="text/javascript">
+
+    function getUrl() {
+        if ($("input[name='id']").val()) {
+            var url = "{% url 'cmdb:eam-network_asset-update' %}";
+        } else {
+            var url = "{% url 'cmdb:eam-network_asset-create' %}";
+        }
+        return url
+        }
+
+    $("#btnSave").click(function () {
+        var data = $("#addForm").serialize();
+        $.ajax({
+            type: $("#addForm").attr('method'),
+            url: getUrl(),
+            data: data,
+            cache: false,
+            success: function (msg) {
+                if (msg.result) {
+                    layer.alert('数据保存成功！', {icon: 1}, function (index) {
+                        parent.layer.closeAll(); //关闭所有弹窗
+                    });
+                } else {
+                    layer.alert(msg.error, {icon: 5});
+                    //$('errorMessage').html(msg.message)
+                }
+                return;
+            }
+        });
+    });
+
+	/*点取消刷新新页面*/
+    $("#btnCancel").click(function () {
+	    window.location.reload();
+
+    })
+
+
+/*input 时间输入选择*/
+    $(".form_datetime").datetimepicker({
+            language:  'zh',
+            minView: 'month', //选择范围知道日期，不选择时分
+            //weekStart: 1,
+            //todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            //startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            format: 'yyyy-mm-dd'
+        }).on('changeDate', function (ev) {
+            $(this).datetimepicker('hide');
+    });
+
+// select2
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+  });
+</script>
+
+{% endblock %}

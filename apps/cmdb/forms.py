@@ -4,7 +4,7 @@
 
 from django import forms
 
-from .models import Code, DeviceInfo, ConnectionInfo, DeviceFile
+from .models import Code, DeviceInfo, ConnectionInfo, DeviceFile, NetworkAsset
 
 
 class CodeCreateForm(forms.ModelForm):
@@ -101,3 +101,30 @@ class DeviceFileUploadForm(forms.ModelForm):
     class Meta:
         model = DeviceFile
         fields = '__all__'
+
+
+class NetworkAssetCreateForm(forms.ModelForm):
+    class Meta:
+        model = NetworkAsset
+        fields = '__all__'
+        error_messages = {
+            'name': {'required': '请填写网络资产名称'},
+        }
+
+    def clean(self):
+        cleaned_data = super(NetworkAssetCreateForm, self).clean()
+        ip_address = cleaned_data.get('ip_address')
+
+        if NetworkAsset.objects.filter(ip_address=ip_address).count():
+            raise forms.ValidationError('资产地址已存在：{}已存在'.format(ip_address))
+
+
+class NetworkAssetUpdateForm(NetworkAssetCreateForm):
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        ip_address = cleaned_data.get('ip_address')
+
+        if self.instance:
+            matching_asset = NetworkAsset.objects.exclude(pk=self.instance.pk)
+            if matching_asset.filter(ip_address=ip_address).exists():
+                raise forms.ValidationError('资产地址已存在：{}已存在'.format(ip_address))
