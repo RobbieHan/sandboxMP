@@ -4,7 +4,7 @@
 
 from django import forms
 
-from .models import Code, DeviceInfo, ConnectionInfo, DeviceFile, NetworkAsset
+from .models import Code, DeviceInfo, ConnectionInfo, DeviceFile, NetworkAsset, NatRule
 
 
 class CodeCreateForm(forms.ModelForm):
@@ -128,3 +128,15 @@ class NetworkAssetUpdateForm(NetworkAssetCreateForm):
             matching_asset = NetworkAsset.objects.exclude(pk=self.instance.pk)
             if matching_asset.filter(ip_address=ip_address).exists():
                 raise forms.ValidationError('资产地址已存在：{}已存在'.format(ip_address))
+
+
+class NatRuleForm(forms.ModelForm):
+    class Meta:
+        model = NatRule
+        fields = '__all__'
+        error_messages = {
+            'internet_ip': {'required': '请填写公网IP'},
+            'src_port': {'required': '请填写公网端口'},
+            'lan_ip': {'required': '请填写内网地址'},
+            'dest_port': {'required': '请填写内网端口'}
+        }

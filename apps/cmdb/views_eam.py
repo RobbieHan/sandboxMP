@@ -11,9 +11,10 @@ from system.mixin import LoginRequiredMixin
 from custom import (BreadcrumbMixin, SandboxDeleteView,
                     SandboxListView, SandboxUpdateView, SandboxCreateView)
 from .models import (Cabinet, DeviceInfo, Code, ConnectionInfo, DeviceFile,
-                     Supplier, NetworkAsset)
+                     Supplier, NetworkAsset, NatRule, DomainName)
 from .forms import (DeviceCreateForm, DeviceUpdateForm, ConnectionInfoForm,
-                    DeviceFileUploadForm, NetworkAssetCreateForm, NetworkAssetUpdateForm)
+                    DeviceFileUploadForm, NetworkAssetCreateForm,
+                    NetworkAssetUpdateForm,NatRuleForm)
 from utils.db_utils import MongodbDriver
 from utils.sandbox_utils import LoginExecution
 
@@ -314,3 +315,97 @@ class NetworkAssetListView(SandboxListView):
 class NetworkAssetDeleteView(SandboxDeleteView):
     model = NetworkAsset
 
+
+class NatRuleView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
+    template_name = 'cmdb/natrule.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['all_cabinet'] = Cabinet.objects.all()
+        return super().get_context_data(**kwargs)
+
+
+class NatRuleCreateView(SandboxCreateView):
+    model = NatRule
+    form_class = NatRuleForm
+
+    def get_context_data(self, **kwargs):
+        kwargs['all_cabinet'] = Cabinet.objects.all()
+        return super().get_context_data(**kwargs)
+
+
+class NatRuleUpdateView(SandboxUpdateView):
+    model = NatRule
+    form_class = NatRuleForm
+
+    def get_context_data(self, **kwargs):
+        kwargs['all_cabinet'] = Cabinet.objects.all()
+        return super().get_context_data(**kwargs)
+
+
+class NatRuleListView(SandboxListView):
+    model = NatRule
+    fields = ['id', 'internet_ip', 'src_port', 'lan_ip', 'dest_port', 'state', 'dev_cabinet__number', 'desc']
+
+    def get_filters(self):
+        data = self.request.GET
+        filters = {}
+        if 'internet_ip' in data and data['internet_ip']:
+            filters['internet_ip__icontains'] = data['internet_ip']
+        if 'src_port' in data and data['src_port']:
+            filters['src_port'] = data['src_port']
+        if 'lan_ip' in data and data['lan_ip']:
+            filters['lan_ip__icontains'] = data['lan_ip']
+        if 'dest_port' in data and data['dest_port']:
+            filters['dest_port'] = data['dest_port']
+        if 'dev_cabinet' in data and data['dev_cabinet']:
+            filters['dev_cabinet'] = data['dev_cabinet']
+        if 'desc' in data and data['desc']:
+            filters['desc__icontains'] = data['desc']
+        return filters
+
+
+class NatRuleDeleteView(SandboxDeleteView):
+    model = NatRule
+
+
+# class DomainNameView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
+#     template_name = 'cmdb/domainname.html'
+#
+#
+# class DomainNameCreateView(SandboxCreateView):
+#     model = DomainName
+#     form_class = NetworkAssetCreateForm
+#
+#     def get_context_data(self, **kwargs):
+#         kwargs['all_supplier'] = Supplier.objects.all()
+#         return super().get_context_data(**kwargs)
+#
+#
+# class DomainNameUpdateView(SandboxUpdateView):
+#     model = NetworkAsset
+#     form_class = NetworkAssetUpdateForm
+#
+#     def get_context_data(self, **kwargs):
+#         kwargs['all_provider'] = Supplier.objects.all()
+#         return super().get_context_data(**kwargs)
+#
+#
+# class DomainNameListView(SandboxListView):
+#     model = NetworkAsset
+#     fields = ['id', 'domain', 'resolution_server', 'domain_provider', 'state', 'buyDate', 'warrantyDate', 'desc']
+#
+#     def get_filters(self):
+#         data = self.request.GET
+#         filters = {'dn_type': '1'}
+#         if 'domain' in data and data['domain']:
+#             filters['domain__icontains'] = data['domain']
+#         if 'resolution_server' in data and data['resolution_server']:
+#             filters['resolution_server'] = data['resolution_server']
+#         if 'domain_provider' in data and data['domain_provider']:
+#             filters['domain_provider'] = data['domain_provider']
+#
+#         return filters
+#
+#
+# class DomainNameDeleteView(SandboxDeleteView):
+#     model = DomainName

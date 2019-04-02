@@ -50,4 +50,10 @@ urlpatterns = [
     path('eam/network_asset/update/', views_eam.NetworkAssetUpdateView.as_view(), name='eam-network_asset-update'),
     path('eam/network_asset/list/', views_eam.NetworkAssetListView.as_view(), name='eam-network_asset-list'),
     path('eam/network_asset/delete/', views_eam.NetworkAssetDeleteView.as_view(), name='eam-network_asset-delete'),
+
+    path('eam/natrule/', views_eam.NatRuleView.as_view(), name='eam-natrule'),
+    path('eam/natrule/create/', views_eam.NatRuleCreateView.as_view(), name='eam-natrule-create'),
+    path('eam/natrule/update/', views_eam.NatRuleUpdateView.as_view(), name='eam-natrule-update'),
+    path('eam/natrule/list/', views_eam.NatRuleListView.as_view(), name='eam-natrule-list'),
+    path('eam/natrule/delete/', views_eam.NatRuleDeleteView.as_view(), name='eam-natrule-delete'),
 ]

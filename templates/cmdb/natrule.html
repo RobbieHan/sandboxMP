@@ -32,21 +32,44 @@
                         <i class="glyphicon glyphicon-trash"></i>删除
                     </button>
                 </div>
-                <div class="pull-right">
-                    <form class="form-inline" id="queryForm">
-                        <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>资产名称：</label>
-                            <input type="text" name="name" class="form-control inputText" id="name">
-                        </div>
-                        <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>IP地址：</label>
-                            <input type="text" name="ip_address" class="form-control inputText" id="ip_address">
-                        </div>
-                      <button type="button" id="btnSearch" class="btn btn-default">
-                        <i class="glyphicon glyphicon-search"></i>查询
-                      </button>
-                    </form>
-                </div>
+            </div>
+            <div class="box-header">
+                <form class="form-inline" id="queryForm">
+                    <div class="form-group searchArea margin-r-5 margin-top-5">
+                        <label>公网IP：</label>
+                        <input type="text" name="internet_ip" class="form-control inputText" id="internet_ip">
+                    </div>
+                    <div class="form-group searchArea margin-r-5 margin-top-5">
+                        <label>源端口：</label>
+                        <input type="text" name="src_port" class="form-control inputText" id="src_port">
+                    </div>
+                    <div class="form-group searchArea margin-r-5 margin-top-5">
+                        <label>内网IP：</label>
+                        <input type="text" name="lan_ip" class="form-control inputText" id="lan_ip">
+                    </div>
+                    <div class="form-group searchArea margin-r-5 margin-top-5">
+                        <label>目的端口：</label>
+                        <input type="text" name="dest_port" class="form-control inputText" id="dest_port">
+                    </div>
+                    <div class="form-group searchArea margin-r-5 margin-top-5">
+                        <label>规则说明：</label>
+                        <input type="text" name="desc" class="form-control inputText" id="desc">
+                    </div>
+                    <div class="form-group searchArea margin-r-5 margin-top-5">
+                        <label>机柜信息：</label>
+                        <select class="form-control inputText select2" name="dev_cabinet" , id="dev_cabinet">
+                          <option></option>
+                          {% for cabinet in all_cabinet %}
+
+                                <option value="{{ cabinet.id }}">{{ cabinet.number }}</option>
+
+                          {% endfor %}
+                        </select>
+                    </div>
+                  <button type="button" id="btnSearch" class="btn btn-default">
+                    <i class="glyphicon glyphicon-search"></i>查询
+                  </button>
+                </form>
             </div>
 
             <div class="box-body">
@@ -55,13 +78,13 @@
                     <tr valign="middle">
                         <th><input type="checkbox" id="checkAll"></th>
                         <th>ID</th>
-                        <th>资产名称</th>
-                        <th>IP地址</th>
-                        <th>管理地址</th>
-                        <th>服务商</th>
-                        <th>购买日期</th>
-                        <th>到期时间</th>
+                        <th>互联网IP</th>
+                        <th>源端口</th>
+                        <th>内网IP</th>
+                        <th>目的端口</th>
                         <th>状态</th>
+                        <th>机柜信息</th>
+                        <th>规则说明</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -91,7 +114,7 @@
     // 菜单选中高亮
     $(function () {
         $('#CMDB-EAM').addClass('active');
-        $('#CMDB-EAM-NETWORK_ASSET').addClass('active');
+        $('#CMDB-EAM-NATRULE').addClass('active');
 
     });
 
@@ -106,41 +129,33 @@
 
                 {
                     ajax: {
-                        "url": "{% url 'cmdb:eam-network_asset-list' %}",
+                        "url": "{% url 'cmdb:eam-natrule-list' %}",
                         "data": function (d) {
-                                d.number = $("#name").val();
-                                d.position = $("#ip_address").val();
+                                d.internet_ip = $("#internet_ip").val();
+                                d.src_port = $("#src_port").val();
+                                d.lan_ip = $("#lan_ip").val();
+                                d.dest_port = $("#dest_port").val();
+                                d.dev_cabinet = $("#dev_cabinet").val();
+                                d.desc = $("#desc").val();
                             }
                     },
                     columns: [
                         DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
+
                         {
                             data: "id",
-                            width: "5%",
                         },
                         {
-                            data: "name",
-                            //width : "20%",
+                            data: "internet_ip",
                         },
                         {
-                            data: "ip_address",
-                            //width : "20%",
+                            data: "src_port",
                         },
                         {
-                            data: "management",
-                            //width : "20%",
+                            data: "lan_ip",
                         },
                         {
-                            data: "provider__firm",
-                            //width : "20%",
-                        },
-                        {
-                            data: "buyDate",
-                            //width : "20%",
-                        },
-                        {
-                            data: "warrantyDate",
-                            //width : "20%",
+                            data: "dest_port",
                         },
                         {
                             data: "state",
@@ -157,11 +172,15 @@
 
                         },
                         {
+                            data: "dev_cabinet__number",
+                        },
+                        {
+                            data: "desc",
+                        },
+                        {
                             data: "id",
-                            width: "10%",
                             bSortable: "false",
                             render: function (data, type, row, meta) {
-                                var ret = "";
                                 var ret = "<button title='详情-修改' onclick='doUpdate("
                                     + data + ")'><i class='glyphicon glyphicon-pencil'></i></button>";
                                 ret = ret + "<button title='删除' onclick='doDelete("
@@ -177,7 +196,7 @@
 
     // 刷新数据
     $("#btnRefresh").click(function () {
-        oDataTable.ajax.reload();
+        window.location.reload();
     });
     //新建数据
     $("#btnCreate").click(function () {
@@ -186,8 +205,8 @@
             title: '新增',
             shadeClose: false,
             maxmin: true,
-            area: ['800px', '550px'],
-            content: "{% url 'cmdb:eam-network_asset-create' %}",
+            area: ['800px', '500px'],
+            content: "{% url 'cmdb:eam-natrule-create' %}",
             end: function () {
                 //关闭时做的事情
                 oDataTable.ajax.reload();
@@ -202,8 +221,8 @@
             title: '编辑',
             shadeClose: false,
             maxmin: true,
-            area: ['800px', '550px'],
-            content: ["{% url 'cmdb:eam-network_asset-update' %}" + '?id=' + id, 'no'],
+            area: ['800px', '500px'],
+            content: ["{% url 'cmdb:eam-natrule-update' %}" + '?id=' + id, 'no'],
             end: function () {
                 oDataTable.ajax.reload();
             }
@@ -245,7 +264,7 @@
                 layer.close(index);
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'cmdb:eam-network_asset-delete' %}",
+                    url: "{% url 'cmdb:eam-natrule-delete' %}",
                     data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
                     cache: false,
                     success: function (msg) {
@@ -254,7 +273,7 @@
                             oDataTable.ajax.reload();
                         } else {
                             //alert(msg.message);
-                            layer.alert("没有权限", {icon: 2});
+                            layer.alert("操作失败", {icon: 2});
                         }
                         return;
                     }
@@ -274,7 +293,7 @@
                 layer.close(index);
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'cmdb:eam-network_asset-delete' %}",
+                    url: "{% url 'cmdb:eam-natrule-delete' %}",
                     data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},
                     cache: false,
                     success: function (msg) {
@@ -283,7 +302,7 @@
                             oDataTable.ajax.reload();
                         } else {
                             //alert(msg.message);
-                            layer.alert('没有权限', {icon: 2});
+                            layer.alert('删除失败', {icon: 2});
                         }
                         return;
                     }

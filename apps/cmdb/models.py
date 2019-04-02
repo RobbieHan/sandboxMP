@@ -148,12 +148,13 @@ class NetworkAsset(models.Model):
 
 
 class NatRule(models.Model):
-    internet_ip = models.CharField(max_length=80, blank=True, default='', verbose_name='互联网IP')
-    src_port = models.IntegerField(blank=True, default='', verbose_name='源端口')
-    lan_ip = models.CharField(max_length=80, blank=True, default='', verbose_name='内网IP')
-    dest_port = models.IntegerField(blank=True, default='', verbose_name='目的端口')
+    internet_ip = models.CharField(max_length=80, verbose_name='互联网IP')
+    src_port = models.IntegerField(verbose_name='源端口')
+    lan_ip = models.CharField(max_length=80, verbose_name='内网IP')
+    dest_port = models.IntegerField(verbose_name='目的端口')
     state = models.BooleanField(default=True, verbose_name='状态')
-    desc = models.TextField(blank=True, default='', verbose_name='备注信息')
+    dev_cabinet = models.ForeignKey('Cabinet', blank=True, default='', on_delete=models.SET_DEFAULT, verbose_name='机柜信息')
+    desc = models.CharField(max_length=100, verbose_name='规则说明')
 
     class Meta:
         verbose_name = 'NAT规则'
@@ -164,14 +165,12 @@ class DomainName(AbstractMode):
     dn_type_choices = (('1', '主域名'),('2', '二级域名'))
     domain = models.CharField(max_length=200, verbose_name='域名')
     dn_type = models.CharField(max_length=20, choices=dn_type_choices, default='1')
-    addr_resolution = models.ForeignKey('NatRule', blank=True, null=True,
-                                        on_delete=models.SET_NULL, verbose_name='解析地址')
     resolution_server = models.ForeignKey('Supplier', related_name='res_server',
                                           blank=True, null=True, on_delete=models.SET_NULL, verbose_name='解析服务')
     domain_provider = models.ForeignKey('Supplier', related_name='do_provider',
-                                        blank=True, null=True, on_delete=models.SET_NULL, verbose_name='解析服务')
+                                        blank=True, null=True, on_delete=models.SET_NULL, verbose_name='域名服务')
     state = models.BooleanField(default=True, verbose_name='状态')
-    ssl = models.FileField(upload_to="ssl_file/%Y/%m", null=True, blank=True, verbose_name="SSL证书")
+    ssl_cert = models.FileField(upload_to="ssl_cert/%Y/%m", null=True, blank=True, verbose_name="SSL证书")
     buyDate = models.DateField(default=datetime.now, blank=True, null=True, verbose_name='购买日期')
     warrantyDate = models.DateField(default=datetime.now, blank=True, null=True, verbose_name='到保日期')
     desc = models.TextField(blank=True, default='', verbose_name='备注信息')
@@ -179,5 +178,7 @@ class DomainName(AbstractMode):
     class Meta:
         verbose_name = '域名管理'
         verbose_name_plural = verbose_name
+
+
 
 
