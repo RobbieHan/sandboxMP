@@ -48,7 +48,6 @@
                     </form>
                 </div>
             </div>
-
             <div class="box-body">
                 <table id="dtbList" class="display" cellspacing="0" width="100%">
                     <thead>
@@ -58,6 +57,8 @@
                         <th>资产名称</th>
                         <th>IP地址</th>
                         <th>管理地址</th>
+                        <th>内存(G)</th>
+                        <th>硬盘(T)</th>
                         <th>服务商</th>
                         <th>购买日期</th>
                         <th>到期时间</th>
@@ -108,8 +109,8 @@
                     ajax: {
                         "url": "{% url 'cmdb:eam-network_asset-list' %}",
                         "data": function (d) {
-                                d.number = $("#name").val();
-                                d.position = $("#ip_address").val();
+                                d.name = $("#name").val();
+                                d.ip_address = $("#ip_address").val();
                             }
                     },
                     columns: [
@@ -129,6 +130,33 @@
                         {
                             data: "management",
                             //width : "20%",
+                        },
+                        {
+                            data: "memory",
+                            render: function(data, type, row, meta) {
+                                if (data) {
+                                    var ret= '<div class="progress-group"><span class="progress-text">mem</span>' +
+                                        '<span class="progress-number">'+ data.memory + '</span><div class="progress sm" ' +
+                                        'style="background: #00a65a;color:#FFF;"><div class="progress-bar progress-bar-yellow" ' +
+                                        'style="width: ' + data.percent + '"></div></div></div>'
+                                    return ret
+                              }else { return ''}
+                            }
+                        },
+
+                        {
+                            data: "disk",
+                            //width : "20%",
+                            render: function(data, type, row, meta) {
+                                if (data) {
+                                    var ret = '<div class="progress-group"><span class="progress-text">disk</span>' +
+                                        '<span class="progress-number">' + data.disk + '</span><div class="progress sm" ' +
+                                        'style="background: #00a65a;color:#FFF;"><div class="progress-bar progress-bar-yellow" ' +
+                                        'style="width: ' + data.percent + '"></div></div></div>'
+
+                                    return ret
+                                }else { return ''}
+                            }
                         },
                         {
                             data: "provider__firm",
@@ -186,7 +214,7 @@
             title: '新增',
             shadeClose: false,
             maxmin: true,
-            area: ['800px', '550px'],
+            area: ['800px', '580px'],
             content: "{% url 'cmdb:eam-network_asset-create' %}",
             end: function () {
                 //关闭时做的事情
@@ -202,7 +230,7 @@
             title: '编辑',
             shadeClose: false,
             maxmin: true,
-            area: ['800px', '550px'],
+            area: ['800px', '580px'],
             content: ["{% url 'cmdb:eam-network_asset-update' %}" + '?id=' + id, 'no'],
             end: function () {
                 oDataTable.ajax.reload();

@@ -5,9 +5,21 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/cmdb/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/cmdb/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/cmdb/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/cmdb/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/cmdb/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/cmdb/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/cmdb/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/cmdb/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/cmdb/views_eam.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/cmdb/views_eam.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/system/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/system/migrations/0002_auto_20181115_2124.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/system/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/system/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/system/views_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/system/views_user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sandboxMP/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/sandboxMP/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/plugins/fastclick/fastclick.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/plugins/fastclick/fastclick.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base-static.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base-static.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/cmdb/cmdb_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cmdb/cmdb_index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/cmdb/network_asset.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cmdb/network_asset.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/cmdb/networkasset_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cmdb/networkasset_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/head-footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/head-footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/system/users/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/users/user.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,33 +33,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/cmdb/forms.py">
+        <entry file="file://$PROJECT_DIR$/apps/cmdb/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2414">
-              <caret line="142" selection-start-line="142" selection-end-line="142" />
-              <folding>
-                <element signature="e#73#97#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/cmdb/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/apps/cmdb/views_eam.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="384" column="26" lean-forward="true" selection-start-line="384" selection-start-column="26" selection-end-line="384" selection-end-column="26" />
+            <state relative-caret-position="253">
+              <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -56,40 +45,49 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/cmdb/urls.py">
+        <entry file="file://$PROJECT_DIR$/apps/system/views_structure.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="59" selection-start-line="59" selection-end-line="59" />
+            <state relative-caret-position="-359" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/cmdb/cmdb_index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="509">
+              <caret line="101" column="16" lean-forward="true" selection-start-line="101" selection-start-column="16" selection-end-line="101" selection-end-column="16" />
               <folding>
-                <element signature="e#0#28#0" expanded="true" />
+                <element signature="e#192#3193#0#HTML" />
+                <element signature="e#958#980#0#HTML" expanded="true" />
+                <element signature="e#1191#1213#0#HTML" expanded="true" />
+                <element signature="e#2887#2926#0#HTML" expanded="true" />
+                <element signature="e#3008#3029#0#HTML" expanded="true" />
+                <element signature="e#3420#3459#0#HTML" expanded="true" />
+                <element signature="e#3539#3578#0#HTML" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/cmdb/natrule.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="63" column="82" selection-start-line="63" selection-start-column="82" selection-end-line="63" selection-end-column="82" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/cmdb/natrule_form.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="63" column="18" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>all_cabinet</find>
+      <find>disk</find>
+      <find>passwor</find>
+      <find>个人中心</find>
+      <find>Monthly Recap Report</find>
+      <find>访问来源</find>
+      <find>Latest Orders</find>
+      <find>Browser Usage</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -98,12 +96,27 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/apps/cmdb/forms.py" />
-        <option value="$PROJECT_DIR$/apps/cmdb/urls.py" />
-        <option value="$PROJECT_DIR$/templates/cmdb/network_asset.html" />
         <option value="$PROJECT_DIR$/templates/cmdb/natrule.html" />
         <option value="$PROJECT_DIR$/templates/cmdb/natrule_form.html" />
+        <option value="$PROJECT_DIR$/apps/cmdb/models.py" />
+        <option value="$PROJECT_DIR$/templates/cmdb/networkasset_form.html" />
+        <option value="$PROJECT_DIR$/static/dist/css/AdminLTE.css" />
         <option value="$PROJECT_DIR$/apps/cmdb/views_eam.py" />
+        <option value="$PROJECT_DIR$/templates/cmdb/network_asset.html" />
+        <option value="$PROJECT_DIR$/templates/system/users/user.html" />
+        <option value="$PROJECT_DIR$/sandboxMP/settings.py" />
+        <option value="$PROJECT_DIR$/apps/system/urls.py" />
+        <option value="$PROJECT_DIR$/apps/system/views_user.py" />
+        <option value="$PROJECT_DIR$/templates/head-footer.html" />
+        <option value="$PROJECT_DIR$/templates/system/users/personal_passwd_change.html" />
+        <option value="$PROJECT_DIR$/templates/base-static.html" />
+        <option value="$PROJECT_DIR$/static/plugins/echarts/echarts.min.js" />
+        <option value="$PROJECT_DIR$/static/plugins/highcharts/highcharts.js" />
+        <option value="$PROJECT_DIR$/apps/cmdb/urls.py" />
+        <option value="$PROJECT_DIR$/templates/index2.html" />
+        <option value="$PROJECT_DIR$/apps/cmdb/forms.py" />
+        <option value="$PROJECT_DIR$/apps/cmdb/views.py" />
+        <option value="$PROJECT_DIR$/templates/cmdb/cmdb_index.html" />
       </list>
     </option>
   </component>
@@ -129,23 +142,6 @@
               <item name="sandboxMP" type="462c0819:PsiDirectoryNode" />
               <item name="apps" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="sandboxMP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sandboxMP" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-              <item name="cmdb" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sandboxMP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sandboxMP" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sandboxMP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sandboxMP" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="cmdb" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -164,6 +160,13 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static/plugins/echarts" />
+      <recent name="$PROJECT_DIR$/templates" />
+      <recent name="$PROJECT_DIR$/templates/system/users" />
+      <recent name="$PROJECT_DIR$/templates/cmdb" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static/plugins/echarts" />
       <recent name="$PROJECT_DIR$/templates/cmdb" />
     </key>
   </component>
@@ -216,24 +219,27 @@
       <option name="presentableId" value="Default" />
       <updated>1554181508462</updated>
       <workItem from="1554181511110" duration="8527000" />
-      <workItem from="1554199194064" duration="1961000" />
+      <workItem from="1554199194064" duration="7844000" />
+      <workItem from="1554255904237" duration="12068000" />
+      <workItem from="1554305728868" duration="446000" />
+      <workItem from="1554533797978" duration="10677000" />
+      <workItem from="1554604330772" duration="12685000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10488000" />
+    <option name="totallyTimeSpent" value="52247000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="973" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18803419" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1965812" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.21793416" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.25198638" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.25198638" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -263,35 +269,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/cmdb/network_asset.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="155" column="29" lean-forward="true" selection-start-line="155" selection-start-column="29" selection-end-line="155" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/cmdb/deviceinfo.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/cmdb/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2414">
-          <caret line="142" selection-start-line="142" selection-end-line="142" />
-          <folding>
-            <element signature="e#73#97#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/cmdb/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/cmdb/natrule.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="295">
@@ -299,29 +276,220 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/cmdb/natrule_form.html">
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2018.3/remote_sources/-1817203215/-2003647482/django/forms/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="63" column="18" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
+        <state relative-caret-position="671">
+          <caret line="408" selection-start-line="408" selection-end-line="408" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/cmdb/urls.py">
+    <entry file="file://$PROJECT_DIR$/templates/cmdb/scan_config.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/cmdb/networkasset_form.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="59" selection-start-line="59" selection-end-line="59" />
+        <state relative-caret-position="315">
+          <caret line="39" column="66" lean-forward="true" selection-start-line="39" selection-start-column="66" selection-end-line="39" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/dist/css/alt/AdminLTE-without-plugins.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="26560" selection-start-line="6" selection-start-column="26560" selection-end-line="6" selection-end-column="26560" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/dist/css/AdminLTE.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="1361" column="1" selection-start-line="1361" selection-start-column="1" selection-end-line="1361" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/custom.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="83" selection-start-line="83" selection-end-line="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/system/users/passwd_change.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/utils/sandbox_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="53" column="29" selection-start-line="53" selection-start-column="12" selection-end-line="53" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sandboxMP/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="162" column="31" selection-start-line="162" selection-start-column="31" selection-end-line="162" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/system/users/personal_passwd_change.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/cmdb/natrule_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="107" column="14" selection-start-line="107" selection-start-column="14" selection-end-line="107" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base-static.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2142">
+          <caret line="126" column="7" lean-forward="true" selection-start-line="126" selection-start-column="7" selection-end-line="126" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/system/users/user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="98" column="30" selection-start-line="98" selection-start-column="8" selection-end-line="98" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/plugins/echarts/echarts.min.js" />
+    <entry file="file://$PROJECT_DIR$/apps/system/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/plugins/highcharts/highcharts.js" />
+    <entry file="file://$PROJECT_DIR$/static/plugins/echarts/echarts.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/system/views_user.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-331">
+          <caret line="27" column="45" lean-forward="true" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/index2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="1236" column="48" selection-start-line="1212" selection-start-column="9" selection-end-line="1258" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/system/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1082" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/cmdb/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="137" column="4" lean-forward="true" selection-start-line="137" selection-start-column="4" selection-end-line="137" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/bootstrap/css/bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="250" column="3" selection-start-line="250" selection-start-column="3" selection-end-line="250" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/head-footer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="114" column="40" selection-start-line="114" selection-start-column="14" selection-end-line="114" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/cmdb/network_asset.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="52" column="44" lean-forward="true" selection-start-line="52" selection-start-column="44" selection-end-line="52" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/apps/cmdb/views_eam.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="384" column="26" lean-forward="true" selection-start-line="384" selection-start-column="26" selection-end-line="384" selection-end-column="26" />
+        <state relative-caret-position="190">
+          <caret line="329" column="20" selection-start-line="329" selection-start-column="20" selection-end-line="329" selection-end-column="20" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/cmdb/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/cmdb/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/cmdb/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="143" column="49" selection-start-line="143" selection-start-column="49" selection-end-line="143" selection-end-column="49" />
+          <folding>
+            <element signature="e#73#82#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/system/views_structure.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-359" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/cmdb/deviceinfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="354" selection-start-line="354" selection-end-line="356" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/cmdb/deviceinfo_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2183" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/cmdb/cmdb_index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="509">
+          <caret line="101" column="16" lean-forward="true" selection-start-line="101" selection-start-column="16" selection-end-line="101" selection-end-column="16" />
+          <folding>
+            <element signature="e#192#3193#0#HTML" />
+            <element signature="e#958#980#0#HTML" expanded="true" />
+            <element signature="e#1191#1213#0#HTML" expanded="true" />
+            <element signature="e#2887#2926#0#HTML" expanded="true" />
+            <element signature="e#3008#3029#0#HTML" expanded="true" />
+            <element signature="e#3420#3459#0#HTML" expanded="true" />
+            <element signature="e#3539#3578#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>

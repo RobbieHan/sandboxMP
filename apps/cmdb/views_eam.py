@@ -13,8 +13,8 @@ from custom import (BreadcrumbMixin, SandboxDeleteView,
 from .models import (Cabinet, DeviceInfo, Code, ConnectionInfo, DeviceFile,
                      Supplier, NetworkAsset, NatRule, DomainName)
 from .forms import (DeviceCreateForm, DeviceUpdateForm, ConnectionInfoForm,
-                    DeviceFileUploadForm, NetworkAssetCreateForm,
-                    NetworkAssetUpdateForm,NatRuleForm)
+                    DeviceFileUploadForm, NetworkAssetForm,
+                    NatRuleForm)
 from utils.db_utils import MongodbDriver
 from utils.sandbox_utils import LoginExecution
 
@@ -78,7 +78,8 @@ class DeviceView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
 
 class DeviceListView(SandboxListView):
     model = DeviceInfo
-    fields = ['id', 'sys_hostname', 'hostname', 'service_type', 'operation_type', 'config', 'dev_cabinet', 'network_type']
+    fields = ['id', 'sys_hostname', 'hostname', 'service_type', 'operation_type', 'config', 'dev_cabinet',
+              'network_type']
 
     def get_filters(self):
         data = self.request.GET
@@ -282,7 +283,7 @@ class NetworkAssetView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
 
 class NetworkAssetCreateView(SandboxCreateView):
     model = NetworkAsset
-    form_class = NetworkAssetCreateForm
+    form_class = NetworkAssetForm
 
     def get_context_data(self, **kwargs):
         kwargs['all_provider'] = Supplier.objects.all()
@@ -291,7 +292,7 @@ class NetworkAssetCreateView(SandboxCreateView):
 
 class NetworkAssetUpdateView(SandboxUpdateView):
     model = NetworkAsset
-    form_class = NetworkAssetUpdateForm
+    form_class = NetworkAssetForm
 
     def get_context_data(self, **kwargs):
         kwargs['all_provider'] = Supplier.objects.all()
@@ -300,7 +301,7 @@ class NetworkAssetUpdateView(SandboxUpdateView):
 
 class NetworkAssetListView(SandboxListView):
     model = NetworkAsset
-    fields = ['id', 'name', 'ip_address', 'management',  'provider__firm', 'buyDate', 'warrantyDate', 'state']
+    fields = ['id', 'name', 'ip_address', 'management', 'provider__firm', 'memory', 'disk', 'buyDate', 'warrantyDate', 'state']
 
     def get_filters(self):
         data = self.request.GET
@@ -310,6 +311,26 @@ class NetworkAssetListView(SandboxListView):
         if 'ip_address' in data and data['ip_address']:
             filters['ip_address__icontains'] = data['ip_address']
         return filters
+    def get_datatables_paginator(self, request):
+        context_data = super().get_datatables_paginator(request)
+        data = context_data['data']
+        for asset in data:
+            disk = asset['disk']
+            memory = asset['memory']
+            if disk:
+                di = re.match('(.*)/(.*)', disk)
+                di_used = int(di.group(1))
+                di_total = int(di.group(2))
+                di_percent = '{:.0%}'.format(di_used/di_total)
+                asset['disk'] = {'disk': disk, 'percent': di_percent}
+            if memory:
+                me = re.match('(.*)/(.*)', memory)
+                me_used = int(me.group(1))
+                me_total = int(me.group(2))
+                me_percent = '{:.0%}'.format(me_used / me_total)
+                asset['memory'] = {'memory': memory, 'percent': me_percent}
+
+        return context_data
 
 
 class NetworkAssetDeleteView(SandboxDeleteView):
@@ -366,7 +387,6 @@ class NatRuleListView(SandboxListView):
 
 class NatRuleDeleteView(SandboxDeleteView):
     model = NatRule
-
 
 # class DomainNameView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
 #     template_name = 'cmdb/domainname.html'

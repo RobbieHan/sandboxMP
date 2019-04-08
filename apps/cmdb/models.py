@@ -137,6 +137,8 @@ class NetworkAsset(models.Model):
     management = models.CharField(max_length=100, blank=True, default='', verbose_name='管理地址')
     show_on_top = models.BooleanField(default=False, verbose_name='首页展示')
     provider = models.ForeignKey('Supplier', blank=True, null=True, on_delete=models.SET_NULL, verbose_name='服务商')
+    memory = models.CharField(max_length=20, blank=True, default='', verbose_name='内存用量')
+    disk = models.CharField(max_length=20, blank=True, default='', verbose_name='硬盘用量')
     state = models.BooleanField(default=True, verbose_name='状态')
     buyDate = models.DateField(default=datetime.now, blank=True, null=True, verbose_name='购买日期')
     warrantyDate = models.DateField(default=datetime.now, blank=True, null=True, verbose_name='到保日期')

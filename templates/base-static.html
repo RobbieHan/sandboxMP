@@ -15,6 +15,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
   <link rel="stylesheet" href="{% static 'dist/css/myself.css' %}">
   <link rel="stylesheet" href="{% static 'dist/css/skins/skin-blue.min.css' %}">
+  <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
 
     {% block css %} {% endblock %}
 
@@ -104,6 +105,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 <!-- AdminLTE App -->
 <script src="{% static 'dist/js/app.min.js' %}"></script>
+<script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+
+<script type="text/javascript">
+       // 修改密码
+    function doChangepasswd() {
+    layer.open({
+        type: 2,
+        title: '修改密码',
+        shadeClose: false,
+        maxmin: true,
+        area: ['800px', '280px'],
+        content: ["{% url 'system:personal_password_change' %}" ],
+
+    });
+}
+</script>
 
 {% block javascripts %}{% endblock %}
 

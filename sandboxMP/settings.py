@@ -160,6 +160,7 @@ SAFE_URL = [r'^/$',
             '/admin/',
             '/ckeditor/',
             '/test/',
+            '/system/personal_password_change/'
             ]
 
 # session timeout

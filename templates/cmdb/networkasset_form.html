@@ -27,6 +27,16 @@
                 </div>
             </div>
             <div class="form-group has-feedback">
+                <label class="col-sm-2 control-label">内存用量</label>
+                <div class="col-sm-3">
+                    <input class="form-control" name="memory" type="text" value="{{ networkasset.memory }}" placeholder="2/16(用量/总量)单位G"/>
+                </div>
+                <label class="col-sm-2 control-label">硬盘用量</label>
+                <div class="col-sm-3">
+                    <input class="form-control" name="disk" type="text" value="{{ networkasset.disk }}" placeholder="2/16(用量/总量)单位T"/>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
                 <label class="col-sm-2 control-label">购买日期</label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control pull-right form_datetime" name="buyDate"

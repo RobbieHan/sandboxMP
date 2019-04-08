@@ -35,4 +35,6 @@ urlpatterns = [
     path('rbac/role/role2user/', views_role.Role2UserView.as_view(), name="rbac-role-role2user"),
     path('rbac/role/role2menu/', views_role.Role2MenuView.as_view(), name="rbac-role-role2menu"),
     path('rbac/role/role2menu_list/', views_role.Role2MenuListView.as_view(), name="rbac-role-role2menu_list"),
+
+    path('personal_password_change/', views_user.PersonalPasswordChangeView.as_view(), name='personal_password_change')
 ]

@@ -219,3 +219,34 @@ class UserDisableView(LoginRequiredMixin, View):
             queryset.filter(is_active=True).update(is_active=False)
             ret = {'result': 'True'}
         return HttpResponse(json.dumps(ret), content_type='application/json')
+
+# 用户修改密码临时接口
+class PersonalPasswordChangeView(LoginRequiredMixin, View):
+    """
+    登陆用户修改个人密码
+    """
+
+    def get(self, request):
+        ret = dict()
+        user = get_object_or_404(User, pk=int(request.user.id))
+        ret['user'] = user
+        return render(request, 'system/users/personal_passwd_change.html', ret)
+
+    def post(self, request):
+
+        user = get_object_or_404(User, pk=int(request.user.id))
+        form = PasswordChangeForm(request.POST)
+        if form.is_valid():
+            new_password = request.POST.get('password')
+            user.set_password(new_password)
+            user.save()
+            ret = {'status': 'success'}
+        else:
+            pattern = '<li>.*?<ul class=.*?><li>(.*?)</li>'
+            errors = str(form.errors)
+            passwd_change_form_errors = re.findall(pattern, errors)
+            ret = {
+                'status': 'fail',
+                'password_change_form_errors': passwd_change_form_errors[0]
+            }
+        return HttpResponse(json.dumps(ret), content_type='application/json')

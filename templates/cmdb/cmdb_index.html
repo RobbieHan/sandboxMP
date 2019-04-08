@@ -6,15 +6,267 @@
 
     <!-- Main content -->
   <section class="content">
-    这里是配置管理首页（临时内容）
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">资产统计信息</h3>
 
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="chart">
+                    <!-- Sales Chart Canvas -->
+                    <div id="dev_container" style="height: 400px;"></div>
+                  </div>
+                  <!-- /.chart-responsive -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6">
+                    <div id="ope_container" style="height: 400px;"></div>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- ./box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <div class="row">
+        <div class="col-md-7">
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">快速访问接口</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <table class="table" cellspacing="0">
+                  <thead>
+                  <tr>
+                    <th> 资产名称</th>
+                    <th>访问地址</th>
+                    <th>硬盘资源(T)</th>
+                    <th>内存资源(G)</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for asset in net_asset %}
+                  <tr>
+                    <td><a href="{{ asset.management }}" target="_blank"> {{ asset.name }}</a></td>
+                      <td><a href="{{ asset.management }}" target="_blank">{{ asset.management }}</a></td>
+                    <td>
+                        <div class="progress-group">
+                        <div class="progress sm" style="background: #00a65a;color:#FFF;">
+                            <div class="progress-bar progress-bar-yellow" style="width: {{ asset.disk.percent }}">
+                            </div>
+                        </div>
+                        <span class="progress-number">{{ asset.disk.disk }}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="progress-group">
+                        <div class="progress sm" style="background: #00a65a;color:#FFF;">
+                            <div class="progress-bar progress-bar-yellow" style="width: {{ asset.memory.percent }}">
+                            </div>
+                        </div>
+                        <span class="progress-number">{{ asset.memory.memory }}</span>
+                    </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              <!-- /.table-responsive -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+              <button class="btn btn-sm btn-default pull-right" onclick="doNetworkAsset()">所有网络资产</button>
+            </div>
+            <!-- /.box-footer -->
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="box box-danger">
+            <div class="box-header with-border">
+              <h3 class="box-title">提示消息</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="table no-margin">
+                  <thead>
+                  <tr>
+                    <th>消息类型</th>
+                    <th>消息内容</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>系统消息</td>
+                    <td>消息功能暂未开放</td>
+                  </tr>
+                  <tr>
+                    <td>系统消息</td>
+                    <td>消息功能暂未开放</td>
+                  </tr>
+                  <tr>
+                    <td>系统消息</td>
+                    <td>消息功能暂未开放</td>
+                  </tr>
+                  <tr>
+                    <td>系统消息</td>
+                    <td>消息功能暂未开放</td>
+                  </tr>
+                  <tr>
+                    <td>系统消息</td>
+                    <td>消息功能暂未开放</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.table-responsive -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+              <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">所有消息</a>
+            </div>
+            <!-- /.box-footer -->
+          </div>
+        </div>
+      </div>
   </section>
 
     <!-- /.content -->
 
 {% endblock %}
-
-
 {% block javascripts %}
+<script type="text/javascript" src="{% static 'plugins/echarts/echarts.js' %}"></script>
+<script type="text/javascript">
+var dev_dom = document.getElementById("dev_container");
+var dev_Chart = echarts.init(dev_dom, 'macarons');
+dev_option = null;
+dev_option = {
+    title : {
+        text: '主机分布',
+        subtext: '数据来自设备管理'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
 
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'value',
+            boundaryGap : [0, 0.01]
+        }
+    ],
+    yAxis : [
+        {
+            type : 'category',
+            data : [{% for cab in cabinet_list %} '{{ cab }}', {% endfor %}]
+        }
+    ],
+    series : [
+        {
+            name:'云主机',
+            type:'bar',
+            data:{{ cabinet_count }}
+        }
+    ]
+};
+;
+if (dev_option && typeof dev_option === "object") {
+    dev_Chart.setOption(dev_option, true);
+}
+
+
+var ope_dom = document.getElementById("ope_container");
+var ope_Chart = echarts.init(ope_dom, 'macarons');
+ope_option = null;
+ope_option = {
+    title : {
+        text: '项目分布',
+        subtext: '数据来自设备管理',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data: [{% for ope in operations %} '{{ ope.name }}', {%  endfor %}]
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'主机数量',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data:[
+                {% for ope in operations %}
+                {value:{{ ope.count }}, name:'{{ ope.name }}'},
+                {% endfor %}
+            ]
+        }
+    ]
+};
+;
+if (ope_option && typeof ope_option === "object") {
+    ope_Chart.setOption(ope_option, true);
+}
+
+//图表窗体自适应
+$(window).resize(function(){
+  ope_Chart.resize();
+  dev_Chart.resize();
+});
+
+//跳转到网络资产
+function doNetworkAsset(){
+    window.location.href="{% url 'cmdb:eam-network_asset' %}";
+}
+
+</script>
 {% endblock %}

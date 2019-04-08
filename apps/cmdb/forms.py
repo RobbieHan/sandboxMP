@@ -2,6 +2,8 @@
 # @Author : RobbieHan
 # @File   : forms.py
 
+import re
+
 from django import forms
 
 from .models import Code, DeviceInfo, ConnectionInfo, DeviceFile, NetworkAsset, NatRule
@@ -103,7 +105,7 @@ class DeviceFileUploadForm(forms.ModelForm):
         fields = '__all__'
 
 
-class NetworkAssetCreateForm(forms.ModelForm):
+class NetworkAssetForm(forms.ModelForm):
     class Meta:
         model = NetworkAsset
         fields = '__all__'
@@ -112,22 +114,37 @@ class NetworkAssetCreateForm(forms.ModelForm):
         }
 
     def clean(self):
-        cleaned_data = super(NetworkAssetCreateForm, self).clean()
-        ip_address = cleaned_data.get('ip_address')
+        cleaned_data = super(NetworkAssetForm, self).clean()
+        memory = cleaned_data.get('memory')
+        disk = cleaned_data.get('disk')
+        show_on_top = cleaned_data.get('show_on_top')
+        # if NetworkAsset.objects.filter(ip_address=ip_address).count():
+        #     raise forms.ValidationError('资产地址已存在：{}已存在'.format(ip_address))
+        if memory:
+            me = re.match('(.*)/(.*)', memory)
+            if me:
+                try:
+                    int(me.group(1))
+                    int(me.group(2))
+                except Exception:
+                    raise forms.ValidationError('内存使用量和总量为整数')
+            else:
+                raise forms.ValidationError('内存格式不对，格式为：5/16 (用量/总量)')
+        if disk:
+            di = re.match('(.*)/(.*)', disk)
+            if di:
+                try:
+                    int(di.group(1))
+                    int(di.group(2))
+                except Exception:
+                    raise forms.ValidationError('硬盘使用量和总量为整数')
+            else:
+                raise forms.ValidationError('硬盘格式不对，格式为：5/16 (用量/总量)')
+        show_on_top_count = NetworkAsset.objects.filter(show_on_top=True).count()
+        if show_on_top and show_on_top_count >= 5:
+            raise forms.ValidationError('首页最多展示5个链接')
 
-        if NetworkAsset.objects.filter(ip_address=ip_address).count():
-            raise forms.ValidationError('资产地址已存在：{}已存在'.format(ip_address))
 
-
-class NetworkAssetUpdateForm(NetworkAssetCreateForm):
-    def clean(self):
-        cleaned_data = self.cleaned_data
-        ip_address = cleaned_data.get('ip_address')
-
-        if self.instance:
-            matching_asset = NetworkAsset.objects.exclude(pk=self.instance.pk)
-            if matching_asset.filter(ip_address=ip_address).exists():
-                raise forms.ValidationError('资产地址已存在：{}已存在'.format(ip_address))
 
 
 class NatRuleForm(forms.ModelForm):
@@ -140,3 +157,4 @@ class NatRuleForm(forms.ModelForm):
             'lan_ip': {'required': '请填写内网地址'},
             'dest_port': {'required': '请填写内网端口'}
         }
+
