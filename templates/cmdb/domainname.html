@@ -36,40 +36,14 @@
             <div class="box-header">
                 <form class="form-inline" id="queryForm">
                     <div class="form-group searchArea margin-r-5 margin-top-5">
-                        <label>主机名：</label>
-                        <input type="text" name="sys_hostname" class="form-control inputText" id="sys_hostname">
-                    </div>
-                    <div class="form-group searchArea margin-r-5 margin-top-5">
-                        <label>设备地址：</label>
-                        <input type="text" name="hostname" class="form-control inputText" id="hostname">
-                    </div>
-                    <div class="form-group searchArea margin-r-5 margin-top-5">
-                        <label>网络类型：</label>
-                        <select class="form-control inputText select2" name="network_type" id="network_type">
-                          <option></option>
-                          {% for code in all_code %}
-                              {% ifequal code.parent.key 'NETWORK_TYPE' %}
-                                <option value="{{ code.id }}">{{ code.value }}</option>
-                              {% endifequal %}
-                          {% endfor %}
-                         </select>
-                    </div>
-                    <div class="form-group searchArea margin-r-5 margin-top-5">
-                        <label>服务类型：</label>
-                        <select class="form-control inputText select2" name="service_type" , id="service_type">
-                          <option></option>
-                          {% for code in all_code %}
-                              {% if code.parent.key == 'SERVICE_TYPE' %}
-                                <option value="{{ code.id }}">{{ code.value }}</option>
-                              {% endif %}
-                          {% endfor %}
-                        </select>
+                        <label>域名：</label>
+                        <input type="text" name="domain" class="form-control inputText" id="domain">
                     </div>
                     <div class="form-group searchArea margin-r-5 margin-top-5">
                         <label>所属项目：</label>
                         <select class="form-control inputText select2" name="operation_type" , id="operation_type">
                           <option></option>
-                          {% for code in all_code %}
+                          {% for code in all_operation %}
                               {% if code.parent.key == 'OPERATION_TYPE' %}
                                 <option value="{{ code.id }}">{{ code.value }}</option>
                               {% endif %}
@@ -77,15 +51,20 @@
                         </select>
                     </div>
                     <div class="form-group searchArea margin-r-5 margin-top-5">
-                        <label>机柜信息：</label>
-                        <select class="form-control inputText select2" name="dev_cabinet" , id="dev_cabinet">
+                        <label>域名类型：</label>
+                        <select class="form-control inputText select2" name="dn_type" , id="dn_type">
                           <option></option>
-                          {% for cabinet in all_cabinet %}
-
-                                <option value="{{ cabinet.id }}">{{ cabinet.number }}</option>
-
-                          {% endfor %}
+                          <option value="1">一级域名</option>
+                          <option value="2">二级域名</option>
                         </select>
+                    </div>
+                    <div class="form-group searchArea margin-r-5 margin-top-5">
+                            <label>有效期：</label>
+                            <select id="select" name="select" class="form-control inputText select2">
+                                <option style="text-align:center" value="">-----所有-----</option>
+                                <option value="0">已过期</option>
+                                <option value="1">三月内即将到期</option>
+                            </select>
                     </div>
                   <button type="button" id="btnSearch" class="btn btn-default">
                     <i class="glyphicon glyphicon-search"></i>查询
@@ -99,13 +78,14 @@
                     <tr valign="middle">
                         <th><input type="checkbox" id="checkAll"></th>
                         <th>ID</th>
-                        <th>主机名</th>
-                        <th>IP地址</th>
-                        <th>服务类型</th>
+                        <th>域名</th>
+                        <th>域名类型</th>
+                        <th>域名解析商</th>
+                        <th>域名服务商</th>
                         <th>所属项目</th>
-                        <th>配置信息</th>
-                        <th>机柜信息</th>
-                        <th>网络类型</th>
+                        <th>状态</th>
+                        <th>到期时间</th>
+                        <th>备注信息</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -135,7 +115,7 @@
     // 菜单选中高亮
     $(function () {
         $('#CMDB-EAM').addClass('active');
-        $('#CMDB-EAM-DEVICE').addClass('active');
+        $('#CMDB-EAM-DOMAIN').addClass('active');
 
     });
 
@@ -150,53 +130,72 @@
 
                 {
                     ajax: {
-                        "url": "{% url 'cmdb:eam-device-list' %}",
+                        "url": "{% url 'cmdb:eam-domain-list' %}",
                         "data": function (d) {
-                                d.sys_hostname = $("#sys_hostname").val();
-                                d.hostname = $("#hostname").val();
-                                d.network_type = $("#network_type").val();
-                                d.service_type = $("#service_type").val();
+                                d.domain = $("#domain").val();
+                                d.select = $("#select").val();
+                                d.dn_type = $("#dn_type").val();
                                 d.operation_type = $("#operation_type").val();
-                                d.dev_cabinet = $("#dev_cabinet").val();
                             }
                     },
                     columns: [
                         DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
-
                         {
                             data: "id",
                         },
                         {
-                            data: "sys_hostname",
+                            data: "domain",
                         },
                         {
-                            data: "hostname",
+                            data: "dn_type",
+                            render : function(data, type, row, meta) {
+                                if (data=="1") {
+                                    return "一级域名";
+                                }if (data=="2") {
+                                    return "二级域名";
+
+                                }
+                            }
+
                         },
                         {
-                            data: "service_type",
+                            data: "resolution_server__firm",
                         },
                         {
-                            data: "operation_type",
+                            data: "domain_provider__firm",
+                        },
+
+                        {
+                            data: "operation_type__value",
                         },
                         {
-                            data: "config",
+                            data: "state",
+                            render : function(data, type, row, meta) {
+                                if (data==1) {
+                                    var ret="<button class='btn btn-success btn-xs'>在用</button>";
+                                    return ret;
+                                }if (data==0) {
+                                    var ret="<button class='btn btn-warning btn-xs'>停用</button>";
+                                    return ret;
+
+                                }
+                            }
+
                         },
                         {
-                            data: "dev_cabinet",
+                            data: "warrantyDate",
                         },
                         {
-                            data: "network_type",
+                            data: "desc",
                         },
                         {
                             data: "id",
                             bSortable: "false",
                             render: function (data, type, row, meta) {
-                                var ret = "<button title='详情' onclick='doDetail("
-                                    + data + ")'><i class='glyphicon glyphicon-list-alt'></i></button>";
-                                ret = ret + "<button title='修改' onclick='doUpdate("
+                                var ret = "<button title='修改' onclick='doUpdate("
                                     + data + ")'><i class='glyphicon glyphicon-pencil'></i></button>";
-                                ret = ret + "<button title='认证管理' onclick='doDevice2Connection("
-                                    + data + ")'><i class='glyphicon glyphicon-user'></i></button>";
+                                ret = ret + "<button title='解析地址' onclick='dodn2nr("
+                                    + data + ")'><i class='glyphicon glyphicon-globe'></i></button>";
                                 ret = ret + "<button title='删除' onclick='doDelete("
                                     + data + ")'><i class='glyphicon glyphicon-trash'></i></button>";
                                 return ret;
@@ -214,35 +213,33 @@
     });
     //新建数据
     $("#btnCreate").click(function () {
-        var div=layer.open({
+        layer.open({
             type: 2,
             title: '新增',
             shadeClose: false,
             maxmin: true,
-            area: ['800px', '400px'],
-            content: "{% url 'cmdb:eam-device-create' %}",
+            area: ['800px', '620px'],
+            content: "{% url 'cmdb:eam-domain-create' %}",
             end: function () {
                 //关闭时做的事情
                 oDataTable.ajax.reload();
             }
         });
-        layer.full(div )
     });
 
     //修改数据
     function doUpdate(id) {
-        var div=layer.open({
+        layer.open({
             type: 2,
             title: '编辑',
             shadeClose: false,
             maxmin: true,
-            area: ['800px', '400px'],
-            content: ["{% url 'cmdb:eam-device-update' %}" + '?id=' + id, 'no'],
+            area: ['800px', '620px'],
+            content: ["{% url 'cmdb:eam-domain-update' %}" + '?id=' + id],
             end: function () {
                 oDataTable.ajax.reload();
             }
         });
-        layer.full(div )
     }
 
     //checkbox全选
@@ -280,7 +277,7 @@
                 layer.close(index);
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'cmdb:eam-device-delete' %}",
+                    url: "{% url 'cmdb:eam-domain-delete' %}",
                     data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
                     cache: false,
                     success: function (msg) {
@@ -309,7 +306,7 @@
                 layer.close(index);
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'cmdb:eam-device-delete' %}",
+                    url: "{% url 'cmdb:eam-domain-delete' %}",
                     data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},
                     cache: false,
                     success: function (msg) {
@@ -338,22 +335,17 @@
     });
 
 
-    function doDevice2Connection(id) {
+    function dodn2nr(id) {
           layer.open({
             type: 2,
-            title: '认证管理',
+            title: '解析地址',
             shadeClose: false,
+            skin: 'layui-layer-lan',
             maxmin: true,
             area: ['800px', '400px'],
-            content: ["{% url 'cmdb:eam-device-device2connection' %}" + '?id=' + id, 'no'],
-            end: function () {
-                oDataTable.ajax.reload();
-            }
+            content: ["{% url 'cmdb:eam-domain-dn2nr' %}" + '?id=' + id],
         });
         }
 
-    function doDetail(id){
-        window.location.href="{% url 'cmdb:eam-device-detail' %}?id="+id;
-    }
 </script>
 {% endblock %}

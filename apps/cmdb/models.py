@@ -167,20 +167,29 @@ class DomainName(AbstractMode):
     dn_type_choices = (('1', '主域名'),('2', '二级域名'))
     domain = models.CharField(max_length=200, verbose_name='域名')
     dn_type = models.CharField(max_length=20, choices=dn_type_choices, default='1')
+    nat_rule = models.ManyToManyField('NatRule', blank=True)
     resolution_server = models.ForeignKey('Supplier', related_name='res_server',
                                           blank=True, null=True, on_delete=models.SET_NULL, verbose_name='解析服务')
     domain_provider = models.ForeignKey('Supplier', related_name='do_provider',
                                         blank=True, null=True, on_delete=models.SET_NULL, verbose_name='域名服务')
+    operation_type = models.ForeignKey('Code', blank=True, null=True, on_delete=models.SET_NULL, verbose_name='所属项目')
     state = models.BooleanField(default=True, verbose_name='状态')
-    ssl_cert = models.FileField(upload_to="ssl_cert/%Y/%m", null=True, blank=True, verbose_name="SSL证书")
-    buyDate = models.DateField(default=datetime.now, blank=True, null=True, verbose_name='购买日期')
-    warrantyDate = models.DateField(default=datetime.now, blank=True, null=True, verbose_name='到保日期')
+    buyDate = models.DateField(default=datetime.now, verbose_name='购买日期')
+    warrantyDate = models.DateField(default=datetime.now, verbose_name='到期时间')
     desc = models.TextField(blank=True, default='', verbose_name='备注信息')
 
     class Meta:
         verbose_name = '域名管理'
         verbose_name_plural = verbose_name
 
+
+class SSLCert(TimeAbstract):
+    domain_name = models.ForeignKey('DomainName', blank=True, null=True, on_delete=models.SET_NULL, verbose_name='域名')
+    ssl_cert = models.FileField(upload_to="ssl_cert/", verbose_name="域名证书")
+    buyDate = models.DateField(default=datetime.now, verbose_name='购买日期')
+    warrantyDate = models.DateField(default=datetime.now, verbose_name='到期时间')
+    upload_user = models.CharField(max_length=20, verbose_name="上传人")
+    desc = models.TextField(blank=True, default='', verbose_name='备注信息')
 
 
 

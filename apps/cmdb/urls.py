@@ -56,4 +56,11 @@ urlpatterns = [
     path('eam/natrule/update/', views_eam.NatRuleUpdateView.as_view(), name='eam-natrule-update'),
     path('eam/natrule/list/', views_eam.NatRuleListView.as_view(), name='eam-natrule-list'),
     path('eam/natrule/delete/', views_eam.NatRuleDeleteView.as_view(), name='eam-natrule-delete'),
+
+    path('eam/domain/', views_eam.DomainNameView.as_view(), name='eam-domain'),
+    path('eam/domain/create/', views_eam.DomainNameCreateView.as_view(), name='eam-domain-create'),
+    path('eam/domain/update/', views_eam.DomainNameUpdateView.as_view(), name='eam-domain-update'),
+    path('eam/domain/list/', views_eam.DomainNameListView.as_view(), name='eam-domain-list'),
+    path('eam/domain/delete/', views_eam.DomainNameDeleteView.as_view(), name='eam-domain-delete'),
+    path('eam/domain/dn2nr/', views_eam.DomainName2NatRule.as_view(), name='eam-domain-dn2nr'),
 ]

@@ -6,7 +6,8 @@ import re
 
 from django import forms
 
-from .models import Code, DeviceInfo, ConnectionInfo, DeviceFile, NetworkAsset, NatRule
+from .models import (Code, DeviceInfo, ConnectionInfo, DeviceFile,
+                     NetworkAsset, NatRule, DomainName)
 
 
 class CodeCreateForm(forms.ModelForm):
@@ -118,8 +119,6 @@ class NetworkAssetForm(forms.ModelForm):
         memory = cleaned_data.get('memory')
         disk = cleaned_data.get('disk')
         show_on_top = cleaned_data.get('show_on_top')
-        # if NetworkAsset.objects.filter(ip_address=ip_address).count():
-        #     raise forms.ValidationError('资产地址已存在：{}已存在'.format(ip_address))
         if memory:
             me = re.match('(.*)/(.*)', memory)
             if me:
@@ -155,6 +154,18 @@ class NatRuleForm(forms.ModelForm):
             'internet_ip': {'required': '请填写公网IP'},
             'src_port': {'required': '请填写公网端口'},
             'lan_ip': {'required': '请填写内网地址'},
-            'dest_port': {'required': '请填写内网端口'}
+            'dest_port': {'required': '请填写内网端口'},
+            'desc': {'required': '请填写规则说明'}
         }
 
+
+class DomainNameForm(forms.ModelForm):
+    class Meta:
+        model = DomainName
+        fields = '__all__'
+        error_messages = {
+            'domain': {'required': '域名不能为空'},
+            'buyDate': {'required': '请填写域名购买日期'},
+            'warrantyDate': {'required': '请填写域名到期时间'},
+            'dn_type': {'required': '域名类型不能为空'}
+        }

@@ -1,4 +1,5 @@
 import re
+from datetime import datetime, timedelta
 
 from django.views.generic import TemplateView, View
 from django.contrib.auth import get_user_model
@@ -13,8 +14,7 @@ from custom import (BreadcrumbMixin, SandboxDeleteView,
 from .models import (Cabinet, DeviceInfo, Code, ConnectionInfo, DeviceFile,
                      Supplier, NetworkAsset, NatRule, DomainName)
 from .forms import (DeviceCreateForm, DeviceUpdateForm, ConnectionInfoForm,
-                    DeviceFileUploadForm, NetworkAssetForm,
-                    NatRuleForm)
+                    DeviceFileUploadForm, NetworkAssetForm,NatRuleForm, DomainNameForm)
 from utils.db_utils import MongodbDriver
 from utils.sandbox_utils import LoginExecution
 
@@ -388,44 +388,73 @@ class NatRuleListView(SandboxListView):
 class NatRuleDeleteView(SandboxDeleteView):
     model = NatRule
 
-# class DomainNameView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
-#     template_name = 'cmdb/domainname.html'
-#
-#
-# class DomainNameCreateView(SandboxCreateView):
-#     model = DomainName
-#     form_class = NetworkAssetCreateForm
-#
-#     def get_context_data(self, **kwargs):
-#         kwargs['all_supplier'] = Supplier.objects.all()
-#         return super().get_context_data(**kwargs)
-#
-#
-# class DomainNameUpdateView(SandboxUpdateView):
-#     model = NetworkAsset
-#     form_class = NetworkAssetUpdateForm
-#
-#     def get_context_data(self, **kwargs):
-#         kwargs['all_provider'] = Supplier.objects.all()
-#         return super().get_context_data(**kwargs)
-#
-#
-# class DomainNameListView(SandboxListView):
-#     model = NetworkAsset
-#     fields = ['id', 'domain', 'resolution_server', 'domain_provider', 'state', 'buyDate', 'warrantyDate', 'desc']
-#
-#     def get_filters(self):
-#         data = self.request.GET
-#         filters = {'dn_type': '1'}
-#         if 'domain' in data and data['domain']:
-#             filters['domain__icontains'] = data['domain']
-#         if 'resolution_server' in data and data['resolution_server']:
-#             filters['resolution_server'] = data['resolution_server']
-#         if 'domain_provider' in data and data['domain_provider']:
-#             filters['domain_provider'] = data['domain_provider']
-#
-#         return filters
-#
-#
-# class DomainNameDeleteView(SandboxDeleteView):
-#     model = DomainName
+
+class DomainNameView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
+    template_name = 'cmdb/domainname.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['all_operation'] = Code.objects.filter(parent__key='OPERATION_TYPE')
+        return super().get_context_data(**kwargs)
+
+
+class DomainNameCreateView(SandboxCreateView):
+    model = DomainName
+    form_class = DomainNameForm
+
+    def get_context_data(self, **kwargs):
+        kwargs['all_supplier'] = Supplier.objects.all()
+        kwargs['all_nat'] = NatRule.objects.all()
+        kwargs['all_operation'] = Code.objects.filter(parent__key='OPERATION_TYPE')
+        return super().get_context_data(**kwargs)
+
+
+class DomainNameUpdateView(SandboxUpdateView):
+    model = DomainName
+    form_class = DomainNameForm
+
+    def get_context_data(self, **kwargs):
+        kwargs['all_supplier'] = Supplier.objects.all()
+        kwargs['all_nat'] = NatRule.objects.all()
+        kwargs['all_operation'] = Code.objects.filter(parent__key='OPERATION_TYPE')
+        return super().get_context_data(**kwargs)
+
+
+class DomainNameListView(SandboxListView):
+    model = DomainName
+    fields = ['id', 'domain', 'dn_type', 'resolution_server__firm',
+              'domain_provider__firm', 'operation_type__value',
+              'state', 'warrantyDate', 'desc']
+
+    def get_filters(self):
+        data = self.request.GET
+        filters = {}
+        if 'select' in data and data['select']:
+            select = int(data['select'])
+            if select == 0:
+                date_time = datetime.today()
+                filters['warrantyDate__lte'] = date_time
+            if select == 1:
+                now = datetime.today()
+                date_time = now + timedelta(days=30)
+                filters['warrantyDate__range'] = (now, date_time)
+        if 'dn_type' in data and data['dn_type']:
+            filters['dn_type'] = data['dn_type']
+        if 'domain' in data and data['domain']:
+            filters['domain__icontains'] = data['domain']
+        if 'operation_type' in data and data['operation_type']:
+            filters['operation_type'] = data['operation_type']
+        return filters
+
+class DomainNameDeleteView(SandboxDeleteView):
+    model = DomainName
+
+
+class DomainName2NatRule(LoginRequiredMixin, View):
+
+    def get(self, request):
+        ret = dict()
+        if 'id' in request.GET and request.GET['id']:
+            domain_name = get_object_or_404(DomainName, pk=int(request.GET['id']))
+            ret['all_nat'] = domain_name.nat_rule.all()
+        return render(request, 'cmdb/domainname2natrule.html', ret)
+

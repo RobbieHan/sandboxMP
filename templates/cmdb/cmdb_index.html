@@ -6,6 +6,69 @@
 
     <!-- Main content -->
   <section class="content">
+        <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <strong><h4>WebSocket</h4></strong>
+              <p>WSS在线测试工具</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-unlink "></i>
+            </div>
+            <a href="http://tool.hibbba.com/websocket/" class="small-box-footer" target="_blank">使用工具 <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <strong><h4>网速通</h4></strong>
+
+              <p>域名访问测速</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-globe"></i>
+            </div>
+            <a href="http://ceba.quansucloud.com/wstCeba/http/http-test.action" target="_blank" class="small-box-footer">使用工具 <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+            <strong><h4>IPIP</h4></strong>
+
+              <p>IP查询工具</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-delicious"></i>
+            </div>
+            <a href="https://www.ipip.net/ip.html"  target="_blank" class="small-box-footer">使用工具<i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-orange">
+            <div class="inner">
+            <strong><h4>暂未添加</h4></strong>
+
+              <p>其他工具</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-delicious"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+      <!-- /.row -->
       <div class="row">
         <div class="col-md-12">
           <div class="box">
@@ -41,120 +104,6 @@
           <!-- /.box -->
         </div>
         <!-- /.col -->
-      </div>
-      <div class="row">
-        <div class="col-md-7">
-          <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">快速访问接口</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding">
-                <table class="table" cellspacing="0">
-                  <thead>
-                  <tr>
-                    <th> 资产名称</th>
-                    <th>访问地址</th>
-                    <th>硬盘资源(T)</th>
-                    <th>内存资源(G)</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {% for asset in net_asset %}
-                  <tr>
-                    <td><a href="{{ asset.management }}" target="_blank"> {{ asset.name }}</a></td>
-                      <td><a href="{{ asset.management }}" target="_blank">{{ asset.management }}</a></td>
-                    <td>
-                        <div class="progress-group">
-                        <div class="progress sm" style="background: #00a65a;color:#FFF;">
-                            <div class="progress-bar progress-bar-yellow" style="width: {{ asset.disk.percent }}">
-                            </div>
-                        </div>
-                        <span class="progress-number">{{ asset.disk.disk }}</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="progress-group">
-                        <div class="progress sm" style="background: #00a65a;color:#FFF;">
-                            <div class="progress-bar progress-bar-yellow" style="width: {{ asset.memory.percent }}">
-                            </div>
-                        </div>
-                        <span class="progress-number">{{ asset.memory.memory }}</span>
-                    </div>
-                    </td>
-                  </tr>
-                  {% endfor %}
-                  </tbody>
-                </table>
-              <!-- /.table-responsive -->
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <button class="btn btn-sm btn-default pull-right" onclick="doNetworkAsset()">所有网络资产</button>
-            </div>
-            <!-- /.box-footer -->
-          </div>
-        </div>
-        <div class="col-md-5">
-          <div class="box box-danger">
-            <div class="box-header with-border">
-              <h3 class="box-title">提示消息</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div class="table-responsive">
-                <table class="table no-margin">
-                  <thead>
-                  <tr>
-                    <th>消息类型</th>
-                    <th>消息内容</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td>系统消息</td>
-                    <td>消息功能暂未开放</td>
-                  </tr>
-                  <tr>
-                    <td>系统消息</td>
-                    <td>消息功能暂未开放</td>
-                  </tr>
-                  <tr>
-                    <td>系统消息</td>
-                    <td>消息功能暂未开放</td>
-                  </tr>
-                  <tr>
-                    <td>系统消息</td>
-                    <td>消息功能暂未开放</td>
-                  </tr>
-                  <tr>
-                    <td>系统消息</td>
-                    <td>消息功能暂未开放</td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.table-responsive -->
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">所有消息</a>
-            </div>
-            <!-- /.box-footer -->
-          </div>
-        </div>
       </div>
   </section>
 

@@ -1,0 +1,32 @@
+{% extends 'base-layer.html' %}
+{% load staticfiles %}
+
+{% block main %}
+    <div class="box">
+        <div class="box-body">
+          <table class="table table-bordered">
+            <tr>
+              <th style="width: 10px"></th>
+              <th>公网IP</th>
+              <th>源端口</th>
+              <th>内网iP</th>
+              <th>目的端口</th>
+              <th>状态</th>
+              <th>规则说明</th>
+            </tr>
+            {% for nat in all_nat %}
+            <tr>
+              <td></td>
+              <td>{{ nat.internet_ip }}</td>
+              <td>{{ nat.src_port }}</td>
+              <td>{{ nat.lan_ip }}</td>
+              <td>{{ nat.dest_port }}</td>
+              <td>{{ nat.state }}</td>
+              <td>{{ nat.desc }}</td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+
+{% endblock %}
